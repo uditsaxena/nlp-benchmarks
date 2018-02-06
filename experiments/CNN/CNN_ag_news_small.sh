@@ -18,4 +18,3 @@ python -m src.CNN   --dataset "${dataset}" \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --small_config \
-                    --gpu

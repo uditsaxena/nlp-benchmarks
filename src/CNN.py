@@ -36,7 +36,7 @@ def get_args():
     parser.add_argument("--iterations", type=int, default=1000)
     parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--lr_halve_interval", type=float, default=100, help="Number of iterations before halving learning rate")
-    parser.add_argument('--gpu', action='store_true', default=True)
+    parser.add_argument('--gpu', action='store_true', default=False)
     parser.add_argument("--seed", type=int, default=1337)
     args = parser.parse_args()
     return args
@@ -155,7 +155,7 @@ class create_model(nn.Module):
 if __name__ == "__main__":
 
     opt = get_args()
-
+    print(opt.gpu)
     if not os.path.exists(opt.model_folder):
         os.makedirs(opt.model_folder)
 
@@ -229,16 +229,20 @@ if __name__ == "__main__":
         model.cuda()
 
     if opt.class_weights:
-        criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
+        if opt.gpu:
+            criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
+        else:
+            criterion = nn.CrossEntropyLoss(torch.FloatTensor(opt.class_weights))
     else:
         criterion = nn.CrossEntropyLoss()
 
     optimizer = torch.optim.SGD(model.parameters(), lr=opt.lr, momentum=0.9)
     model.train()
-
+    # print("After model.train()")
     tr_gen = batchify(tr_path, batch_size=opt.batch_size)
 
     for n_iter in range(opt.iterations):
+        # print("Iteration {}".format(n_iter))
         try :
             data = tr_gen.__next__()
         except StopIteration:

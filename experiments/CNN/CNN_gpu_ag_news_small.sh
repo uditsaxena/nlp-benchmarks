@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 cd ../../
-dataset="amazon_polarity"
-model_folder="models/CNN/CNN_${dataset}_small"
-epoch_size=30000
+dataset="ag_news"
+model_folder="models/CNN/CNN_gpu_${dataset}_small"
+epoch_size=5000
 batch_size=128
 iterations=$(($epoch_size*50))
 halving=$((3*$epoch_size))
