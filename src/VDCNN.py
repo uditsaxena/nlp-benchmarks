@@ -36,7 +36,7 @@ def get_args():
     parser.add_argument("--lr_halve_interval", type=float, default=100, help="Number of iterations before halving learning rate")
     parser.add_argument("--class_weights", nargs='+', type=float, default=None)
     parser.add_argument("--test_interval", type=int, default=50, help="Number of iterations between testing phases")
-    parser.add_argument('--gpu', action='store_true', default=True)
+    parser.add_argument('--gpu', action='store_true', default=False)
     parser.add_argument("--seed", type=int, default=1337)
     parser.add_argument("--last_pooling_layer", type=str, choices=['k-max-pooling', 'max-pooling'], default='k-max-pooling', help="type of last pooling layer")
 
@@ -174,7 +174,7 @@ class VDCNN(nn.Module):
         for m in self.modules():
             if isinstance(m, nn.Conv1d):
                 kaiming_normal(m.weight, mode='fan_in')
-                if m.bias:
+                if m.bias is not None:
                     constant(m.bias, 0)
 
     def forward(self, x):
