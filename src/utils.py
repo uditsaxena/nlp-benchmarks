@@ -4,10 +4,7 @@ import sys
 
 csv.field_size_limit(sys.maxsize)
 
-from chazutsu.datasets import news_group20
-
-
-def print_dataset(data, print_label, shape=False, limit=2):
+def print_dataset(data, print_label, shape=False, limit = 2):
     print("---")
     print("Printing {}".format(print_label))
     for i in range(limit):
@@ -16,12 +13,6 @@ def print_dataset(data, print_label, shape=False, limit=2):
         else:
             print("{}: val: {}, shape: {}, label: {}".format(print_label, data[0][i], len(data[0][i]), data[1][i]))
     print("----")
-
-
-def get_newsgroup_20():
-    dataset = news_group20.NewsGroup20()
-    dataset.download(directory="/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/datasets")
-
 
 def test_newsgroup20():
     # get_newsgroup_20()
@@ -50,7 +41,6 @@ def test_newsgroup20():
     # line_length_cur = len(line.split("\t"))
     # if length != line_length_cur:
     #     print(line_length_cur)
-
 
 if __name__ == '__main__':
     test_newsgroup20()
