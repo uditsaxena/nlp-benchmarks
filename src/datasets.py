@@ -14,6 +14,7 @@ import pandas as pd
 from urllib.request import urlretrieve
 from urllib.error import URLError
 from urllib.error import HTTPError
+
 csv.field_size_limit(sys.maxsize)
 DATA_FOLDER = "datasets"
 
@@ -123,11 +124,83 @@ def validate_file(fpath, md5_hash):
         return False
 
 
+class Newsgroup20(object):
+    def __init__(self) -> None:
+        folder = "20_newsgroups"
+        self.folder_path = "{}/{}".format(DATA_FOLDER, folder)
+        self.epoch_size = 5000
+        self.n_classes = 20
+
+        if os.path.exists(self.folder_path):
+            for f in ["newsgroup20_test.csv", "newsgroup20_train.csv"]:
+                if not os.path.exists(os.path.join(self.folder_path, f)):
+                    print("{} doesn't exist".format(f))
+        self.category_map = {'sci.space': 1, 'sci.med': 2, 'rec.motorcycles': 3, 'talk.politics.mideast': 4,
+                             'soc.religion.christian': 5, 'rec.sport.hockey': 6, 'comp.graphics': 7,
+                             'talk.politics.misc': 8, 'talk.religion.misc': 9, 'rec.autos': 10, 'sci.crypt': 11,
+                             'rec.sport.baseball': 12, 'comp.os.ms-windows.misc': 13, 'comp.sys.mac.hardware': 14,
+                             'talk.politics.guns': 15, 'comp.windows.x': 16, 'alt.atheism': 17, 'misc.forsale': 18,
+                             'comp.sys.ibm.pc.hardware': 19, 'sci.electronics': 20}
+
+
+    def _generator(self, filename, chunk_size=512):
+
+        f = open(filename, mode='r', encoding='utf-8')
+        reader = csv.DictReader(f, fieldnames=['sub-c', 'categ', 'title', 'sender', 'description'], quotechar='"',
+                                delimiter='\t')
+
+
+        class_count = 1
+        while True:
+            sentences, labels = [], []
+            i = 0
+
+            for line in reader:
+                sub_category = line['sub-c']
+                label = -1
+                if (sub_category not in self.category_map.keys()):
+                    self.category_map[sub_category] = class_count
+                    label = class_count
+                    class_count += 1
+                else:
+                    label = self.category_map[sub_category]
+                sentence = "{} {}".format(line['title'], line['description'])
+                # make it 0 indexed
+                label = label - 1
+                sentences.append(sentence)
+                labels.append(label)
+                i += 1
+                if i == chunk_size:
+                    i = 0
+                    yield sentences, labels
+                    sentences, labels = [], []
+
+            if sentences and labels:
+                yield sentences, labels
+            else:
+                break
+
+        f.close()
+
+    def load_train_data(self, chunk_size=512):
+        if chunk_size:
+            return self._generator(os.path.join(self.folder_path, "newsgroup20_train.txt"), chunk_size=chunk_size)
+        else:
+            self._generator(os.path.join(self.folder_path, "newsgroup20_train.txt"))
+
+    def load_test_data(self, chunk_size=512):
+        if chunk_size:
+            return self._generator(os.path.join(self.folder_path, "newsgroup20_test.txt"), chunk_size=chunk_size)
+        else:
+            self._generator(os.path.join(self.folder_path, "newsgroup20_test.txt"))
+
+
 class AgNews(object):
     """
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "agnews"
@@ -194,6 +267,7 @@ class DbPedia(object):
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "dbpedia"
@@ -254,6 +328,7 @@ class YelpReview(object):
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "yelp_review"
@@ -314,6 +389,7 @@ class YelpPolarity(object):
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "yelp_review_polarity"
@@ -374,6 +450,7 @@ class AmazonReview(object):
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "amazon_review"
@@ -434,6 +511,7 @@ class AmazonPolarity(object):
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "amazon_polarity"
@@ -494,6 +572,7 @@ class SoguNews(object):
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "sogou_news"
@@ -554,6 +633,7 @@ class YahooAnswer(object):
     credit goes to Xiang Zhang:
     https://scholar.google.com/citations?hl=en&user=n4QjVfoAAAAJ&view_op=list_works&sortby=pubdate
     """
+
     def __init__(self):
 
         folder = "yahoo_answers"
@@ -613,6 +693,7 @@ class Imdb(object):
     """
     source: http://ai.stanford.edu/~amaas/data/sentiment/
     """
+
     def __init__(self):
 
         folder = "imdb"
@@ -695,6 +776,8 @@ def load_datasets(names=["ag_news", "imdb"]):
         datasets.append(YahooAnswer())
     if 'imdb' in names:
         datasets.append(Imdb())
+    if 'ng20' in names:
+        datasets.append(Newsgroup20())
 
     return datasets
 
@@ -731,5 +814,3 @@ if __name__ == "__main__":
             te_sentences.extend(x)
             labels.extend(y)
         print(" test: (samples/labels) = ({}/{})".format(len(te_sentences), len(labels)))
-
-
