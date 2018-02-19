@@ -5,7 +5,7 @@ depth=9
 model_folder="models/VDCNN/VDCNN_${dataset}_depth@${depth}"
 epoch_size=5000
 batch_size=128
-iterations=$(($epoch_size*50))
+iterations=$(($epoch_size*10))
 halving=$((3*$epoch_size))
 
 python -m src.VDCNN --dataset "${dataset}" \
@@ -15,6 +15,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --chunk_size 2048 \
                     --batch_size ${batch_size} \
                     --test_batch_size ${batch_size} \
+#                    --test_interval 10 \
                     --test_interval ${epoch_size} \
                     --iterations ${iterations} \
                     --lr 0.01 \

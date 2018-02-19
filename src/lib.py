@@ -103,19 +103,40 @@ def pad_sequence(sequences, maxlen=10, padding='pre', truncating='pre', value=0)
     return padded_sequences
 
 
-def create_dataset(generator, lowercase=True):
+#
+# subsample count : how many generators do you want to sample?
+#       use this to run smaller datasets
+#           0 - 12k, 7.6k
+#           1 - 1024, 1024
+#           2 - 1536, 1536,
+#
+def create_dataset(generator, lowercase=True, subsample_count=0):
 
     sentences, labels = [], []
+    subsample = True
+    if subsample_count == 0:
+        subsample = False
 
     if lowercase:
         for phrase, label in generator:
             phrase = [r.lower() for r in phrase]
             sentences.extend(phrase)
             labels.extend(label)
+            if (subsample == True):
+                if (subsample_count > 0):
+                    subsample_count -= 1
+                else:
+                    break
     else:
         for phrase, label in generator:
             sentences.extend(phrase)
             labels.extend(label)
+            if (subsample == True):
+                if (subsample_count > 0):
+                    subsample_count -= 1
+                else:
+                    break
+    print(len(sentences), len(labels))
     return sentences, labels
 
 

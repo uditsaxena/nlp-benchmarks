@@ -12,6 +12,7 @@ import torch.nn as nn
 
 from src import lib
 from src.datasets import load_datasets
+from src import utils as ut
 
 from torch.autograd import Variable
 from torch.nn.init import kaiming_normal, kaiming_uniform, constant
@@ -24,6 +25,7 @@ def get_args():
     """)
     parser.add_argument("--dataset", type=str, default='imdb')
     parser.add_argument("--model_folder", type=str, default="models/VDCNN/imdb")
+    parser.add_argument("--model_save_path", type=str, default="models/VDCNN/VDCNN_ag_news_depth@9")
     parser.add_argument("--depth", type=int, choices=[9, 17, 29, 49], default=9, help="Depth of the network tested in the paper (9, 17, 29, 49)")
     parser.add_argument("--maxlen", type=int, default=1024)
     parser.add_argument('--shortcut', action='store_true', default=False)
@@ -212,12 +214,12 @@ if __name__ == "__main__":
     te_data = dataset.load_test_data()
 
     logger.info("  - loading train samples...")
-    tr_sentences, tr_labels = lib.create_dataset(tr_data)
+    tr_sentences, tr_labels = lib.create_dataset(tr_data, subsample_count=0)
     logger.info("  - loading train samples... {} samples".format(len(tr_sentences)))
 
     logger.info("  - loading test samples...")
-    te_sentences, te_labels = lib.create_dataset(te_data)
-    logger.info("  - loading test samples... {} samples".format(len(tr_sentences)))
+    te_sentences, te_labels = lib.create_dataset(te_data, subsample_count=0)
+    logger.info("  - loading test samples... {} samples".format(len(te_sentences)))
 
     if opt.shuffle:
         logger.info("  - shuffling...")
@@ -236,6 +238,9 @@ if __name__ == "__main__":
 
     tr_data = [x_tr, np.array(tr_labels)]
     te_data = [x_te, np.array(te_labels)]
+
+    # ut.print_dataset(tr_data, "train", True, 5)
+    # ut.print_dataset(te_data, "test", True, 5)
 
     torch.manual_seed(opt.seed)
     print("Seed for random numbers: ", torch.initial_seed())
@@ -310,6 +315,14 @@ if __name__ == "__main__":
 
             with open('{}/{}'.format(opt.model_folder, filename), 'wb') as f:
                 pickle.dump(diclogs, f, protocol=4)
+
+            # Addition to save model and optimizer state dict
+            model_dict = {
+                'optimizer' : optimizer.state_dict(),
+                'model' : model.state_dict()
+            }
+            model_count = n_iter % (opt.test_interval * 5)
+            torch.save(model_dict, opt.model_save_path+"/{}".format(model_count) + "_model.pt")
 
         if n_iter % opt.lr_halve_interval == 0 and n_iter > 0:
             lr = optimizer.state_dict()['param_groups'][0]['lr']
