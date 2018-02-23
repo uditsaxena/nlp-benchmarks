@@ -109,8 +109,10 @@ def pad_sequence(sequences, maxlen=10, padding='pre', truncating='pre', value=0)
 #           0 - 12k, 7.6k
 #           1 - 1024, 1024
 #           2 - 1536, 1536,
-#
-def create_dataset(generator, lowercase=True, subsample_count=0):
+#       @Arg: generator contains tuple of the form str(sentence), int(label)
+#       @Arg: base_label adds to all the label values - to be used when mixing
+#             two datasets
+def create_dataset(generator, lowercase=True, subsample_count=0, base_label=0):
 
     sentences, labels = [], []
     subsample = True
@@ -121,6 +123,7 @@ def create_dataset(generator, lowercase=True, subsample_count=0):
         for phrase, label in generator:
             phrase = [r.lower() for r in phrase]
             sentences.extend(phrase)
+            label = [base_label + i for i in label]
             labels.extend(label)
             if (subsample == True):
                 if (subsample_count > 0):
@@ -130,13 +133,14 @@ def create_dataset(generator, lowercase=True, subsample_count=0):
     else:
         for phrase, label in generator:
             sentences.extend(phrase)
+            label = [base_label + i for i in label]
             labels.extend(label)
             if (subsample == True):
                 if (subsample_count > 0):
                     subsample_count -= 1
                 else:
                     break
-    print(len(sentences), len(labels))
+    # print("Len(sentences): {}, Len(labels): {}".format(len(sentences), len(labels)))
     return sentences, labels
 
 

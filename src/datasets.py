@@ -132,7 +132,7 @@ class Newsgroup20(object):
         self.n_classes = 20
 
         if os.path.exists(self.folder_path):
-            for f in ["newsgroup20_test.csv", "newsgroup20_train.csv"]:
+            for f in ["newsgroup20_test.txt", "newsgroup20_train.txt"]:
                 if not os.path.exists(os.path.join(self.folder_path, f)):
                     print("{} doesn't exist".format(f))
         self.category_map = {'sci.space': 1, 'sci.med': 2, 'rec.motorcycles': 3, 'talk.politics.mideast': 4,
@@ -234,6 +234,7 @@ class AgNews(object):
 
             for line in reader:
                 sentence = "{} {}".format(line['title'], line['description'])
+                # 0 based label index
                 label = int(line['label']) - 1
                 sentences.append(sentence)
                 labels.append(label)

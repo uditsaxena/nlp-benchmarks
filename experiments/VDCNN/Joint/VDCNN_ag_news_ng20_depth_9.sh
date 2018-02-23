@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-cd ../../
+cd ../../..
 dataset="ag_news"
 test_dataset="ng20"
+combined_datasets="ag_news,ng20"
 depth=9
 model_folder="models/VDCNN/VDCNN_${dataset}_depth@${depth}"
 epoch_size=5000
@@ -23,4 +24,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --test_only 1 \
-					--model_load_path "models/VDCNN/ag_news-2000_model.pt"
+					--model_load_path "models/VDCNN/ag_news-2000_model.pt" \
+					--joint_training True \
+					--joint_ratio 0.01 \
+					--combined_datasets "${combined_datasets}"

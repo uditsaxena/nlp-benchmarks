@@ -14,7 +14,7 @@ from torch.autograd import Variable
 from torch.nn.init import kaiming_normal, constant
 
 from src import lib
-from src.dataset_utils import preprocess_data
+from src.dataset_utils import preprocess_data, mix_datasets, vectorize
 
 
 def get_args():
@@ -49,6 +49,12 @@ def get_args():
     parser.add_argument("--model_load_path", type=str, default="models/VDCNN/VDCNN_ag_news_depth@9",
                         help="Load pre-trained model from here")
 
+    parser.add_argument("--combined_datasets", type=str, default="ag_news,ng20",
+                        help="comma-sep list of two datasets, in the order - 'root,target' datasets")
+    parser.add_argument("--joint_training", type=bool, default=False,
+                        help="1 for joint training, 0 for no joint training")
+    parser.add_argument("--joint_ratio", type=float, default=0.5,
+                        help="Ratio of target to source dataset for joint training")
     args = parser.parse_args()
     return args
 
@@ -201,7 +207,7 @@ class VDCNN(nn.Module):
         return out
 
 
-def train():
+def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
     optimizer = torch.optim.SGD(model.parameters(), lr=opt.lr, momentum=0.9)
     model.train()
     tr_gen = batchify(tr_data, batch_size=opt.batch_size)
@@ -268,7 +274,8 @@ def train():
                 'model': model.state_dict()
             }
             model_count = n_iter % (opt.test_interval * 5)
-            torch.save(model_dict, opt.model_save_path + "/{}".format(model_count) + "_model.pt")
+            model_name = dataset_name + "_" + str(model_count)
+            torch.save(model_dict, opt.model_save_path + "/{}".format(model_name) + "_model.pt")
 
         if n_iter % opt.lr_halve_interval == 0 and n_iter > 0:
             lr = optimizer.state_dict()['param_groups'][0]['lr']
@@ -291,6 +298,35 @@ def test(model, te_data):
     logger.info('{} - , test metrics: {}'.format(*params))
 
 
+## Using arguments from opt, jointly train
+def joint_train(opt, logger):
+    ## get a mixed dataset
+    mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels = mix_datasets(opt, logger)
+
+    ## preprocess
+    n_txt_feats, tr_data, te_data = vectorize(opt, mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences,
+                                              mix_data_te_labels)
+
+    n_classes = int(np.max(mixed_data_label) + 1)
+    print("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
+    ## construct model
+    torch.manual_seed(opt.seed)
+    print("Seed for random numbers: ", torch.initial_seed())
+    model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+                  n_fc_neurons=2048, shortcut=opt.shortcut)
+
+    if opt.gpu:
+        model.cuda()
+
+    if opt.class_weights:
+        criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
+    else:
+        criterion = nn.CrossEntropyLoss()
+
+    train(opt, model, criterion, tr_data, te_data, n_classes,
+          "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio))
+
+
 if __name__ == "__main__":
 
     opt = get_args()
@@ -304,27 +340,33 @@ if __name__ == "__main__":
     # ut.print_dataset(tr_data, "train", True, 5)
     # ut.print_dataset(te_data, "test", True, 5)
 
-    tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
-    test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
-                                                                                                      test=True)
+    ## check if jointly training
+    if (opt.joint_training):
+        print("Joint Training !")
+        joint_train(opt, logger)
 
-    torch.manual_seed(opt.seed)
-    print("Seed for random numbers: ", torch.initial_seed())
-
-    model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
-                  n_fc_neurons=2048, shortcut=opt.shortcut)
-
-    if opt.gpu:
-        model.cuda()
-
-    if opt.class_weights:
-        criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
     else:
-        criterion = nn.CrossEntropyLoss()
+        tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
+        test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
+                                                                                                          test=True)
 
-    if opt.test_only == 1:
-        print("Testing only")
-        test(model, test_te_data)
-    else:
-        print("Training...")
-        train()
+        torch.manual_seed(opt.seed)
+        print("Seed for random numbers: ", torch.initial_seed())
+
+        model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+                      n_fc_neurons=2048, shortcut=opt.shortcut)
+
+        if opt.gpu:
+            model.cuda()
+
+        if opt.class_weights:
+            criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
+        else:
+            criterion = nn.CrossEntropyLoss()
+
+        if opt.test_only == 1:
+            print("Testing only")
+            test(model, test_te_data)
+        else:
+            print("Training...")
+            train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
