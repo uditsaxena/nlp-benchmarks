@@ -1,10 +1,11 @@
 import csv
-
 import sys
+import torch
 
 csv.field_size_limit(sys.maxsize)
 
-def print_dataset(data, print_label, shape=False, limit = 2):
+
+def print_dataset(data, print_label, shape=False, limit=2):
     print("---")
     print("Printing {}".format(print_label))
     for i in range(limit):
@@ -13,6 +14,7 @@ def print_dataset(data, print_label, shape=False, limit = 2):
         else:
             print("{}: val: {}, shape: {}, label: {}".format(print_label, data[0][i], len(data[0][i]), data[1][i]))
     print("----")
+
 
 def test_newsgroup20():
     # get_newsgroup_20()
@@ -42,5 +44,20 @@ def test_newsgroup20():
     # if length != line_length_cur:
     #     print(line_length_cur)
 
+
+def model_structure(model):
+    model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/ag_news-2000_model.pt"
+    checkpoint = torch.load(model_path)['model']
+    # print(checkpoint.keys())
+    model.load_state_dict(checkpoint)
+    print("Loooking at model now")
+
+
+    print(list(model.children())[:-1])
+
+
+
 if __name__ == '__main__':
-    test_newsgroup20()
+    # test_newsgroup20()
+
+    model_structure()

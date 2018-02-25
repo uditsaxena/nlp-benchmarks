@@ -14,7 +14,7 @@ from torch.autograd import Variable
 from torch.nn.init import kaiming_normal, constant
 
 from src import lib
-from src.dataset_utils import preprocess_data, mix_datasets, vectorize
+from src.dataset_utils import mix_datasets, vectorize, preprocess_data
 
 
 def get_args():
@@ -46,15 +46,30 @@ def get_args():
                         default='k-max-pooling', help="type of last pooling layer")
 
     parser.add_argument("--test_only", type=int, default=0, help="If you want to test only")
+    parser.add_argument("--override_embedding_features", type=bool, default=False,
+                        help="True if you want to override embedding layer features - like set to 100, "
+                             "usually only used for transferring weight params from previous models")
     parser.add_argument("--model_load_path", type=str, default="models/VDCNN/VDCNN_ag_news_depth@9",
                         help="Load pre-trained model from here")
+    parser.add_argument("--target_transfer_ratio", type=float, default=0.0,
+                        help="Percentage of target domain to use for transfer learning, NOT joint training.")
 
+    # Joint Training Parameters
     parser.add_argument("--combined_datasets", type=str, default="ag_news,ng20",
                         help="comma-sep list of two datasets, in the order - 'root,target' datasets")
     parser.add_argument("--joint_training", type=bool, default=False,
                         help="1 for joint training, 0 for no joint training")
     parser.add_argument("--joint_ratio", type=float, default=0.5,
                         help="Ratio of target to source dataset for joint training")
+    # Transfer Weights Parameters
+    parser.add_argument("--transfer_weights", type=bool, default=False,
+                        help="If true, transfer all except last fc-pre-trained layers")
+    parser.add_argument("--num_embedding_features", type=int, default=-1,
+                        help="Number of embedding features. If -1, use dataset default")
+    parser.add_argument("--num_prev_classes", type=int, default=20,
+                        help="Number of classes in previously trained model")
+    parser.add_argument("--transfer_lr", type=float, default=0.001, help="Used for fine tuning the final layer")
+
     args = parser.parse_args()
     return args
 
@@ -121,6 +136,23 @@ class BasicConvResBlock(nn.Module):
 
         out = self.relu(out)
 
+        return out
+
+
+class Transfer_VDCNN(nn.Module):
+    def __init__(self, pretrained_model, n_classes, n_fc_neurons=2048):
+        super(Transfer_VDCNN).__init__()
+
+        self.previous_layers = nn.Sequential(*list(pretrained_model.children())[:-1])
+        fc_layers = []
+
+        fc_layers.extend([nn.Linear(n_fc_neurons, n_fc_neurons), nn.ReLU()])
+        fc_layers.extend([nn.Linear(n_fc_neurons, n_classes)])
+        self.fc_layers = nn.Sequential(*fc_layers)
+
+    def forward(self, x):
+        out = self.previous_layers(x)
+        out = self.fc_layers(out)
         return out
 
 
@@ -208,7 +240,12 @@ class VDCNN(nn.Module):
 
 
 def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
-    optimizer = torch.optim.SGD(model.parameters(), lr=opt.lr, momentum=0.9)
+    lr = opt.lr
+    if (opt.transfer_weights):
+        lr = opt.transfer_lr
+
+    print("Setting the lr to : {}".format(lr))
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9)
     model.train()
     tr_gen = batchify(tr_data, batch_size=opt.batch_size)
     for n_iter in range(opt.iterations):
@@ -318,17 +355,42 @@ def joint_train(opt, logger):
     if opt.gpu:
         model.cuda()
 
-    if opt.class_weights:
-        criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
-    else:
-        criterion = nn.CrossEntropyLoss()
+    criterion = get_criterion()
 
     train(opt, model, criterion, tr_data, te_data, n_classes,
           "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio))
 
 
-if __name__ == "__main__":
+## Use this to transfer weights from pre-trained layers and run a new model
+def transfer_and_train(opt, logger):
+    # load data:
+    tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
 
+    # define the structure of the model to be loaded - get most of the structure from the user, using input args:
+    pretrained_model = VDCNN(n_classes=opt.num_prev_classes, num_embedding=opt.num_embedding_features, embedding_dim=16,
+                             depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
+
+    # load the model
+    checkpoint = torch.load(opt.model_load_path)
+    pretrained_model.load_state_dict(checkpoint['model'])
+
+    new_model = Transfer_VDCNN(pretrained_model, n_classes)
+    print("New model loaded successfully, going to train")
+    criterion = get_criterion()
+
+    train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
+
+
+def get_criterion():
+    if opt.class_weights:
+        criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
+        return criterion
+    else:
+        criterion = nn.CrossEntropyLoss()
+        return criterion
+
+
+if __name__ == "__main__":
     opt = get_args()
 
     if not os.path.exists(opt.model_folder):
@@ -340,18 +402,27 @@ if __name__ == "__main__":
     # ut.print_dataset(tr_data, "train", True, 5)
     # ut.print_dataset(te_data, "test", True, 5)
 
-    ## check if jointly training
+    if (opt.transfer_weights):
+        print("Transfer weights from pre-trained layers")
+        transfer_and_train(opt, logger)
+
     if (opt.joint_training):
+        ## check if jointly training
         print("Joint Training !")
         joint_train(opt, logger)
 
     else:
         tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
-        test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
-                                                                                                          test=True)
+        if (opt.test_only == 1):
+            test_tr_data, test_te_data, test_n_classes, \
+            test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger, test=True)
 
         torch.manual_seed(opt.seed)
         print("Seed for random numbers: ", torch.initial_seed())
+
+        if (opt.num_embedding_features != -1):
+            n_txt_feats = opt.num_embedding_features
+            print("Overriding the number of embedding features to: ", n_txt_feats)
 
         model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                       n_fc_neurons=2048, shortcut=opt.shortcut)
@@ -359,10 +430,7 @@ if __name__ == "__main__":
         if opt.gpu:
             model.cuda()
 
-        if opt.class_weights:
-            criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
-        else:
-            criterion = nn.CrossEntropyLoss()
+        criterion = get_criterion()
 
         if opt.test_only == 1:
             print("Testing only")

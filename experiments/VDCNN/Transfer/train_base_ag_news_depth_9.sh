@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
-cd ../../
+cd ../../../
 dataset="ag_news"
-test_dataset="ng20"
 depth=9
-model_folder="models/VDCNN/VDCNN_${dataset}_depth@${depth}"
+model_folder="models/VDCNN/VDCNN_transfer_${dataset}_depth@${depth}"
 epoch_size=5000
 batch_size=128
 iterations=$(($epoch_size*10))
 halving=$((3*$epoch_size))
 
 python -m src.VDCNN --dataset "${dataset}" \
-					--test_dataset "${test_dataset}" \
                     --model_folder "${model_folder}" \
-                    --model_save_path "${model_folder}"\
+                    --model_save_path "${model_folder}" \
                     --depth ${depth} \
                     --maxlen 1024 \
                     --chunk_size 2048 \
@@ -23,5 +21,5 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --lr 0.01 \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
-                    --test_only 1 \
-					--model_load_path "models/VDCNN/ag_news-2000_model.pt"
+                    --num_embedding_features 100
+#                    --test_interval ${epoch_size} \

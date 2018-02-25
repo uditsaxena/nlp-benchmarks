@@ -1,11 +1,32 @@
 import numpy as np
 
-from src import lib, utils
+from src import lib
 from src.datasets import load_datasets
 
 
-## Mainly used for training on one dataset and testing on the other
-##
+def divide_data_using_ratio(tr_sentences, tr_labels, te_sentences, te_labels, ratio):
+    data_size = len(list(tr_sentences))
+    transfer_size = int(round(ratio * data_size))
+    print("Transfer Ratio Size: {}".format(transfer_size))
+
+    new_tr_sentences, new_tr_labels = [], []
+    for i in range(transfer_size):
+        new_tr_sentences.append(tr_sentences[i])
+        new_tr_labels.append(tr_labels[i])
+
+    te_sentences.extend(tr_sentences[:transfer_size])
+    te_labels.extend(tr_labels[:transfer_size])
+
+    return new_tr_sentences, new_tr_labels, te_sentences, te_labels
+
+
+''' 
+Load and preprocess one set of data, taken from opt.dataset
+If 'test' is True, load the dataset going to be used for testing from opt.test_dataset 
+Mainly used for training on one dataset and testing on the other
+'''
+
+
 def preprocess_data(opt, logger, test=False):
     dataset = load_datasets(names=[opt.dataset])[0]
     if (test == True):
@@ -26,6 +47,11 @@ def preprocess_data(opt, logger, test=False):
     logger.info("  - loading test samples...")
     te_sentences, te_labels = lib.create_dataset(te_data, subsample_count=0)
     logger.info("  - loading test samples... {} samples".format(len(te_sentences)))
+
+    if (opt.target_transfer_ratio != 0.0):
+        tr_sentences, tr_labels, te_sentences, te_labels = divide_data_using_ratio(tr_sentences, tr_labels,
+                                                                                   te_sentences, te_labels,
+                                                                                   opt.target_transfer_ratio)
 
     if opt.shuffle:
         logger.info("  - shuffling...")
