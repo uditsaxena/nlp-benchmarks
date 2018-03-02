@@ -33,12 +33,13 @@ def preprocess_data(opt, logger, test=False):
         te_sentences, te_labels = utils.shuffle(te_sentences, te_labels, random_state=opt.seed)
 
     logger.info("  - txt vectorization...")
-    n_txt_feats, te_data, tr_data = vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels)
+    n_txt_feats, te_data, tr_data, _, _ = vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels)
 
     return tr_data, te_data, n_classes, n_txt_feats, dataset_name
 
 
-def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels):
+def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, root_te_sent=None, root_te_labels=None, transfer_te_sent=None,
+              transfer_te_labels=None):
     vec = lib.StringToSequence(level="char")
     vec.fit(tr_sentences)
     x_tr = vec.fit_transform(tr_sentences)
@@ -47,9 +48,25 @@ def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels):
     x_te = np.array(lib.pad_sequence(x_te, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
     n_txt_feats = int(max(x_tr.max(), x_te.max()) + 10)
 
+    root_te_data=None
+    transfer_te_data=None
+
+    if (root_te_sent!=None and transfer_te_sent!=None):
+        print(" Root test txt vectorization...")
+        root_te_sent = vec.transform(root_te_sent)
+        root_te_sent = np.array(lib.pad_sequence(root_te_sent, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
+        root_te_data = [root_te_sent, np.array(root_te_labels)]
+
+        print(" Transfer test txt vectorization...")
+        transfer_te_sent = vec.transform(transfer_te_sent)
+        transfer_te_sent = np.array(lib.pad_sequence(transfer_te_sent, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
+        transfer_te_data = [transfer_te_sent, np.array(transfer_te_labels)]
+
+
+
     tr_data = [x_tr, np.array(tr_labels)]
     te_data = [x_te, np.array(te_labels)]
-    return n_txt_feats, tr_data, te_data
+    return n_txt_feats, tr_data, te_data, root_te_data, transfer_te_data
 
 
 def mix_data_using_ratio(root_data, transfer_data, joint_ratio):
@@ -86,6 +103,11 @@ def mix_data_using_ratio(root_data, transfer_data, joint_ratio):
     return mixed_data_train, mixed_data_label, unused_transfer_sentences, unused_transfer_labels
 
 
+'''
+Returns mix data training and testing, root testing data and transfer testing data
+'''
+
+
 def mix_datasets(opt, logger):
     joint_ratio = opt.joint_ratio
 
@@ -116,6 +138,13 @@ def mix_datasets(opt, logger):
     mixed_te_sentences.extend(unused_transfer_sentences)
     mixed_te_labels.extend(unused_transfer_labels)
 
+    # collecting all remaining transfer te data for separate testing
+    updated_te_sentences = list(transfer_te_sentences)
+    updated_te_labels = list(transfer_te_labels)
+
+    updated_te_sentences.extend(unused_transfer_sentences)
+    updated_te_labels.extend(unused_transfer_labels)
+
     print("Root dataset Test length - sentences {}, labels {}".format(len(root_te_sentences), len(root_te_labels)))
     print("Transfer dataset Test length - sentences {}, labels {}".format(len(transfer_te_sentences),
                                                                           len(transfer_te_labels)))
@@ -125,7 +154,8 @@ def mix_datasets(opt, logger):
     print("Mixed dataset Train length - sentences {}, labels {}".format(len(mixed_data_tr_sentences),
                                                                         len(mixed_data_label)))
 
-    return mixed_data_tr_sentences, mixed_data_label, root_te_sentences, root_te_labels
+    return mixed_data_tr_sentences, mixed_data_label, mixed_te_sentences, mixed_te_labels, \
+           root_te_sentences, root_te_labels, updated_te_sentences, updated_te_labels
 
 
 def load_train_test_raw_dataset(dataset_name, logger):

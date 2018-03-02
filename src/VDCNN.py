@@ -49,12 +49,14 @@ def get_args():
     parser.add_argument("--model_load_path", type=str, default="models/VDCNN/VDCNN_ag_news_depth@9",
                         help="Load pre-trained model from here")
 
-    parser.add_argument("--combined_datasets", type=str, default="ag_news,ng20",
+    parser.add_argument("--combined_datasets", type=str, default="ag_news---ng20",
                         help="comma-sep list of two datasets, in the order - 'root,target' datasets")
     parser.add_argument("--joint_training", type=bool, default=False,
                         help="1 for joint training, 0 for no joint training")
     parser.add_argument("--joint_ratio", type=float, default=0.5,
                         help="Ratio of target to source dataset for joint training")
+    parser.add_argument(("--joint_test"), type=int, default=0,help="0 for none, 1 for root, 2 for transfer, 3 for both")
+
     args = parser.parse_args()
     return args
 
@@ -246,7 +248,9 @@ def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
             y_prob = predict_from_model(te_gen, model, gpu=opt.gpu)
             te_metrics = lib.get_metrics(yte, y_prob, n_classes=n_classes, list_metrics=['accuracy', 'log_loss'])
             params = [dataset_name, n_iter, opt.iterations, tr_metrics, te_metrics]
-            logger.info('{} - Iter [{}/{}] - train metrics: {}, test metrics: {}'.format(*params))
+            logger.info('{} - Iter [{}/{}] - train metrics: {}, test: {}'.format(*params))
+            test_params = [dataset_name, n_iter, opt.iterations, te_metrics]
+            logger.info('{} - Iter [{}/{}] - test-metrics: {}'.format(*test_params))
 
             diclogs = {
                 "predictions": {
@@ -276,7 +280,7 @@ def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
             }
             if best_accuracy < float(te_metrics['accuracy']):
                 best_accuracy = float(te_metrics['accuracy'])
-                torch.save(model_dict, opt.model_save_path + "/{}".format("_best") + "_model.pt")
+                torch.save(model_dict, opt.model_save_path + "/{}".format("best") + "_model.pt")
 
             model_count = n_iter % (opt.test_interval * 5)
             model_name = dataset_name + "_" + str(model_count)
@@ -306,11 +310,14 @@ def test(model, te_data):
 ## Using arguments from opt, jointly train
 def joint_train(opt, logger):
     ## get a mixed dataset
-    mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels = mix_datasets(opt, logger)
+    mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels, \
+    root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels = mix_datasets(opt, logger)
 
     ## preprocess
-    n_txt_feats, tr_data, te_data = vectorize(opt, mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences,
-                                              mix_data_te_labels)
+    logger.info("  - txt vectorization...")
+    n_txt_feats, tr_data, te_data, root_te_data, transfer_te_data = \
+        vectorize(opt, mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels,
+                  root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels)
 
     n_classes = int(np.max(mixed_data_label) + 1)
     print("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
@@ -328,8 +335,18 @@ def joint_train(opt, logger):
     else:
         criterion = nn.CrossEntropyLoss()
 
-    train(opt, model, criterion, tr_data, te_data, n_classes,
-          "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio))
+    if opt.joint_test == 1:
+        print("Testing on root dataset only")
+        test(model, root_te_data)
+    if opt.joint_test == 2:
+        print("Testing on transfer dataset only")
+        test(model, transfer_te_data)
+    if opt.joint_test == 3:
+        print("Testing on both datasets only")
+        test(model, te_data)
+    else:
+        train(opt, model, criterion, tr_data, te_data, n_classes,
+              "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio))
 
 
 if __name__ == "__main__":
