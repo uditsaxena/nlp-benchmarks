@@ -89,7 +89,7 @@ def mix_data_using_ratio(root_data, transfer_data, joint_ratio):
 def mix_datasets(opt, logger):
     joint_ratio = opt.joint_ratio
 
-    datasets = opt.combined_datasets.split(',')
+    datasets = opt.combined_datasets.split('---')
     root_dataset = datasets[0]
     transfer_dataset = datasets[1]
 

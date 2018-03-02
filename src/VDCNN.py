@@ -211,6 +211,7 @@ def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
     optimizer = torch.optim.SGD(model.parameters(), lr=opt.lr, momentum=0.9)
     model.train()
     tr_gen = batchify(tr_data, batch_size=opt.batch_size)
+    best_accuracy = -1
     for n_iter in range(opt.iterations):
         try:
             data = tr_gen.__next__()
@@ -273,6 +274,10 @@ def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
                 'optimizer': optimizer.state_dict(),
                 'model': model.state_dict()
             }
+            if best_accuracy < float(te_metrics['accuracy']):
+                best_accuracy = float(te_metrics['accuracy'])
+                torch.save(model_dict, opt.model_save_path + "/{}".format("_best") + "_model.pt")
+
             model_count = n_iter % (opt.test_interval * 5)
             model_name = dataset_name + "_" + str(model_count)
             torch.save(model_dict, opt.model_save_path + "/{}".format(model_name) + "_model.pt")
