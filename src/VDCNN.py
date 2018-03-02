@@ -295,7 +295,7 @@ def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
             logger.info("new lr: {}".format(lr))
 
 
-def test(model, te_data, n_classes):
+def test(model, te_data, n_classes, dataset_name):
     xte, yte = te_data
     te_gen = batchify([xte, yte], batch_size=opt.batch_size)
     checkpoint = torch.load(opt.model_load_path)
@@ -339,18 +339,18 @@ def joint_train(opt, logger):
     else:
         criterion = nn.CrossEntropyLoss()
 
+    dataset_name = "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio)
     if opt.joint_test == 1:
         print("Testing on root dataset only")
-        test(model, root_te_data, n_classes)
+        test(model, root_te_data, n_classes, dataset_name)
     if opt.joint_test == 2:
         print("Testing on transfer dataset only")
-        test(model, transfer_te_data, n_classes)
+        test(model, transfer_te_data, n_classes, dataset_name)
     if opt.joint_test == 3:
         print("Testing on both datasets only")
-        test(model, te_data, n_classes)
+        test(model, te_data, n_classes, dataset_name)
     else:
-        train(opt, model, criterion, tr_data, te_data, n_classes,
-              "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio))
+        train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
 
 
 if __name__ == "__main__":
