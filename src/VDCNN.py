@@ -341,15 +341,16 @@ def joint_train(opt, logger):
 
     dataset_name = "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio)
     if opt.joint_test == 1:
-        print("Testing on root dataset only")
+        logger.info("Testing on root dataset only")
         test(model, root_te_data, n_classes, dataset_name)
-    if opt.joint_test == 2:
-        print("Testing on transfer dataset only")
+    elif opt.joint_test == 2:
+        logger.info("Testing on transfer dataset only")
         test(model, transfer_te_data, n_classes, dataset_name)
-    if opt.joint_test == 3:
-        print("Testing on both datasets only")
+    elif opt.joint_test == 3:
+        logger.info("Testing on both datasets only")
         test(model, te_data, n_classes, dataset_name)
     else:
+        logger.info("Joint training")
         train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
 
 
@@ -368,10 +369,11 @@ if __name__ == "__main__":
 
     ## check if jointly training
     if (opt.joint_training):
-        print("Joint Training !")
+        logger.info("Joint Training !")
         joint_train(opt, logger)
 
     else:
+        logger.info("Simple training")
         tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
         test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
                                                                                                           test=True)
@@ -391,8 +393,8 @@ if __name__ == "__main__":
             criterion = nn.CrossEntropyLoss()
 
         if opt.test_only == 1:
-            print("Testing only")
+            logger.info("Testing only")
             test(model, test_te_data, n_classes)
         else:
-            print("Training...")
+            logger.info("Training...")
             train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
