@@ -141,7 +141,7 @@ class BasicConvResBlock(nn.Module):
 
 class Transfer_VDCNN(nn.Module):
     def __init__(self, pretrained_model, n_classes, n_fc_neurons=2048):
-        super(Transfer_VDCNN).__init__()
+        super(Transfer_VDCNN, self).__init__()
 
         self.previous_layers = nn.Sequential(*list(pretrained_model.children())[:-1])
         fc_layers = []
@@ -375,10 +375,12 @@ def transfer_and_train(opt, logger):
     pretrained_model.load_state_dict(checkpoint['model'])
 
     new_model = Transfer_VDCNN(pretrained_model, n_classes)
+    if (opt.gpu):
+        new_model.cuda()
     print("New model loaded successfully, going to train")
     criterion = get_criterion()
 
-    train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
+    train(opt, new_model, criterion, tr_data, te_data, n_classes, dataset_name)
 
 
 def get_criterion():

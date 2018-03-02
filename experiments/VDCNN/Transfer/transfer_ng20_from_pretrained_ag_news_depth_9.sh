@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 cd ../../../
-dataset="ag_news"
+dataset="ng20"
 depth=9
 model_folder="models/VDCNN/VDCNN_transfer_${dataset}_depth@${depth}"
 epoch_size=5000
@@ -23,6 +23,5 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --lr 0.01 \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
-                    --gpu \
                     --num_embedding_features 100 \
-                    --model_load_path "${model_folder}"
+                    --model_load_path "models/VDCNN/AgNews_15000_model.pt"
