@@ -56,6 +56,7 @@ def get_args():
     parser.add_argument("--joint_ratio", type=float, default=0.5,
                         help="Ratio of target to source dataset for joint training")
     parser.add_argument(("--joint_test"), type=int, default=0,help="0 for none, 1 for root, 2 for transfer, 3 for both")
+    parser.add_argument(("--num_embedding_features"), type=int, default=-1, help="-1 for no use, otherwise use")
 
     args = parser.parse_args()
     return args
@@ -320,10 +321,13 @@ def joint_train(opt, logger):
                   root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels)
 
     n_classes = int(np.max(mixed_data_label) + 1)
-    print("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
+    logger.info("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
     ## construct model
     torch.manual_seed(opt.seed)
-    print("Seed for random numbers: ", torch.initial_seed())
+    logger.info("Seed for random numbers: ", torch.initial_seed())
+    if (opt.num_embedding_features != -1):
+        n_txt_feats = opt.num_embedding_features
+        logger.info("Overriding the number of embedding features to: ", n_txt_feats)
     model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                   n_fc_neurons=2048, shortcut=opt.shortcut)
 
