@@ -49,7 +49,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --seed 1337 \
                     --joint_training True \
                     --joint_test 1 \
-                    --joint_ratio 0.01 \
+                    --joint_ratio 0.02 \
                     --gpu \
                     --num_embedding_features 100 \
                     --model_load_path "${model_folder}/best_model.pt"

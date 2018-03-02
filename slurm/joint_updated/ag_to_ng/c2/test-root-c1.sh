@@ -9,9 +9,9 @@
 # Log what we're running and where.
 echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
-dataset="ag_news"
-test_dataset="ng20"
-combined_datasets="ng20---ag_news"
+test_dataset="ag_news"
+dataset="ng20"
+combined_datasets="ag_news---ng20"
 depth=9
 model_folder="models/VDCNN/VDCNN_${combined_datasets}_depth@${depth}"
 epoch_size=5000
@@ -49,7 +49,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --seed 1337 \
                     --joint_training True \
                     --joint_test 1 \
-                    --joint_ratio 0.01 \
+                    --joint_ratio 0.02 \
                     --gpu \
                     --num_embedding_features 100 \
                     --model_load_path "${model_folder}/best_model.pt"

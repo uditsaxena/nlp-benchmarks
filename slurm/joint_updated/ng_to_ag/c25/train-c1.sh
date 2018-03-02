@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-#SBATCH --job-name=mixed-001-us-vdcnn
+#SBATCH --job-name=mixed-025-us-vdcnn
 #SBATCH --partition=m40-short
-#SBATCH --output=1-test-root-%A.out
-#SBATCH --error=1-test-root-%A.err
+#SBATCH --output=25-train-%A.out
+#SBATCH --error=25-train-%A.err
 #SBATCH --gres=gpu:1
 
 # Log what we're running and where.
@@ -32,7 +32,7 @@ pip install  --user http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-
 
 cd /home/usaxena/work/s18/lex/code/vdcnn/
 
-# test
+# train joint, 
 python -m src.VDCNN --dataset "${dataset}" \
                     --test_dataset "${test_dataset}" \
                     --model_folder "${model_folder}" \
@@ -45,13 +45,15 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --test_interval ${test_interval} \
                     --iterations ${iterations} \
                     --lr 0.01 \
+                    --num_embedding_features 100 \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
+                    --test_only 0 \
+                    --model_load_path "models/VDCNN/ag_news-2000_model.pt" \
                     --joint_training True \
-                    --joint_test 1 \
-                    --joint_ratio 0.01 \
-                    --gpu \
-                    --num_embedding_features 100 \
-                    --model_load_path "${model_folder}/best_model.pt"
+                    --joint_ratio 0.25 \
+                    --combined_datasets "${combined_datasets}" \
+                    --shuffle \
+                    --gpu
 
 

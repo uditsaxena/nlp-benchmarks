@@ -48,8 +48,9 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --joint_training True \
-                    --num_embedding_features 100 \                    
+                    --num_embedding_features 100 \
                     --joint_test 3 \
+                    --joint_ratio 0.01 \
                     --gpu \
                     --model_load_path "${model_folder}/best_model.pt"
 

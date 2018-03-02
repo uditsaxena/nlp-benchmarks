@@ -50,6 +50,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --seed 1337 \
                     --joint_training True \
                     --joint_test 2 \
+                    --joint_ratio 0.01 \
                     --gpu \
                     --model_load_path "${model_folder}/best_model.pt"
 

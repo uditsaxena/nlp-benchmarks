@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-#SBATCH --job-name=mixed-001-us-vdcnn
+#SBATCH --job-name=mixed-1-us-vdcnn
 #SBATCH --partition=m40-short
-#SBATCH --output=1-test-root-%A.out
-#SBATCH --error=1-test-root-%A.err
+#SBATCH --output=100-test-transfer-%A.out
+#SBATCH --error=100-test-transfer-%A.err
 #SBATCH --gres=gpu:1
 
 # Log what we're running and where.
@@ -45,13 +45,12 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --test_interval ${test_interval} \
                     --iterations ${iterations} \
                     --lr 0.01 \
+                    --num_embedding_features 100 \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --joint_training True \
-                    --joint_test 1 \
-                    --joint_ratio 0.01 \
+                    --joint_test 2 \
+                    --joint_ratio 1.0 \
                     --gpu \
-                    --num_embedding_features 100 \
                     --model_load_path "${model_folder}/best_model.pt"
-
 

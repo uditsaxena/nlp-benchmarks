@@ -2,16 +2,16 @@
 #
 #SBATCH --job-name=mixed-001-us-vdcnn
 #SBATCH --partition=m40-short
-#SBATCH --output=1-test-root-%A.out
-#SBATCH --error=1-test-root-%A.err
+#SBATCH --output=1-test-both-%A.out
+#SBATCH --error=1-test-both-%A.err
 #SBATCH --gres=gpu:1
 
 # Log what we're running and where.
 echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
-dataset="ag_news"
-test_dataset="ng20"
-combined_datasets="ng20---ag_news"
+test_dataset="ag_news"
+dataset="ng20"
+combined_datasets="ag_news---ng20"
 depth=9
 model_folder="models/VDCNN/VDCNN_${combined_datasets}_depth@${depth}"
 epoch_size=5000
@@ -48,10 +48,9 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --joint_training True \
-                    --joint_test 1 \
+                    --num_embedding_features 100 \
+                    --joint_test 3 \
                     --joint_ratio 0.01 \
                     --gpu \
-                    --num_embedding_features 100 \
                     --model_load_path "${model_folder}/best_model.pt"
-
 
