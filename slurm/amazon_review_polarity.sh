@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH --job-name=amazon_polarity-vdcnn
-#SBATCH --partition=m40-short
+#SBATCH --partition=m40-long
 #SBATCH --output=amazon_polarity-vdcnn-%A.out
 #SBATCH --error=amazon_polarity-vdcnn-%A.err
 #SBATCH --gres=gpu:1
@@ -10,7 +10,7 @@
 echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
 dataset="amazon_polarity"
-depth=9
+depth=29
 model_folder="models/VDCNN/VDCNN_${dataset}_depth@${depth}"
 epoch_size=5000
 batch_size=128
@@ -41,4 +41,5 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --lr 0.01 \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
-                    --gpu
+                    --gpu \
+                    --model_load_path "${model_folder}/best_model.pt"
