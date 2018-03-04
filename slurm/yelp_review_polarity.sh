@@ -5,7 +5,7 @@
 #SBATCH --output=yelp-vdcnn-%A.out
 #SBATCH --error=yelp-vdcnn-%A.err
 #SBATCH --gres=gpu:1
-
+#SBATCH --mem=50000
 # Log what we're running and where.
 echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
@@ -42,4 +42,4 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --gpu \
-                    --model_load_path "${model_folder}/best_model.pt" 
+                    --model_load_path "${model_folder}/best_model.pt"

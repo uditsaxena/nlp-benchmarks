@@ -5,6 +5,7 @@
 #SBATCH --output=1-train-%A.out
 #SBATCH --error=1-train-%A.err
 #SBATCH --gres=gpu:1
+#SBATCH --mem=50000
 
 # Log what we're running and where.
 echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt

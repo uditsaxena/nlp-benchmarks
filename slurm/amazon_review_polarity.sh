@@ -5,7 +5,7 @@
 #SBATCH --output=amazon_polarity-vdcnn-%A.out
 #SBATCH --error=amazon_polarity-vdcnn-%A.err
 #SBATCH --gres=gpu:1
-
+#SBATCH --mem=50000
 # Log what we're running and where.
 echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
