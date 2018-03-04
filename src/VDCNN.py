@@ -353,6 +353,15 @@ def joint_train(opt, logger):
         logger.info("Joint training")
         train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
 
+        logger.info("After Training: Testing on root dataset only")
+        test(model, root_te_data, n_classes, dataset_name)
+
+        logger.info("After Training: Testing on transfer dataset only")
+        test(model, transfer_te_data, n_classes, dataset_name)
+
+        logger.info("After Training: Testing on both datasets only")
+        test(model, te_data, n_classes, dataset_name)
+
 
 if __name__ == "__main__":
 
