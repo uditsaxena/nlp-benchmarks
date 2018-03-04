@@ -1,0 +1,40 @@
+Requirement already satisfied: ipython in /home/usaxena/.local/lib/python3.5/site-packages
+Requirement already satisfied: h5py in /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages
+Requirement already satisfied: numpy in /home/usaxena/.local/lib/python3.5/site-packages
+Requirement already satisfied: scikit-learn in /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages
+Requirement already satisfied: pandas in /home/usaxena/.local/lib/python3.5/site-packages
+Requirement already satisfied: scipy in /home/usaxena/.local/lib/python3.5/site-packages
+Requirement already satisfied: torchvision in /home/usaxena/.local/lib/python3.5/site-packages
+Requirement already satisfied: requests in /home/usaxena/.local/lib/python3.5/site-packages
+Requirement already satisfied: pygments in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: pexpect; sys_platform != "win32" in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: setuptools>=18.5 in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: pickleshare in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: prompt-toolkit<2.0.0,>=1.0.4 in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: jedi>=0.10 in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: traitlets>=4.2 in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: decorator in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: simplegeneric>0.8 in /home/usaxena/.local/lib/python3.5/site-packages (from ipython)
+Requirement already satisfied: six in /home/usaxena/.local/lib/python3.5/site-packages (from h5py)
+Requirement already satisfied: python-dateutil>=2 in /home/usaxena/.local/lib/python3.5/site-packages (from pandas)
+Requirement already satisfied: pytz>=2011k in /home/usaxena/.local/lib/python3.5/site-packages (from pandas)
+Requirement already satisfied: torch in /home/usaxena/.local/lib/python3.5/site-packages (from torchvision)
+Requirement already satisfied: pillow in /home/usaxena/.local/lib/python3.5/site-packages (from torchvision)
+Requirement already satisfied: ptyprocess>=0.5 in /home/usaxena/.local/lib/python3.5/site-packages (from pexpect; sys_platform != "win32"->ipython)
+Requirement already satisfied: wcwidth in /home/usaxena/.local/lib/python3.5/site-packages (from prompt-toolkit<2.0.0,>=1.0.4->ipython)
+Requirement already satisfied: parso==0.1.1 in /home/usaxena/.local/lib/python3.5/site-packages (from jedi>=0.10->ipython)
+Requirement already satisfied: ipython-genutils in /home/usaxena/.local/lib/python3.5/site-packages (from traitlets>=4.2->ipython)
+Requirement already satisfied: pyyaml in /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages (from torch->torchvision)
+Requirement already satisfied: olefile in /home/usaxena/.local/lib/python3.5/site-packages (from pillow->torchvision)
+Requirement already satisfied: torch==0.3.0.post4 from http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl in /home/usaxena/.local/lib/python3.5/site-packages
+Requirement already satisfied: numpy in /home/usaxena/.local/lib/python3.5/site-packages (from torch==0.3.0.post4)
+Requirement already satisfied: pyyaml in /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages (from torch==0.3.0.post4)
+Transfer Data Size: 120000
+Transfer Ratio Size: 60000
+Root dataset Test length - sentences 5645, labels 5645
+Transfer dataset Test length - sentences 7600, labels 7600
+Unused dataset Test length - sentences 60000, labels 60000
+Mixed dataset Test length - sentences 73245, labels 73245
+Mixed dataset Train length - sentences 73179, labels 73179
+ Root test txt vectorization...
+ Transfer test txt vectorization...

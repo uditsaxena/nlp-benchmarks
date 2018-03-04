@@ -2,8 +2,8 @@
 #
 #SBATCH --job-name=mixed-001-us-vdcnn
 #SBATCH --partition=m40-short
-#SBATCH --output=1-train-%A.out
-#SBATCH --error=1-train-%A.err
+#SBATCH --output=1-49-train-%A.out
+#SBATCH --error=1-49-train-%A.err
 #SBATCH --gres=gpu:1
 
 # Log what we're running and where.
@@ -12,7 +12,7 @@ echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 test_dataset="ag_news"
 dataset="ng20"
 combined_datasets="ag_news---ng20"
-depth=9
+depth=49
 model_folder="models/VDCNN/VDCNN_${combined_datasets}_depth@${depth}/1"
 epoch_size=5000
 batch_size=128

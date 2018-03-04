@@ -2,8 +2,8 @@
 #
 #SBATCH --job-name=mixed-002-us-vdcnn
 #SBATCH --partition=m40-short
-#SBATCH --output=2-train-%A.out
-#SBATCH --error=2-train-%A.err
+#SBATCH --output=2-no-shf-train-%A.out
+#SBATCH --error=2-no-shf-train-%A.err
 #SBATCH --gres=gpu:1
 
 # Log what we're running and where.
@@ -13,7 +13,7 @@ test_dataset="ag_news"
 dataset="ng20"
 combined_datasets="ag_news---ng20"
 depth=9
-model_folder="models/VDCNN/VDCNN_${combined_datasets}_depth@${depth}/2"
+model_folder="models/VDCNN/VDCNN_${combined_datasets}_depth@${depth}/2_no_shuffle"
 epoch_size=5000
 batch_size=128
 iterations=$(($epoch_size*10))
@@ -53,7 +53,6 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --joint_training True \
                     --joint_ratio 0.02 \
                     --combined_datasets "${combined_datasets}" \
-                    --shuffle \
                     --gpu
 
 
