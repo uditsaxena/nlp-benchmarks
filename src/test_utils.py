@@ -2,6 +2,8 @@ import csv
 import sys
 import torch
 
+from src.VDCNN import VDCNN
+
 csv.field_size_limit(sys.maxsize)
 
 
@@ -45,15 +47,23 @@ def test_newsgroup20():
     #     print(line_length_cur)
 
 
-def model_structure(model):
-    model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/ag_news-2000_model.pt"
-    checkpoint = torch.load(model_path)['model']
-    # print(checkpoint.keys())
-    model.load_state_dict(checkpoint)
+def model_structure():
+    model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/AgNews_5000_model.pt"
+    # model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/ag_news-2000_model.pt"
+    # model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/ng20-2000_model.pt"
     print("Loooking at model now")
+    n_classes=4
+    #
+    # model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+    #               n_fc_neurons=2048, shortcut=opt.shortcut)
+    checkpoint = torch.load(model_path)['model']
+    # print(checkpoint)
+    for k,v in checkpoint.items():
+        print(k, v.size())
+    # model.load_state_dict(checkpoint)
 
 
-    print(list(model.children())[:-1])
+    # print(list(model.children())[:-1])
 
 
 
