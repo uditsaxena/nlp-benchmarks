@@ -21,7 +21,7 @@ def get_args():
     parser = argparse.ArgumentParser("""
     Very Deep CNN with optional residual connections (https://arxiv.org/abs/1606.01781)
     """)
-    parser.add_argument("--dataset", type=str, default='imdb')
+    parser.add_argument("--dataset", type=str, default='ag_news')
     parser.add_argument("--test_dataset", type=str, default='ng20', help="The dataset to test on")
     parser.add_argument("--model_folder", type=str, default="models/VDCNN/imdb")
     parser.add_argument("--model_save_path", type=str, default="models/VDCNN/VDCNN_ag_news_depth@9")
@@ -69,6 +69,8 @@ def get_args():
     parser.add_argument("--num_prev_classes", type=int, default=20,
                         help="Number of classes in previously trained model")
     parser.add_argument("--transfer_lr", type=float, default=0.001, help="Used for fine tuning the final layer")
+    parser.add_argument("--freeze_pre_trained_layers", type=bool, default=False,
+                        help="Set to True if freezing previously trained layers")
 
     args = parser.parse_args()
     return args
@@ -136,23 +138,6 @@ class BasicConvResBlock(nn.Module):
 
         out = self.relu(out)
 
-        return out
-
-
-class Transfer_VDCNN(nn.Module):
-    def __init__(self, pretrained_model, n_classes, n_fc_neurons=2048):
-        super(Transfer_VDCNN, self).__init__()
-
-        self.previous_layers = nn.Sequential(*list(pretrained_model.children())[:-1])
-        fc_layers = []
-
-        fc_layers.extend([nn.Linear(n_fc_neurons, n_fc_neurons), nn.ReLU()])
-        fc_layers.extend([nn.Linear(n_fc_neurons, n_classes)])
-        self.fc_layers = nn.Sequential(*fc_layers)
-
-    def forward(self, x):
-        out = self.previous_layers(x)
-        out = self.fc_layers(out)
         return out
 
 
@@ -363,21 +348,29 @@ def joint_train(opt, logger):
 
 ## Use this to transfer weights from pre-trained layers and run a new model
 def transfer_and_train(opt, logger):
-    # load data:
+    # load the new data set:
     tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
 
     # define the structure of the model to be loaded - get most of the structure from the user, using input args:
-    pretrained_model = VDCNN(n_classes=opt.num_prev_classes, num_embedding=opt.num_embedding_features, embedding_dim=16,
+    num_previous_classes = opt.num_prev_classes
+    num_embeddings = opt.num_embedding_features
+    num_embeddings = 100
+    pretrained_model = VDCNN(n_classes=num_previous_classes, num_embedding=num_embeddings, embedding_dim=16,
                              depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
 
-    # load the model
+    # load the previously trained model
     checkpoint = torch.load(opt.model_load_path)
     pretrained_model.load_state_dict(checkpoint['model'])
 
-    new_model = Transfer_VDCNN(pretrained_model, n_classes)
+    # Construct the new model:
+    new_model = VDCNN(n_classes=n_classes, num_embedding=num_embeddings, embedding_dim=16,
+                      depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
+
+    new_model = model_load_previous_structure(pretrained_model, new_model, opt.freeze_pre_trained_layers)
     if (opt.gpu):
         new_model.cuda()
-    print("New model loaded successfully, going to train")
+
+    logger.info("New model loaded successfully, going to train")
     criterion = get_criterion()
 
     train(opt, new_model, criterion, tr_data, te_data, n_classes, dataset_name)
@@ -390,6 +383,19 @@ def get_criterion():
     else:
         criterion = nn.CrossEntropyLoss()
         return criterion
+
+
+def model_load_previous_structure(old_model, new_model, freeze_pre_trained_layers):
+    new_model_dict = new_model.state_dict()
+    pre_trained_dict = {k: v for k, v in old_model.state_dict().items() if "fc_layers" not in k}
+    for k, v in pre_trained_dict.items():
+        # print(k, type(v))
+        v.requires_grad = False
+    new_model_dict.update(pre_trained_dict)
+
+    new_model.load_state_dict(new_model_dict)
+    print(new_model.parameters())
+    return new_model
 
 
 if __name__ == "__main__":
@@ -405,12 +411,12 @@ if __name__ == "__main__":
     # ut.print_dataset(te_data, "test", True, 5)
 
     if (opt.transfer_weights):
-        print("Transfer weights from pre-trained layers")
+        logger.info("Transfer weights from pre-trained layers")
         transfer_and_train(opt, logger)
 
     if (opt.joint_training):
         ## check if jointly training
-        print("Joint Training !")
+        logger.info("Joint Training !")
         joint_train(opt, logger)
 
     else:
@@ -424,7 +430,7 @@ if __name__ == "__main__":
 
         if (opt.num_embedding_features != -1):
             n_txt_feats = opt.num_embedding_features
-            print("Overriding the number of embedding features to: ", n_txt_feats)
+            logger.info("Overriding the number of embedding features to: ", n_txt_feats)
 
         model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                       n_fc_neurons=2048, shortcut=opt.shortcut)
@@ -435,8 +441,8 @@ if __name__ == "__main__":
         criterion = get_criterion()
 
         if opt.test_only == 1:
-            print("Testing only")
+            logger.info("Testing only")
             test(model, test_te_data)
         else:
-            print("Training...")
+            logger.info("Training...")
             train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)

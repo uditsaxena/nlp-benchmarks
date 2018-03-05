@@ -1,8 +1,7 @@
 import csv
 import sys
-import torch
 
-from src.VDCNN import VDCNN
+import torch
 
 csv.field_size_limit(sys.maxsize)
 
@@ -47,21 +46,22 @@ def test_newsgroup20():
     #     print(line_length_cur)
 
 
-def model_structure():
-    model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/AgNews_5000_model.pt"
+def model_structure(model):
+    # model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/AgNews_5000_model.pt"
     # model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/ag_news-2000_model.pt"
-    # model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/models/VDCNN/ng20-2000_model.pt"
+    model_path = "/Users/Udit/programs/github/S18_Code/lex/code/vdcnn/src/models/VDCNN/VDCNN_ag_news_depth@9/Newsgroup20_0_model.pt"
     print("Loooking at model now")
-    n_classes=4
+
     #
-    # model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
-    #               n_fc_neurons=2048, shortcut=opt.shortcut)
     checkpoint = torch.load(model_path)['model']
     # print(checkpoint)
     for k,v in checkpoint.items():
-        print(k, v.size())
-    # model.load_state_dict(checkpoint)
-
+        if "fc_layers" not in k:
+            print(k, v.size())
+    model.load_state_dict(checkpoint)
+    # print(model.fc_layers[-1])
+    # model.fc_layers[-1] = torch.nn.Linear(2048, 4)
+    # print(model.fc_layers)
 
     # print(list(model.children())[:-1])
 
@@ -70,4 +70,4 @@ def model_structure():
 if __name__ == '__main__':
     # test_newsgroup20()
 
-    model_structure()
+    model_structure(None)
