@@ -55,8 +55,17 @@ def get_args():
                         help="1 for joint training, 0 for no joint training")
     parser.add_argument("--joint_ratio", type=float, default=0.5,
                         help="Ratio of target to source dataset for joint training")
-    parser.add_argument(("--joint_test"), type=int, default=0,help="0 for none, 1 for root, 2 for transfer, 3 for both")
+    parser.add_argument(("--joint_test"), type=int, default=0,
+                        help="0 for none, 1 for root, 2 for transfer, 3 for both")
     parser.add_argument(("--num_embedding_features"), type=int, default=-1, help="-1 for no use, otherwise use")
+
+    parser.add_argument("--transfer_weights", type=bool, default=False,
+                        help="If true, transfer all except last fc-pre-trained layers")
+    parser.add_argument("--num_prev_classes", type=int, default=20,
+                        help="Number of classes in previously trained model")
+    parser.add_argument("--transfer_lr", type=float, default=0.001, help="Used for fine tuning the final layer")
+    parser.add_argument("--freeze_pre_trained_layers", type=bool, default=False,
+                        help="Set to True if freezing previously trained layers")
 
     args = parser.parse_args()
     return args
@@ -211,7 +220,12 @@ class VDCNN(nn.Module):
 
 
 def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
-    optimizer = torch.optim.SGD(model.parameters(), lr=opt.lr, momentum=0.9)
+    lr = opt.lr
+    if (opt.transfer_weights):
+        lr = opt.transfer_lr
+
+    logger.info("Setting the lr to : {}".format(lr))
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9)
     model.train()
     tr_gen = batchify(tr_data, batch_size=opt.batch_size)
     best_accuracy = -1
@@ -328,6 +342,7 @@ def joint_train(opt, logger):
     if (opt.num_embedding_features != -1):
         n_txt_feats = opt.num_embedding_features
         logger.info("Overriding the number of embedding features to: ", n_txt_feats)
+        
     model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                   n_fc_neurons=2048, shortcut=opt.shortcut)
 
@@ -363,6 +378,58 @@ def joint_train(opt, logger):
         test(model, te_data, n_classes, dataset_name)
 
 
+## Use this to transfer weights from pre-trained layers and run a new model
+def transfer_and_train(opt, logger):
+    # load the new data set:
+    tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
+
+    # define the structure of the model to be loaded - get most of the structure from the user, using input args:
+    num_previous_classes = opt.num_prev_classes
+    num_embeddings = opt.num_embedding_features
+    num_embeddings = 100
+    pretrained_model = VDCNN(n_classes=num_previous_classes, num_embedding=num_embeddings, embedding_dim=16,
+                             depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
+
+    # load the previously trained model
+    checkpoint = torch.load(opt.model_load_path)
+    pretrained_model.load_state_dict(checkpoint['model'])
+
+    # Construct the new model:
+    new_model = VDCNN(n_classes=n_classes, num_embedding=num_embeddings, embedding_dim=16,
+                      depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
+
+    new_model = model_load_previous_structure(pretrained_model, new_model, opt.freeze_pre_trained_layers)
+    if (opt.gpu):
+        new_model.cuda()
+
+    logger.info("New model loaded successfully, going to train")
+    criterion = get_criterion()
+
+    train(opt, new_model, criterion, tr_data, te_data, n_classes, dataset_name)
+
+
+def get_criterion():
+    if opt.class_weights:
+        criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
+        return criterion
+    else:
+        criterion = nn.CrossEntropyLoss()
+        return criterion
+
+
+def model_load_previous_structure(old_model, new_model, freeze_pre_trained_layers):
+    new_model_dict = new_model.state_dict()
+    pre_trained_dict = {k: v for k, v in old_model.state_dict().items() if "fc_layers" not in k}
+    for k, v in pre_trained_dict.items():
+        # print(k, type(v))
+        v.requires_grad = False
+    new_model_dict.update(pre_trained_dict)
+
+    new_model.load_state_dict(new_model_dict)
+    # print(list(new_model.parameters()))
+    return new_model
+
+
 if __name__ == "__main__":
 
     opt = get_args()
@@ -377,7 +444,12 @@ if __name__ == "__main__":
     # ut.print_dataset(te_data, "test", True, 5)
 
     ## check if jointly training
-    if (opt.joint_training):
+
+    if (opt.transfer_weights):
+        logger.info("Transfer weights from pre-trained layers")
+        transfer_and_train(opt, logger)
+
+    elif (opt.joint_training):
         logger.info("Joint Training !")
         joint_train(opt, logger)
 
@@ -390,16 +462,17 @@ if __name__ == "__main__":
         torch.manual_seed(opt.seed)
         print("Seed for random numbers: ", torch.initial_seed())
 
+        if (opt.num_embedding_features != -1):
+            n_txt_feats = opt.num_embedding_features
+            logger.info("Overriding the number of embedding features to: ", n_txt_feats)
+
         model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                       n_fc_neurons=2048, shortcut=opt.shortcut)
 
         if opt.gpu:
             model.cuda()
 
-        if opt.class_weights:
-            criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
-        else:
-            criterion = nn.CrossEntropyLoss()
+        criterion = get_criterion()
 
         if opt.test_only == 1:
             logger.info("Testing only")
