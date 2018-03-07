@@ -11,7 +11,7 @@ echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
 dataset="ag_news"
 depth=9
-model_folder="models/VDCNN/VDCNN_transfer_${dataset}_depth@${depth}"
+model_folder="models/VDCNN/VDCNN_transfer_${dataset}_depth@${depth}_100_emb"
 epoch_size=5000
 batch_size=128
 iterations=$(($epoch_size*10))

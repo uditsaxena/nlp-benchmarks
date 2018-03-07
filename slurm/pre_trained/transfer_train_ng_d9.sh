@@ -11,7 +11,7 @@ echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
 dataset="ng20"
 depth=9
-model_folder="models/VDCNN/VDCNN_transfer_${dataset}_depth@${depth}"
+model_folder="models/VDCNN/VDCNN_transfer_${dataset}_depth@${depth}_100_emb"
 epoch_size=5000
 batch_size=128
 iterations=$(($epoch_size*10))
@@ -45,4 +45,4 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --seed 1337 \
                     --gpu \
                     --num_embedding_features 100 \
-                    --model_load_path "/home/usaxena/work/s18/lex/code/vdcnn/models/VDCNN/VDCNN_transfer_ag_news_depth@9/AgNews_15000_model.pt"
+                    --model_load_path "${model_folder}/AgNews_15000_model.pt"

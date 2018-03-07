@@ -342,7 +342,6 @@ def joint_train(opt, logger):
     if (opt.num_embedding_features != -1):
         n_txt_feats = opt.num_embedding_features
         logger.info("Overriding the number of embedding features to: ", n_txt_feats)
-        
     model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                   n_fc_neurons=2048, shortcut=opt.shortcut)
 
@@ -386,7 +385,7 @@ def transfer_and_train(opt, logger):
     # define the structure of the model to be loaded - get most of the structure from the user, using input args:
     num_previous_classes = opt.num_prev_classes
     num_embeddings = opt.num_embedding_features
-    num_embeddings = 100
+
     pretrained_model = VDCNN(n_classes=num_previous_classes, num_embedding=num_embeddings, embedding_dim=16,
                              depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
 
@@ -456,7 +455,8 @@ if __name__ == "__main__":
     else:
         logger.info("Simple training")
         tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
-        test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
+        if opt.test_only == 1:
+            test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
                                                                                                           test=True)
 
         torch.manual_seed(opt.seed)
