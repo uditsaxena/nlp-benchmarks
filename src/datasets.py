@@ -11,6 +11,7 @@ import tarfile
 import shutil
 import hashlib
 import pandas as pd
+import json
 from urllib.request import urlretrieve
 from urllib.error import URLError
 from urllib.error import HTTPError
@@ -122,6 +123,83 @@ def validate_file(fpath, md5_hash):
         return True
     else:
         return False
+
+class Lex1(object):
+    def __init__(self):
+        folder = "lex1"
+        self.folder_path = "{}/{}".format(DATA_FOLDER, folder)
+        self.epoch_size = 5000
+        self.n_classes = 38
+        if os.path.exists(self.folder_path):
+            for f in ["TestSet.lexas", "raw", "classmap.json"]:
+                if not os.path.exists(os.path.join(self.folder_path, f)):
+                    print("{} doesn't exist".format(f))
+
+        #construct class map
+        print(os.getcwd())
+        classmapfile = os.path.join(self.folder_path, "classmap.json")
+        f = open(classmapfile, 'r', encoding='utf-8')
+
+        lines = f.readlines()
+        c = 1
+        class_mapping = {}
+        for line in lines:
+            newline = line.replace("[", "").replace("]", "")[:-1].split(',')[1]
+            newline = newline.replace("\"", "")
+            if (newline not in class_mapping.keys()):
+                class_mapping[newline] = c
+                c += 1
+        self.class_mapping = class_mapping
+
+    def _generator(self, filename, chunk_size=512):
+        f = open(filename, mode='r', encoding='utf-8')
+        lines = f.readlines()
+        # print("Starting")
+        # upper_limit = len(lines)
+        while True:
+            sentences, labels = [], []
+            i = 0
+            c = 0
+            for line in lines:
+                # print(":::::",c,":::::")
+                c+=1
+                json_str = json.loads(line)
+                text = json_str['text']
+                text = text.replace("\r\n", " ")
+                classmap = json_str['analyses'][0]['worlds']
+                sentence = text
+                label = 0
+                for k, v in classmap.items():
+                    label = self.class_mapping[k] - 1
+                sentences.append(sentence)
+                labels.append(label)
+                i += 1
+                if i == chunk_size:
+                    i = 0
+                    # print("restarting: {}, {}".format(i, c))
+                    yield sentences, labels
+                    sentences, labels = [], []
+
+            if sentences and labels:
+                print('yielding')
+                yield sentences, labels
+                break
+            # else:
+            #     break
+        print("ENDING")
+        f.close()
+
+    def load_train_data(self, chunk_size=512):
+        if chunk_size:
+            return self._generator(os.path.join(self.folder_path, "raw"), chunk_size=chunk_size)
+        else:
+            self._generator(os.path.join(self.folder_path, "raw"))
+
+    def load_test_data(self, chunk_size=512):
+        if chunk_size:
+            return self._generator(os.path.join(self.folder_path, "TestSet.lexas"), chunk_size=chunk_size)
+        else:
+            self._generator(os.path.join(self.folder_path, "TestSet.lexas"))
 
 
 class Newsgroup20(object):
@@ -779,6 +857,8 @@ def load_datasets(names=["ag_news", "imdb"]):
         datasets.append(Imdb())
     if 'ng20' in names:
         datasets.append(Newsgroup20())
+    if 'lex1' in names:
+        datasets.append(Lex1())
 
     return datasets
 
@@ -795,6 +875,8 @@ if __name__ == "__main__":
         'sogu_news',
         'yahoo_answer',
         'imdb',
+        'ng20',
+        'lex1'
     ]
 
     for name in names:

@@ -132,6 +132,7 @@ def create_dataset(generator, lowercase=True, subsample_count=0, base_label=0):
                     break
     else:
         for phrase, label in generator:
+            print("here")
             sentences.extend(phrase)
             label = [base_label + i for i in label]
             labels.extend(label)
