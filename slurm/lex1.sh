@@ -2,8 +2,8 @@
 #
 #SBATCH --job-name=ag-us-vdcnn
 #SBATCH --partition=m40-short
-#SBATCH --output=ag-us-vdcnn-%A.out
-#SBATCH --error=ag-us-vdcnn-%A.err
+#SBATCH --output=lex1-us-vdcnn-%A.out
+#SBATCH --error=lex1-us-vdcnn-%A.err
 #SBATCH --gres=gpu:1
 
 # Log what we're running and where.

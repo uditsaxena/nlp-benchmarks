@@ -1,0 +1,13 @@
+/cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+parameters: {'joint_test': 0, 'joint_ratio': 0.25, 'maxlen': 1024, 'lr_halve_interval': 15000.0, 'gpu': True, 'combined_datasets': 'amazon_polarity---yelp_polarity', 'dataset': 'amazon_polarity', 'num_embedding_features': 100, 'shortcut': False, 'model_folder': 'models/VDCNN/VDCNN_amazon_polarity---yelp_polarity_depth@29/25', 'test_batch_size': 128, 'model_load_path': 'models/VDCNN/VDCNN_amazon_polarity---yelp_polarity_depth@29/25/best_model.pt', 'class_weights': None, 'depth': 29, 'batch_size': 128, 'shuffle': True, 'model_save_path': 'models/VDCNN/VDCNN_amazon_polarity---yelp_polarity_depth@29/25', 'chunk_size': 2048, 'lr': 0.01, 'seed': 1337, 'test_interval': 1000, 'joint_training': True, 'test_dataset': 'yelp_polarity', 'last_pooling_layer': 'k-max-pooling', 'test_only': 0, 'iterations': 50000}
+Joint Training !
+dataset: AmazonPolarity, n_classes: 2
+  - loading dataset...
+dataset: YelpPolarity, n_classes: 2
+  - loading dataset...
+Both datasets loaded, going to mix ...
+  - txt vectorization...
+slurmstepd: error: Job 3482334 exceeded memory limit (54480124 > 51200000), being killed
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: *** JOB 3482334 ON node024 CANCELLED AT 2018-03-04T03:44:12 ***

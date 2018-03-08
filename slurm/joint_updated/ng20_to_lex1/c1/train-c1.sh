@@ -12,7 +12,7 @@ echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 test_dataset="ag_news"
 dataset="ng20"
 combined_datasets="ng20---lex1"
-depth=49
+depth=17
 model_folder="models/VDCNN/VDCNN_${combined_datasets}_depth@${depth}/1"
 epoch_size=5000
 batch_size=128

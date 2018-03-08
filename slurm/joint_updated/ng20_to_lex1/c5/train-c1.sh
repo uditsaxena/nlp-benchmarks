@@ -38,7 +38,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --model_folder "${model_folder}" \
                     --model_save_path "${model_folder}" \
                     --depth ${depth} \
-                    --maxlen 1024 \
+                    --maxlen 2048 \
                     --chunk_size 2048 \
                     --batch_size ${batch_size} \
                     --test_batch_size ${batch_size} \

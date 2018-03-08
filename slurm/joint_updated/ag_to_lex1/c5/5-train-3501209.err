@@ -1,0 +1,1229 @@
+/cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+parameters: {'shortcut': False, 'iterations': 50000, 'num_embedding_features': 100, 'class_weights': None, 'lr': 0.01, 'model_load_path': 'models/VDCNN/VDCNN_ag_news---lex1_depth@9/5/best_model.pt', 'last_pooling_layer': 'k-max-pooling', 'test_interval': 1000, 'shuffle': True, 'lr_halve_interval': 15000.0, 'dataset': 'ng20', 'test_dataset': 'ag_news', 'gpu': True, 'joint_test': 0, 'model_save_path': 'models/VDCNN/VDCNN_ag_news---lex1_depth@9/5', 'test_batch_size': 128, 'joint_training': True, 'test_only': 0, 'joint_ratio': 0.05, 'combined_datasets': 'ag_news---lex1', 'model_folder': 'models/VDCNN/VDCNN_ag_news---lex1_depth@9/5', 'seed': 1337, 'batch_size': 128, 'freeze_pre_trained_layers': False, 'maxlen': 1024, 'transfer_weights': False, 'depth': 9, 'chunk_size': 2048, 'num_prev_classes': 20, 'transfer_lr': 0.001}
+Joint Training !
+dataset: AgNews, n_classes: 4
+  - loading dataset...
+dataset: Lex1, n_classes: 38
+  - loading dataset...
+Both datasets loaded, going to mix ...
+  - txt vectorization...
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 453, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 338, in joint_train
+    logger.info("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
+Message: 'Number of classes in the mixed dataset are: '
+Arguments: (14, <class 'int'>)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 453, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 338, in joint_train
+    logger.info("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
+Message: 'Number of classes in the mixed dataset are: '
+Arguments: (14, <class 'int'>)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 453, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 341, in joint_train
+    logger.info("Seed for random numbers: ", torch.initial_seed())
+Message: 'Seed for random numbers: '
+Arguments: (1337,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 453, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 341, in joint_train
+    logger.info("Seed for random numbers: ", torch.initial_seed())
+Message: 'Seed for random numbers: '
+Arguments: (1337,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 453, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 344, in joint_train
+    logger.info("Overriding the number of embedding features to: ", n_txt_feats)
+Message: 'Overriding the number of embedding features to: '
+Arguments: (100,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 453, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 344, in joint_train
+    logger.info("Overriding the number of embedding features to: ", n_txt_feats)
+Message: 'Overriding the number of embedding features to: '
+Arguments: (100,)
+Joint training
+Setting the lr to : 0.01
+Mixed_ag_news---lex1_0.05 - Iter [0/50000] - train metrics: {'accuracy': 0.0, 'logloss': -1}
+THCudaCheck FAIL file=/pytorch/torch/lib/THCUNN/generic/SpatialAdaptiveMaxPooling.cu line=86 error=59 : device-side assert triggered
+*** Error in `python': free(): invalid pointer: 0x00002aaaee97a6a0 ***
+======= Backtrace: =========
+/lib64/libc.so.6(+0x7c503)[0x2aaaabb91503]
+/home/usaxena/.local/lib/python3.5/site-packages/torch/_thnn/_THCUNN.cpython-35m-x86_64-linux-gnu.so(+0x87dd6)[0x2aab3d19add6]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyCFunction_Call+0xc9)[0x2aaaaad8ed89]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x7e33)[0x2aaaaae27d03]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x9f026)[0x2aaaaad6c026]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_CallObjectWithKeywords+0x47)[0x2aaaaae1fba7]
+/home/usaxena/.local/lib/python3.5/site-packages/torch/_C.cpython-35m-x86_64-linux-gnu.so(_Z17THPFunction_applyP7_objectS0_+0x271)[0x2aaaed4830b1]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyCFunction_Call+0xc9)[0x2aaaaad8ed89]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x7e33)[0x2aaaaae27d03]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x7263)[0x2aaaaae27133]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x9f103)[0x2aaaaad6c103]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x3403)[0x2aaaaae232d3]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x9f026)[0x2aaaaad6c026]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x865dd)[0x2aaaaad535dd]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0xdb3d1)[0x2aaaaada83d1]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x36b6)[0x2aaaaae23586]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x9f103)[0x2aaaaad6c103]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x3403)[0x2aaaaae232d3]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x9f026)[0x2aaaaad6c026]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x865dd)[0x2aaaaad535dd]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0xdb3d1)[0x2aaaaada83d1]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x36b6)[0x2aaaaae23586]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x9f103)[0x2aaaaad6c103]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x3403)[0x2aaaaae232d3]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x9f026)[0x2aaaaad6c026]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x865dd)[0x2aaaaad535dd]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0xdb3d1)[0x2aaaaada83d1]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyObject_Call+0x6a)[0x2aaaaad3adfa]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x36b6)[0x2aaaaae23586]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x7263)[0x2aaaaae27133]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x7d8e)[0x2aaaaae27c5e]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalFrameEx+0x7d8e)[0x2aaaaae27c5e]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(+0x15d086)[0x2aaaaae2a086]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCodeEx+0x48)[0x2aaaaae2a178]
+/cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0(PyEval_EvalCode+0x3b)[0x2aaaaae2a1bb]
+======= Memory map: ========
+00400000-00401000 r-xp 00000000 00:29 73111283276                        /cm/shared/apps/python/3.5.2/bin/python3.5
+00601000-00602000 r--p 00001000 00:29 73111283276                        /cm/shared/apps/python/3.5.2/bin/python3.5
+00602000-00603000 rw-p 00002000 00:29 73111283276                        /cm/shared/apps/python/3.5.2/bin/python3.5
+00603000-61ade000 rw-p 00000000 00:00 0                                  [heap]
+200000000-200100000 rw-s 2d1ce2a000 00:05 39622                          /dev/nvidiactl
+200100000-200104000 rw-s 300212c000 00:05 39622                          /dev/nvidiactl
+200104000-200120000 ---p 00000000 00:00 0 
+200120000-200520000 rw-s 3002138000 00:05 39622                          /dev/nvidiactl
+200520000-200524000 rw-s 20bad8b000 00:05 39622                          /dev/nvidiactl
+200524000-200540000 ---p 00000000 00:00 0 
+200540000-200940000 rw-s 20bad9f000 00:05 39622                          /dev/nvidiactl
+200940000-200944000 rw-s 2653d63000 00:05 39622                          /dev/nvidiactl
+200944000-200960000 ---p 00000000 00:00 0 
+200960000-200d60000 rw-s 2653d6f000 00:05 39622                          /dev/nvidiactl
+200d60000-200d64000 rw-s 302edba000 00:05 39622                          /dev/nvidiactl
+200d64000-200d80000 ---p 00000000 00:00 0 
+200d80000-201180000 rw-s 2653e8e000 00:05 39622                          /dev/nvidiactl
+201180000-201184000 rw-s 2fe6291000 00:05 39622                          /dev/nvidiactl
+201184000-2011a0000 ---p 00000000 00:00 0 
+2011a0000-2015a0000 rw-s 2fe629d000 00:05 39622                          /dev/nvidiactl
+2015a0000-2015a4000 rw-s 30848e8000 00:05 39622                          /dev/nvidiactl
+2015a4000-2015c0000 ---p 00000000 00:00 0 
+2015c0000-2019c0000 rw-s 30848f4000 00:05 39622                          /dev/nvidiactl
+2019c0000-2019c4000 rw-s 254a97f000 00:05 39622                          /dev/nvidiactl
+2019c4000-2019e0000 ---p 00000000 00:00 0 
+2019e0000-201de0000 rw-s 2b9264b000 00:05 39622                          /dev/nvidiactl
+201de0000-201de4000 rw-s 20bec16000 00:05 39622                          /dev/nvidiactl
+201de4000-201e00000 ---p 00000000 00:00 0 
+201e00000-202200000 rw-s 20bec22000 00:05 39622                          /dev/nvidiactl
+202200000-202204000 rw-s 2e6c36f000 00:05 39622                          /dev/nvidiactl
+202204000-202220000 ---p 00000000 00:00 0 
+202220000-202620000 rw-s 2e6c37c000 00:05 39622                          /dev/nvidiactl
+202620000-202624000 rw-s 2ccd44b000 00:05 39622                          /dev/nvidiactl
+202624000-202640000 ---p 00000000 00:00 0 
+202640000-202a40000 rw-s 2ccd457000 00:05 39622                          /dev/nvidiactl
+202a40000-202a44000 rw-s 2b61762000 00:05 39622                          /dev/nvidiactl
+202a44000-202a60000 ---p 00000000 00:00 0 
+202a60000-202e60000 rw-s 2b6176f000 00:05 39622                          /dev/nvidiactl
+202e60000-202e64000 rw-s 2089802000 00:05 39622                          /dev/nvidiactl
+202e64000-202e80000 ---p 00000000 00:00 0 
+202e80000-203280000 rw-s 208980e000 00:05 39622                          /dev/nvidiactl
+203280000-203284000 rw-s 3032219000 00:05 39622                          /dev/nvidiactl
+203284000-2032a0000 ---p 00000000 00:00 0 
+2032a0000-2036a0000 rw-s 303222b000 00:05 39622                          /dev/nvidiactl
+2036a0000-2036a4000 rw-s 29c8fb7000 00:05 39622                          /dev/nvidiactl
+2036a4000-2036c0000 ---p 00000000 00:00 0 
+2036c0000-203ac0000 rw-s 29c8fc3000 00:05 39622                          /dev/nvidiactl
+203ac0000-203ac4000 rw-s 298edcf000 00:05 39622                          /dev/nvidiactl
+203ac4000-203ae0000 ---p 00000000 00:00 0 
+203ae0000-203ee0000 rw-s 298edeb000 00:05 39622                          /dev/nvidiactl
+203ee0000-203ee4000 rw-s 24e00ee000 00:05 39622                          /dev/nvidiactl
+203ee4000-203f00000 ---p 00000000 00:00 0 
+203f00000-204300000 rw-s 24e00fa000 00:05 39622                          /dev/nvidiactl
+204300000-204400000 rw-s 2c7e888000 00:05 39622                          /dev/nvidiactl
+204400000-204500000 rw-s 2e6c38a000 00:05 39622                          /dev/nvidiactl
+204500000-204600000 rw-s 2b9268d000 00:05 39622                          /dev/nvidiactl
+204600000-204700000 rw-s 208158f000 00:05 39622                          /dev/nvidiactl
+204700000-204800000 rw-s 2e68e92000 00:05 39622                          /dev/nvidiactl
+204800000-204900000 rw-s 20a3a14000 00:05 39622                          /dev/nvidiactl
+204900000-2049e0000 rw-s 313f017000 00:05 39622                          /dev/nvidiactl
+2049e0000-204ae0000 rw-s 00000000 00:01 97677053                         /dev/zero (deleted)
+204ae0000-204be1000 rw-s 00000000 00:01 97704275                         /dev/zero (deleted)
+204be1000-204c00000 ---p 00000000 00:00 0 
+204c00000-204d00000 rw-s 00000000 00:01 97678282                         /dev/zero (deleted)
+204d00000-4900000000 ---p 00000000 00:00 0 
+2aaaaaaab000-2aaaaaacb000 r-xp 00000000 08:01 38069735                   /usr/lib64/ld-2.17.so
+2aaaaaacb000-2aaaaaacd000 r-xp 00000000 00:00 0                          [vdso]
+2aaaaaacd000-2aaaaaace000 rw-p 00000000 00:00 0 
+2aaaaaace000-2aaaaaad5000 r--s 00000000 08:01 70090743                   /usr/lib64/gconv/gconv-modules.cache
+2aaaaaad5000-2aaaaaad6000 rwxp 00000000 00:00 0 
+2aaaaaad6000-2aaaaaad7000 rw-s 20bad8a000 00:05 39622                    /dev/nvidiactl
+2aaaaaad7000-2aaaaaad8000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaad8000-2aaaaaad9000 rw-s 2653d61000 00:05 39622                    /dev/nvidiactl
+2aaaaaad9000-2aaaaaada000 r--s f9000000 00:05 39621                      /dev/nvidia3
+2aaaaaada000-2aaaaaadb000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaadb000-2aaaaaadc000 rw-s 302edb9000 00:05 39622                    /dev/nvidiactl
+2aaaaaadc000-2aaaaaadd000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaadd000-2aaaaaade000 rw-s 2fe6290000 00:05 39622                    /dev/nvidiactl
+2aaaaaade000-2aaaaaadf000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaadf000-2aaaaaae0000 rw-s 30848e7000 00:05 39622                    /dev/nvidiactl
+2aaaaaae0000-2aaaaaae1000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaae1000-2aaaaaae2000 rw-s 254a97e000 00:05 39622                    /dev/nvidiactl
+2aaaaaae2000-2aaaaaae3000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaae3000-2aaaaaae4000 rw-s 20bec15000 00:05 39622                    /dev/nvidiactl
+2aaaaaae4000-2aaaaaae5000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaae5000-2aaaaaae6000 rw-s 2e6c36c000 00:05 39622                    /dev/nvidiactl
+2aaaaaae6000-2aaaaaae7000 rw-s 3e7ffde2000 00:05 39621                   /dev/nvidia3
+2aaaaaae7000-2aaaaaae8000 rw-s 2ccd44a000 00:05 39622                    /dev/nvidiactl
+2aaaaaae8000-2aaaaac2d000 rw-p 00000000 00:00 0 
+2aaaaac2d000-2aaaaac2e000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac2e000-2aaaaac2f000 rw-s 2b61761000 00:05 39622                    /dev/nvidiactl
+2aaaaac2f000-2aaaaac30000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac30000-2aaaaac31000 rw-s 2089801000 00:05 39622                    /dev/nvidiactl
+2aaaaac31000-2aaaaac32000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac32000-2aaaaac33000 rw-s 3032218000 00:05 39622                    /dev/nvidiactl
+2aaaaac33000-2aaaaac34000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac34000-2aaaaac35000 rw-s 29c8fb5000 00:05 39622                    /dev/nvidiactl
+2aaaaac35000-2aaaaac36000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac36000-2aaaaac37000 rw-s 298edcd000 00:05 39622                    /dev/nvidiactl
+2aaaaac37000-2aaaaac38000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac38000-2aaaaac39000 rw-s 24e00ed000 00:05 39622                    /dev/nvidiactl
+2aaaaac39000-2aaaaac3a000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac3a000-2aaaaac3b000 rw-s 2c7e884000 00:05 39622                    /dev/nvidiactl
+2aaaaac3b000-2aaaaac3c000 rw-s 3e7ffde3000 00:05 39621                   /dev/nvidia3
+2aaaaac3c000-2aaaaac3d000 rw-p 00000000 00:00 0 
+2aaaaac5e000-2aaaaac9e000 rw-p 00000000 00:00 0 
+2aaaaacca000-2aaaaaccb000 r--p 0001f000 08:01 38069735                   /usr/lib64/ld-2.17.so
+2aaaaaccb000-2aaaaaccc000 rw-p 00020000 08:01 38069735                   /usr/lib64/ld-2.17.so
+2aaaaaccc000-2aaaaaccd000 rw-p 00000000 00:00 0 
+2aaaaaccd000-2aaaaaf58000 r-xp 00000000 00:29 77316650418                /cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0
+2aaaaaf58000-2aaaab158000 ---p 0028b000 00:29 77316650418                /cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0
+2aaaab158000-2aaaab15a000 r--p 0028b000 00:29 77316650418                /cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0
+2aaaab15a000-2aaaab1bf000 rw-p 0028d000 00:29 77316650418                /cm/shared/apps/python/3.5.2/lib/libpython3.5m.so.1.0
+2aaaab1bf000-2aaaab1f0000 rw-p 00000000 00:00 0 
+2aaaab1f0000-2aaaab207000 r-xp 00000000 08:01 38579354                   /usr/lib64/libpthread-2.17.so
+2aaaab207000-2aaaab406000 ---p 00017000 08:01 38579354                   /usr/lib64/libpthread-2.17.so
+2aaaab406000-2aaaab407000 r--p 00016000 08:01 38579354                   /usr/lib64/libpthread-2.17.so
+2aaaab407000-2aaaab408000 rw-p 00017000 08:01 38579354                   /usr/lib64/libpthread-2.17.so
+2aaaab408000-2aaaab40c000 rw-p 00000000 00:00 0 
+2aaaab40c000-2aaaab40e000 r-xp 00000000 08:01 38121447                   /usr/lib64/libdl-2.17.so
+2aaaab40e000-2aaaab60e000 ---p 00002000 08:01 38121447                   /usr/lib64/libdl-2.17.so
+2aaaab60e000-2aaaab60f000 r--p 00002000 08:01 38121447                   /usr/lib64/libdl-2.17.so
+2aaaab60f000-2aaaab610000 rw-p 00003000 08:01 38121447                   /usr/lib64/libdl-2.17.so
+2aaaab610000-2aaaab612000 r-xp 00000000 08:01 38616399                   /usr/lib64/libutil-2.17.so
+2aaaab612000-2aaaab811000 ---p 00002000 08:01 38616399                   /usr/lib64/libutil-2.17.so
+2aaaab811000-2aaaab812000 r--p 00001000 08:01 38616399                   /usr/lib64/libutil-2.17.so
+2aaaab812000-2aaaab813000 rw-p 00002000 08:01 38616399                   /usr/lib64/libutil-2.17.so
+2aaaab813000-2aaaab913000 r-xp 00000000 08:01 38330422                   /usr/lib64/libm-2.17.so
+2aaaab913000-2aaaabb13000 ---p 00100000 08:01 38330422                   /usr/lib64/libm-2.17.so
+2aaaabb13000-2aaaabb14000 r--p 00100000 08:01 38330422                   /usr/lib64/libm-2.17.so
+2aaaabb14000-2aaaabb15000 rw-p 00101000 08:01 38330422                   /usr/lib64/libm-2.17.so
+2aaaabb15000-2aaaabccb000 r-xp 00000000 08:01 38089622                   /usr/lib64/libc-2.17.so
+2aaaabccb000-2aaaabecb000 ---p 001b6000 08:01 38089622                   /usr/lib64/libc-2.17.so
+2aaaabecb000-2aaaabecf000 r--p 001b6000 08:01 38089622                   /usr/lib64/libc-2.17.so
+2aaaabecf000-2aaaabed1000 rw-p 001ba000 08:01 38089622                   /usr/lib64/libc-2.17.so
+2aaaabed1000-2aaaabed6000 rw-p 00000000 00:00 0 
+2aaaabed6000-2aaab23ff000 r--p 00000000 08:01 37293774                   /usr/lib/locale/locale-archive
+2aaab23ff000-2aaab243f000 rw-p 00000000 00:00 0 
+2aaab243f000-2aaab2441000 r-xp 00000000 00:29 4302194219                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_heapq.cpython-35m-x86_64-linux-gnu.so
+2aaab2441000-2aaab2641000 ---p 00002000 00:29 4302194219                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_heapq.cpython-35m-x86_64-linux-gnu.so
+2aaab2641000-2aaab2642000 r--p 00002000 00:29 4302194219                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_heapq.cpython-35m-x86_64-linux-gnu.so
+2aaab2642000-2aaab2644000 rw-p 00003000 00:29 4302194219                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_heapq.cpython-35m-x86_64-linux-gnu.so
+2aaab2644000-2aaab2744000 rw-p 00000000 00:00 0 
+2aaab2765000-2aaab276e000 r-xp 00000000 00:29 4302194235                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_struct.cpython-35m-x86_64-linux-gnu.so
+2aaab276e000-2aaab296d000 ---p 00009000 00:29 4302194235                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_struct.cpython-35m-x86_64-linux-gnu.so
+2aaab296d000-2aaab296e000 r--p 00008000 00:29 4302194235                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_struct.cpython-35m-x86_64-linux-gnu.so
+2aaab296e000-2aaab2971000 rw-p 00009000 00:29 4302194235                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_struct.cpython-35m-x86_64-linux-gnu.so
+2aaab2971000-2aaab29b1000 rw-p 00000000 00:00 0 
+2aaab29b1000-2aaab29bd000 r-xp 00000000 00:29 4302194240                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/math.cpython-35m-x86_64-linux-gnu.so
+2aaab29bd000-2aaab2bbd000 ---p 0000c000 00:29 4302194240                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/math.cpython-35m-x86_64-linux-gnu.so
+2aaab2bbd000-2aaab2bbe000 r--p 0000c000 00:29 4302194240                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/math.cpython-35m-x86_64-linux-gnu.so
+2aaab2bbe000-2aaab2bc0000 rw-p 0000d000 00:29 4302194240                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/math.cpython-35m-x86_64-linux-gnu.so
+2aaab2bc0000-2aaab2d98000 r-xp 00000000 00:2a 21501591818                /home/usaxena/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+2aaab2d98000-2aaab2f98000 ---p 001d8000 00:2a 21501591818                /home/usaxena/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+2aaab2f98000-2aaab2fb1000 rw-p 001d8000 00:2a 21501591818                /home/usaxena/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+2aaab2fb1000-2aaab2fc9000 rw-p 00000000 00:00 0 
+2aaab2fc9000-2aaab2fcf000 rw-p 001f2000 00:2a 21501591818                /home/usaxena/.local/lib/python3.5/site-packages/numpy/core/multiarray.cpython-35m-x86_64-linux-gnu.so
+2aaab2fcf000-2aaab52e3000 r-xp 00000000 00:2a 60143778077                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+2aaab52e3000-2aaab54e2000 ---p 02314000 00:2a 60143778077                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+2aaab54e2000-2aaab5501000 rw-p 02313000 00:2a 60143778077                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+2aaab5501000-2aaab5564000 rw-p 00000000 00:00 0 
+2aaab5564000-2aaab55fa000 rw-p 02425000 00:2a 60143778077                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libopenblasp-r0-39a31c03.2.18.so
+2aaab55fa000-2aaab56ea000 r-xp 00000000 00:2a 60143778078                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+2aaab56ea000-2aaab58e9000 ---p 000f0000 00:2a 60143778078                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+2aaab58e9000-2aaab58eb000 rw-p 000ef000 00:2a 60143778078                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+2aaab58eb000-2aaab58ec000 rw-p 00000000 00:00 0 
+2aaab58ec000-2aaab58f4000 rw-p 000f2000 00:2a 60143778078                /home/usaxena/.local/lib/python3.5/site-packages/numpy/.libs/libgfortran-ed201abd.so.3.0.0
+2aaab58f4000-2aaab58fc000 r-xp 00000000 00:29 98795701736                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5z.cpython-35m-x86_64-linux-gnu.so
+2aaab58fc000-2aaab5afc000 ---p 00008000 00:29 98795701736                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5z.cpython-35m-x86_64-linux-gnu.so
+2aaab5afc000-2aaab5afd000 rw-p 00008000 00:29 98795701736                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5z.cpython-35m-x86_64-linux-gnu.so
+2aaab5afd000-2aaab5afe000 rw-p 00000000 00:00 0 
+2aaab5afe000-2aaab5b00000 rw-p 00026000 00:29 98795701736                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5z.cpython-35m-x86_64-linux-gnu.so
+2aaab5b00000-2aaab5b19000 r-xp 00000000 00:29 98795701750                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5a.cpython-35m-x86_64-linux-gnu.so
+2aaab5b19000-2aaab5d19000 ---p 00019000 00:29 98795701750                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5a.cpython-35m-x86_64-linux-gnu.so
+2aaab5d19000-2aaab5d1c000 rw-p 00019000 00:29 98795701750                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5a.cpython-35m-x86_64-linux-gnu.so
+2aaab5d1c000-2aaab5d1d000 rw-p 00000000 00:00 0 
+2aaab5d1d000-2aaab5d1f000 rw-p 00084000 00:29 98795701750                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5a.cpython-35m-x86_64-linux-gnu.so
+2aaab5d1f000-2aaab5d37000 r-xp 00000000 00:29 98795701747                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5s.cpython-35m-x86_64-linux-gnu.so
+2aaab5d37000-2aaab5f36000 ---p 00018000 00:29 98795701747                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5s.cpython-35m-x86_64-linux-gnu.so
+2aaab5f36000-2aaab5f39000 rw-p 00017000 00:29 98795701747                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5s.cpython-35m-x86_64-linux-gnu.so
+2aaab5f39000-2aaab5f3a000 rw-p 00000000 00:00 0 
+2aaab5f3a000-2aaab5f3c000 rw-p 0007b000 00:29 98795701747                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5s.cpython-35m-x86_64-linux-gnu.so
+2aaab5f3c000-2aaab60bc000 rw-p 00000000 00:00 0 
+2aaab60f8000-2aaabc0f8000 rw-p 00000000 00:00 0 
+2aaabc0f8000-2aaabc0f9000 ---p 00000000 00:00 0 
+2aaabc0f9000-2aaabc2f9000 rw-p 00000000 00:00 0 
+2aaabc2f9000-2aaabc2fa000 ---p 00000000 00:00 0 
+2aaabc2fa000-2aaabc4fa000 rw-p 00000000 00:00 0 
+2aaabc4fa000-2aaabc4fb000 ---p 00000000 00:00 0 
+2aaabc4fb000-2aaabc6fb000 rw-p 00000000 00:00 0 
+2aaabc6fb000-2aaabe6fb000 rw-p 00000000 00:00 0 
+2aaabe6fb000-2aaabe6fc000 ---p 00000000 00:00 0 
+2aaabe6fc000-2aaabe8fc000 rw-p 00000000 00:00 0 
+2aaabe8fc000-2aaac08fc000 rw-p 00000000 00:00 0 
+2aaac08fc000-2aaac08fd000 ---p 00000000 00:00 0 
+2aaac08fd000-2aaac0afd000 rw-p 00000000 00:00 0 
+2aaac0afd000-2aaac6afd000 rw-p 00000000 00:00 0 
+2aaac6afd000-2aaac6afe000 ---p 00000000 00:00 0 
+2aaac6afe000-2aaac6cfe000 rw-p 00000000 00:00 0 
+2aaac6cfe000-2aaac8cfe000 rw-p 00000000 00:00 0 
+2aaac8cfe000-2aaac8cff000 ---p 00000000 00:00 0 
+2aaac8cff000-2aaac8eff000 rw-p 00000000 00:00 0 
+2aaac8eff000-2aaacaeff000 rw-p 00000000 00:00 0 
+2aaacaeff000-2aaacaf00000 ---p 00000000 00:00 0 
+2aaacaf00000-2aaacb100000 rw-p 00000000 00:00 0 
+2aaacb100000-2aaacd100000 rw-p 00000000 00:00 0 
+2aaacd100000-2aaacd101000 ---p 00000000 00:00 0 
+2aaacd101000-2aaacd301000 rw-p 00000000 00:00 0 
+2aaacd301000-2aaacf301000 rw-p 00000000 00:00 0 
+2aaacf301000-2aaacf302000 ---p 00000000 00:00 0 
+2aaacf302000-2aaacf502000 rw-p 00000000 00:00 0 
+2aaacf502000-2aaad1502000 rw-p 00000000 00:00 0 
+2aaad1502000-2aaad3502000 rw-p 00000000 00:00 0 
+2aaad3502000-2aaad3503000 ---p 00000000 00:00 0 
+2aaad3503000-2aaad3703000 rw-p 00000000 00:00 0 
+2aaad3703000-2aaad3704000 ---p 00000000 00:00 0 
+2aaad3704000-2aaad3904000 rw-p 00000000 00:00 0 
+2aaad3904000-2aaad5904000 rw-p 00000000 00:00 0 
+2aaad5904000-2aaad5905000 ---p 00000000 00:00 0 
+2aaad5905000-2aaad5b05000 rw-p 00000000 00:00 0 
+2aaad5b05000-2aaad5b06000 ---p 00000000 00:00 0 
+2aaad5b06000-2aaad5d06000 rw-p 00000000 00:00 0 
+2aaad5d06000-2aaad7d06000 rw-p 00000000 00:00 0 
+2aaad7d06000-2aaad7d07000 ---p 00000000 00:00 0 
+2aaad7d07000-2aaad7f07000 rw-p 00000000 00:00 0 
+2aaad7f07000-2aaad9f07000 rw-p 00000000 00:00 0 
+2aaad9f07000-2aaad9f08000 ---p 00000000 00:00 0 
+2aaad9f08000-2aaada108000 rw-p 00000000 00:00 0                          [stack:9752]
+2aaada108000-2aaada109000 ---p 00000000 00:00 0 
+2aaada109000-2aaada309000 rw-p 00000000 00:00 0                          [stack:9751]
+2aaada309000-2aaada30a000 ---p 00000000 00:00 0 
+2aaada30a000-2aaada50a000 rw-p 00000000 00:00 0                          [stack:9749]
+2aaada50a000-2aaada50b000 ---p 00000000 00:00 0 
+2aaada50b000-2aaada70b000 rw-p 00000000 00:00 0                          [stack:9748]
+2aaada70b000-2aaadc70b000 rw-p 00000000 00:00 0 
+2aaadc70b000-2aaade70b000 rw-p 00000000 00:00 0 
+2aaade70b000-2aaae270b000 rw-p 00000000 00:00 0 
+2aaae270b000-2aaae470b000 rw-p 00000000 00:00 0 
+2aaae470b000-2aaae474b000 rw-p 00000000 00:00 0 
+2aaae474b000-2aaae475f000 r-xp 00000000 00:29 4302194263                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_datetime.cpython-35m-x86_64-linux-gnu.so
+2aaae475f000-2aaae495e000 ---p 00014000 00:29 4302194263                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_datetime.cpython-35m-x86_64-linux-gnu.so
+2aaae495e000-2aaae495f000 r--p 00013000 00:29 4302194263                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_datetime.cpython-35m-x86_64-linux-gnu.so
+2aaae495f000-2aaae4962000 rw-p 00014000 00:29 4302194263                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_datetime.cpython-35m-x86_64-linux-gnu.so
+2aaae4962000-2aaae6962000 rw-p 00000000 00:00 0 
+2aaae6962000-2aaae6af3000 r-xp 00000000 00:2a 21501591624                /home/usaxena/.local/lib/python3.5/site-packages/numpy/core/umath.cpython-35m-x86_64-linux-gnu.so
+2aaae6af3000-2aaae6cf3000 ---p 00191000 00:2a 21501591624                /home/usaxena/.local/lib/python3.5/site-packages/numpy/core/umath.cpython-35m-x86_64-linux-gnu.so
+2aaae6cf3000-2aaae6cf9000 rw-p 00191000 00:2a 21501591624                /home/usaxena/.local/lib/python3.5/site-packages/numpy/core/umath.cpython-35m-x86_64-linux-gnu.so
+2aaae6cf9000-2aaae6d3b000 rw-p 00000000 00:00 0 
+2aaae6d3b000-2aaae6d5c000 r-xp 00000000 00:29 4302194272                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+2aaae6d5c000-2aaae6f5b000 ---p 00021000 00:29 4302194272                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+2aaae6f5b000-2aaae6f5c000 r--p 00020000 00:29 4302194272                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+2aaae6f5c000-2aaae6f60000 rw-p 00021000 00:29 4302194272                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ctypes.cpython-35m-x86_64-linux-gnu.so
+2aaae6f60000-2aaae6fe1000 rw-p 00000000 00:00 0 
+2aaae6fe1000-2aaae6ff8000 r-xp 00000000 00:29 4302194269                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_pickle.cpython-35m-x86_64-linux-gnu.so
+2aaae6ff8000-2aaae71f7000 ---p 00017000 00:29 4302194269                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_pickle.cpython-35m-x86_64-linux-gnu.so
+2aaae71f7000-2aaae71f8000 r--p 00016000 00:29 4302194269                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_pickle.cpython-35m-x86_64-linux-gnu.so
+2aaae71f8000-2aaae71fc000 rw-p 00017000 00:29 4302194269                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_pickle.cpython-35m-x86_64-linux-gnu.so
+2aaae71fc000-2aaae737c000 rw-p 00000000 00:00 0 
+2aaae737c000-2aaae737e000 r-xp 00000000 00:29 4302194215                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/grp.cpython-35m-x86_64-linux-gnu.so
+2aaae737e000-2aaae757d000 ---p 00002000 00:29 4302194215                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/grp.cpython-35m-x86_64-linux-gnu.so
+2aaae757d000-2aaae757e000 r--p 00001000 00:29 4302194215                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/grp.cpython-35m-x86_64-linux-gnu.so
+2aaae757e000-2aaae757f000 rw-p 00002000 00:29 4302194215                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/grp.cpython-35m-x86_64-linux-gnu.so
+2aaae757f000-2aaae7583000 r-xp 00000000 00:29 4302194238                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+2aaae7583000-2aaae7782000 ---p 00004000 00:29 4302194238                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+2aaae7782000-2aaae7783000 r--p 00003000 00:29 4302194238                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+2aaae7783000-2aaae7784000 rw-p 00004000 00:29 4302194238                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bz2.cpython-35m-x86_64-linux-gnu.so
+2aaae7784000-2aaae7793000 r-xp 00000000 08:01 38121420                   /usr/lib64/libbz2.so.1.0.6
+2aaae7793000-2aaae7992000 ---p 0000f000 08:01 38121420                   /usr/lib64/libbz2.so.1.0.6
+2aaae7992000-2aaae7993000 r--p 0000e000 08:01 38121420                   /usr/lib64/libbz2.so.1.0.6
+2aaae7993000-2aaae7994000 rw-p 0000f000 08:01 38121420                   /usr/lib64/libbz2.so.1.0.6
+2aaae7994000-2aaae799b000 r-xp 00000000 00:29 4302194257                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+2aaae799b000-2aaae7b9a000 ---p 00007000 00:29 4302194257                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+2aaae7b9a000-2aaae7b9b000 r--p 00006000 00:29 4302194257                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+2aaae7b9b000-2aaae7b9d000 rw-p 00007000 00:29 4302194257                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_lzma.cpython-35m-x86_64-linux-gnu.so
+2aaae7b9d000-2aaae7bc2000 r-xp 00000000 08:01 38330421                   /usr/lib64/liblzma.so.5.2.2
+2aaae7bc2000-2aaae7dc1000 ---p 00025000 08:01 38330421                   /usr/lib64/liblzma.so.5.2.2
+2aaae7dc1000-2aaae7dc2000 r--p 00024000 08:01 38330421                   /usr/lib64/liblzma.so.5.2.2
+2aaae7dc2000-2aaae7dc3000 rw-p 00025000 08:01 38330421                   /usr/lib64/liblzma.so.5.2.2
+2aaae7dc3000-2aaae7e03000 rw-p 00000000 00:00 0 
+2aaae7e03000-2aaae7e08000 r-xp 00000000 00:29 4302194234                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+2aaae7e08000-2aaae8007000 ---p 00005000 00:29 4302194234                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+2aaae8007000-2aaae8008000 r--p 00004000 00:29 4302194234                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+2aaae8008000-2aaae8009000 rw-p 00005000 00:29 4302194234                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_hashlib.cpython-35m-x86_64-linux-gnu.so
+2aaae8009000-2aaae806d000 r-xp 00000000 08:01 38330379                   /usr/lib64/libssl.so.1.0.1e
+2aaae806d000-2aaae826c000 ---p 00064000 08:01 38330379                   /usr/lib64/libssl.so.1.0.1e
+2aaae826c000-2aaae8270000 r--p 00063000 08:01 38330379                   /usr/lib64/libssl.so.1.0.1e
+2aaae8270000-2aaae8277000 rw-p 00067000 08:01 38330379                   /usr/lib64/libssl.so.1.0.1e
+2aaae8277000-2aaae8437000 r-xp 00000000 08:01 38069687                   /usr/lib64/libcrypto.so.1.0.1e
+2aaae8437000-2aaae8637000 ---p 001c0000 08:01 38069687                   /usr/lib64/libcrypto.so.1.0.1e
+2aaae8637000-2aaae8651000 r--p 001c0000 08:01 38069687                   /usr/lib64/libcrypto.so.1.0.1e
+2aaae8651000-2aaae865d000 rw-p 001da000 08:01 38069687                   /usr/lib64/libcrypto.so.1.0.1e
+2aaae865d000-2aaae8661000 rw-p 00000000 00:00 0 
+2aaae8661000-2aaae86ac000 r-xp 00000000 08:01 38257986                   /usr/lib64/libgssapi_krb5.so.2.2
+2aaae86ac000-2aaae88ac000 ---p 0004b000 08:01 38257986                   /usr/lib64/libgssapi_krb5.so.2.2
+2aaae88ac000-2aaae88ad000 r--p 0004b000 08:01 38257986                   /usr/lib64/libgssapi_krb5.so.2.2
+2aaae88ad000-2aaae88af000 rw-p 0004c000 08:01 38257986                   /usr/lib64/libgssapi_krb5.so.2.2
+2aaae88af000-2aaae8985000 r-xp 00000000 08:01 38330411                   /usr/lib64/libkrb5.so.3.3
+2aaae8985000-2aaae8b85000 ---p 000d6000 08:01 38330411                   /usr/lib64/libkrb5.so.3.3
+2aaae8b85000-2aaae8b93000 r--p 000d6000 08:01 38330411                   /usr/lib64/libkrb5.so.3.3
+2aaae8b93000-2aaae8b96000 rw-p 000e4000 08:01 38330411                   /usr/lib64/libkrb5.so.3.3
+2aaae8b96000-2aaae8b99000 r-xp 00000000 08:01 38089628                   /usr/lib64/libcom_err.so.2.1
+2aaae8b99000-2aaae8d98000 ---p 00003000 08:01 38089628                   /usr/lib64/libcom_err.so.2.1
+2aaae8d98000-2aaae8d99000 r--p 00002000 08:01 38089628                   /usr/lib64/libcom_err.so.2.1
+2aaae8d99000-2aaae8d9a000 rw-p 00003000 08:01 38089628                   /usr/lib64/libcom_err.so.2.1
+2aaae8d9a000-2aaae8dc9000 r-xp 00000000 08:01 38330392                   /usr/lib64/libk5crypto.so.3.1
+2aaae8dc9000-2aaae8fc8000 ---p 0002f000 08:01 38330392                   /usr/lib64/libk5crypto.so.3.1
+2aaae8fc8000-2aaae8fca000 r--p 0002e000 08:01 38330392                   /usr/lib64/libk5crypto.so.3.1
+2aaae8fca000-2aaae8fcb000 rw-p 00030000 08:01 38330392                   /usr/lib64/libk5crypto.so.3.1
+2aaae8fcb000-2aaae8fcc000 rw-p 00000000 00:00 0 
+2aaae8fcc000-2aaae8fe1000 r-xp 00000000 08:01 38655463                   /usr/lib64/libz.so.1.2.7
+2aaae8fe1000-2aaae91e0000 ---p 00015000 08:01 38655463                   /usr/lib64/libz.so.1.2.7
+2aaae91e0000-2aaae91e1000 r--p 00014000 08:01 38655463                   /usr/lib64/libz.so.1.2.7
+2aaae91e1000-2aaae91e2000 rw-p 00015000 08:01 38655463                   /usr/lib64/libz.so.1.2.7
+2aaae91e2000-2aaae91ef000 r-xp 00000000 08:01 38330412                   /usr/lib64/libkrb5support.so.0.1
+2aaae91ef000-2aaae93ef000 ---p 0000d000 08:01 38330412                   /usr/lib64/libkrb5support.so.0.1
+2aaae93ef000-2aaae93f0000 r--p 0000d000 08:01 38330412                   /usr/lib64/libkrb5support.so.0.1
+2aaae93f0000-2aaae93f1000 rw-p 0000e000 08:01 38330412                   /usr/lib64/libkrb5support.so.0.1
+2aaae93f1000-2aaae93f4000 r-xp 00000000 08:01 38367972                   /usr/lib64/libkeyutils.so.1.5
+2aaae93f4000-2aaae95f3000 ---p 00003000 08:01 38367972                   /usr/lib64/libkeyutils.so.1.5
+2aaae95f3000-2aaae95f4000 r--p 00002000 08:01 38367972                   /usr/lib64/libkeyutils.so.1.5
+2aaae95f4000-2aaae95f5000 rw-p 00003000 08:01 38367972                   /usr/lib64/libkeyutils.so.1.5
+2aaae95f5000-2aaae960b000 r-xp 00000000 08:01 38579375                   /usr/lib64/libresolv-2.17.so
+2aaae960b000-2aaae980b000 ---p 00016000 08:01 38579375                   /usr/lib64/libresolv-2.17.so
+2aaae980b000-2aaae980c000 r--p 00016000 08:01 38579375                   /usr/lib64/libresolv-2.17.so
+2aaae980c000-2aaae980d000 rw-p 00017000 08:01 38579375                   /usr/lib64/libresolv-2.17.so
+2aaae980d000-2aaae980f000 rw-p 00000000 00:00 0 
+2aaae980f000-2aaae9833000 r-xp 00000000 08:01 38616353                   /usr/lib64/libselinux.so.1
+2aaae9833000-2aaae9a32000 ---p 00024000 08:01 38616353                   /usr/lib64/libselinux.so.1
+2aaae9a32000-2aaae9a33000 r--p 00023000 08:01 38616353                   /usr/lib64/libselinux.so.1
+2aaae9a33000-2aaae9a34000 rw-p 00024000 08:01 38616353                   /usr/lib64/libselinux.so.1
+2aaae9a34000-2aaae9a36000 rw-p 00000000 00:00 0 
+2aaae9a36000-2aaae9a96000 r-xp 00000000 08:01 38579360                   /usr/lib64/libpcre.so.1.2.0
+2aaae9a96000-2aaae9c95000 ---p 00060000 08:01 38579360                   /usr/lib64/libpcre.so.1.2.0
+2aaae9c95000-2aaae9c96000 r--p 0005f000 08:01 38579360                   /usr/lib64/libpcre.so.1.2.0
+2aaae9c96000-2aaae9c97000 rw-p 00060000 08:01 38579360                   /usr/lib64/libpcre.so.1.2.0
+2aaae9c97000-2aaae9c99000 r-xp 00000000 00:29 4302194218                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_random.cpython-35m-x86_64-linux-gnu.so
+2aaae9c99000-2aaae9e99000 ---p 00002000 00:29 4302194218                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_random.cpython-35m-x86_64-linux-gnu.so
+2aaae9e99000-2aaae9e9a000 r--p 00002000 00:29 4302194218                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_random.cpython-35m-x86_64-linux-gnu.so
+2aaae9e9a000-2aaae9e9b000 rw-p 00003000 00:29 4302194218                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_random.cpython-35m-x86_64-linux-gnu.so
+2aaae9e9b000-2aaae9f9b000 rw-p 00000000 00:00 0 
+2aaae9f9c000-2aaae9fa0000 r-xp 00000000 00:2a 103200836213               /home/usaxena/.local/lib/python3.5/site-packages/numpy/linalg/lapack_lite.cpython-35m-x86_64-linux-gnu.so
+2aaae9fa0000-2aaaea1a0000 ---p 00004000 00:2a 103200836213               /home/usaxena/.local/lib/python3.5/site-packages/numpy/linalg/lapack_lite.cpython-35m-x86_64-linux-gnu.so
+2aaaea1a0000-2aaaea1a3000 rw-p 00004000 00:2a 103200836213               /home/usaxena/.local/lib/python3.5/site-packages/numpy/linalg/lapack_lite.cpython-35m-x86_64-linux-gnu.so
+2aaaea1a3000-2aaaea1cc000 r-xp 00000000 00:2a 103200836215               /home/usaxena/.local/lib/python3.5/site-packages/numpy/linalg/_umath_linalg.cpython-35m-x86_64-linux-gnu.so
+2aaaea1cc000-2aaaea3cb000 ---p 00029000 00:2a 103200836215               /home/usaxena/.local/lib/python3.5/site-packages/numpy/linalg/_umath_linalg.cpython-35m-x86_64-linux-gnu.so
+2aaaea3cb000-2aaaea3d0000 rw-p 00028000 00:2a 103200836215               /home/usaxena/.local/lib/python3.5/site-packages/numpy/linalg/_umath_linalg.cpython-35m-x86_64-linux-gnu.so
+2aaaea3d0000-2aaaea410000 rw-p 00000000 00:00 0 
+2aaaea410000-2aaaea45c000 r-xp 00000000 00:29 4302194271                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+2aaaea45c000-2aaaea65b000 ---p 0004c000 00:29 4302194271                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+2aaaea65b000-2aaaea65c000 r--p 0004b000 00:29 4302194271                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+2aaaea65c000-2aaaea665000 rw-p 0004c000 00:29 4302194271                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_decimal.cpython-35m-x86_64-linux-gnu.so
+2aaaea665000-2aaaea66e000 r-xp 00000000 00:2a 94498799914                /home/usaxena/.local/lib/python3.5/site-packages/numpy/fft/fftpack_lite.cpython-35m-x86_64-linux-gnu.so
+2aaaea66e000-2aaaea86d000 ---p 00009000 00:2a 94498799914                /home/usaxena/.local/lib/python3.5/site-packages/numpy/fft/fftpack_lite.cpython-35m-x86_64-linux-gnu.so
+2aaaea86d000-2aaaea86e000 rw-p 00008000 00:2a 94498799914                /home/usaxena/.local/lib/python3.5/site-packages/numpy/fft/fftpack_lite.cpython-35m-x86_64-linux-gnu.so
+2aaaea86e000-2aaaea8ee000 rw-p 00000000 00:00 0 
+2aaaea8ee000-2aaaea9a9000 r-xp 00000000 00:2a 4310518603                 /home/usaxena/.local/lib/python3.5/site-packages/numpy/random/mtrand.cpython-35m-x86_64-linux-gnu.so
+2aaaea9a9000-2aaaeaba9000 ---p 000bb000 00:2a 4310518603                 /home/usaxena/.local/lib/python3.5/site-packages/numpy/random/mtrand.cpython-35m-x86_64-linux-gnu.so
+2aaaeaba9000-2aaaeabce000 rw-p 000bb000 00:2a 4310518603                 /home/usaxena/.local/lib/python3.5/site-packages/numpy/random/mtrand.cpython-35m-x86_64-linux-gnu.so
+2aaaeabce000-2aaaeac10000 rw-p 00000000 00:00 0 
+2aaaeac10000-2aaaeac11000 r-xp 00000000 00:2a 13079648073                /home/usaxena/.local/lib/python3.5/site-packages/torch/_nvrtc.cpython-35m-x86_64-linux-gnu.so
+2aaaeac11000-2aaaeae10000 ---p 00001000 00:2a 13079648073                /home/usaxena/.local/lib/python3.5/site-packages/torch/_nvrtc.cpython-35m-x86_64-linux-gnu.so
+2aaaeae10000-2aaaeae11000 rw-p 00000000 00:2a 13079648073                /home/usaxena/.local/lib/python3.5/site-packages/torch/_nvrtc.cpython-35m-x86_64-linux-gnu.so
+2aaaeae11000-2aaaeae12000 rw-p 00005000 00:2a 13079648073                /home/usaxena/.local/lib/python3.5/site-packages/torch/_nvrtc.cpython-35m-x86_64-linux-gnu.so
+2aaaeae12000-2aaaeb4e0000 r-xp 00000000 08:01 5106723                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libcuda.so.375.20
+2aaaeb4e0000-2aaaeb6e0000 ---p 006ce000 08:01 5106723                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libcuda.so.375.20
+2aaaeb6e0000-2aaaeb7fb000 rw-p 006ce000 08:01 5106723                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libcuda.so.375.20
+2aaaeb7fb000-2aaaeb808000 rw-p 00000000 00:00 0 
+2aaaeb808000-2aaaec826000 r-xp 00000000 00:2a 77378407566                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvrtc-56d4825a.so.8.0.61
+2aaaec826000-2aaaeca25000 ---p 0101e000 00:2a 77378407566                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvrtc-56d4825a.so.8.0.61
+2aaaeca25000-2aaaecbb0000 rw-p 0101d000 00:2a 77378407566                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvrtc-56d4825a.so.8.0.61
+2aaaecbb0000-2aaaecc25000 rw-p 00000000 00:00 0 
+2aaaecc25000-2aaaecc26000 rw-p 011a8000 00:2a 77378407566                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvrtc-56d4825a.so.8.0.61
+2aaaecc26000-2aaaecc2d000 r-xp 00000000 08:01 38579390                   /usr/lib64/librt-2.17.so
+2aaaecc2d000-2aaaece2c000 ---p 00007000 08:01 38579390                   /usr/lib64/librt-2.17.so
+2aaaece2c000-2aaaece2d000 r--p 00006000 08:01 38579390                   /usr/lib64/librt-2.17.so
+2aaaece2d000-2aaaece2e000 rw-p 00007000 08:01 38579390                   /usr/lib64/librt-2.17.so
+2aaaece2e000-2aaaece70000 r-xp 00000000 08:01 5106729                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libnvidia-fatbinaryloader.so.375.20
+2aaaece70000-2aaaed06f000 ---p 00042000 08:01 5106729                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libnvidia-fatbinaryloader.so.375.20
+2aaaed06f000-2aaaed079000 rw-p 00041000 08:01 5106729                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libnvidia-fatbinaryloader.so.375.20
+2aaaed079000-2aaaed07a000 rw-p 00000000 00:00 0 
+2aaaed07a000-2aaaee6e3000 r-xp 00000000 00:2a 13079648065                /home/usaxena/.local/lib/python3.5/site-packages/torch/_C.cpython-35m-x86_64-linux-gnu.so
+2aaaee6e3000-2aaaee8e3000 ---p 01669000 00:2a 13079648065                /home/usaxena/.local/lib/python3.5/site-packages/torch/_C.cpython-35m-x86_64-linux-gnu.so
+2aaaee8e3000-2aaaee94b000 rw-p 01669000 00:2a 13079648065                /home/usaxena/.local/lib/python3.5/site-packages/torch/_C.cpython-35m-x86_64-linux-gnu.so
+2aaaee94b000-2aaaee97b000 rw-p 00000000 00:00 0 
+2aaaee97b000-2aaaeed9b000 rw-p 0a8c5000 00:2a 13079648065                /home/usaxena/.local/lib/python3.5/site-packages/torch/_C.cpython-35m-x86_64-linux-gnu.so
+2aaaeed9b000-2aaaeee1c000 r-xp 00000000 00:2a 77378408322                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libshm.so
+2aaaeee1c000-2aaaef01b000 ---p 00081000 00:2a 77378408322                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libshm.so
+2aaaef01b000-2aaaef021000 rw-p 00080000 00:2a 77378408322                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libshm.so
+2aaaef021000-2aaaef035000 rw-p 00000000 00:00 0 
+2aaaef035000-2aaaef037000 rw-p 000ba000 00:2a 77378408322                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libshm.so
+2aaaef037000-2aaaef099000 r-xp 00000000 00:2a 77378407543                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudart-5d6d23a3.so.8.0.61
+2aaaef099000-2aaaef299000 ---p 00062000 00:2a 77378407543                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudart-5d6d23a3.so.8.0.61
+2aaaef299000-2aaaef29c000 rw-p 00062000 00:2a 77378407543                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudart-5d6d23a3.so.8.0.61
+2aaaef29c000-2aaaef29d000 rw-p 00000000 00:00 0 
+2aaaef29d000-2aaaef29f000 rw-p 00066000 00:2a 77378407543                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudart-5d6d23a3.so.8.0.61
+2aaaef29f000-2aaaef2a7000 r-xp 00000000 00:2a 77378407533                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvToolsExt-422e3301.so.1
+2aaaef2a7000-2aaaef4a7000 ---p 00008000 00:2a 77378407533                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvToolsExt-422e3301.so.1
+2aaaef4a7000-2aaaef4a8000 rw-p 00008000 00:2a 77378407533                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvToolsExt-422e3301.so.1
+2aaaef4a8000-2aaaef4a9000 rw-p 0000a000 00:2a 77378407533                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnvToolsExt-422e3301.so.1
+2aaaef4a9000-2aaafc391000 r-xp 00000000 00:2a 77378407567                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudnn-a2b758a6.so.7.0.3
+2aaafc391000-2aaafc590000 ---p 0cee8000 00:2a 77378407567                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudnn-a2b758a6.so.7.0.3
+2aaafc590000-2aaafc5c9000 rw-p 0cee7000 00:2a 77378407567                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudnn-a2b758a6.so.7.0.3
+2aaafc5c9000-2aaafc613000 rw-p 00000000 00:00 0 
+2aaafc613000-2aaafc615000 rw-p 0cf21000 00:2a 77378407567                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcudnn-a2b758a6.so.7.0.3
+2aaafc615000-2aaafeece000 r-xp 00000000 00:2a 77378408320                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTH.so.1
+2aaafeece000-2aaaff0ce000 ---p 028b9000 00:2a 77378408320                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTH.so.1
+2aaaff0ce000-2aaaff0ed000 rw-p 028b9000 00:2a 77378408320                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTH.so.1
+2aaaff0ed000-2aaaff135000 rw-p 00000000 00:00 0 
+2aaaff135000-2aaaff153000 rw-p 029bc000 00:2a 77378408320                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTH.so.1
+2aaaff153000-2aaaff17f000 r-xp 00000000 00:2a 77378407537                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHS.so.1
+2aaaff17f000-2aaaff37f000 ---p 0002c000 00:2a 77378407537                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHS.so.1
+2aaaff37f000-2aaaff380000 rw-p 0002c000 00:2a 77378407537                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHS.so.1
+2aaaff380000-2aaaff384000 rw-p 00035000 00:2a 77378407537                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHS.so.1
+2aaaff384000-2aaaff4c1000 r-xp 00000000 00:2a 77378407532                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHNN.so.1
+2aaaff4c1000-2aaaff6c0000 ---p 0013d000 00:2a 77378407532                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHNN.so.1
+2aaaff6c0000-2aaaff6c1000 rw-p 0013c000 00:2a 77378407532                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHNN.so.1
+2aaaff6c1000-2aaaff6cd000 rw-p 0014d000 00:2a 77378407532                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHNN.so.1
+2aaaff6cd000-2aaaffc03000 r-xp 00000000 00:2a 77378407536                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libATen.so.1
+2aaaffc03000-2aaaffe03000 ---p 00536000 00:2a 77378407536                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libATen.so.1
+2aaaffe03000-2aaaffe40000 rw-p 00536000 00:2a 77378407536                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libATen.so.1
+2aaaffe40000-2aaaffe54000 rw-p 00000000 00:00 0 
+2aaaffe54000-2aaafff62000 rw-p 0067d000 00:2a 77378407536                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libATen.so.1
+2aaafff62000-2aab1326f000 r-xp 00000000 00:2a 77378407534                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHC.so.1
+2aab1326f000-2aab1346f000 ---p 1330d000 00:2a 77378407534                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHC.so.1
+2aab1346f000-2aab134e1000 rw-p 1330d000 00:2a 77378407534                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHC.so.1
+2aab134e1000-2aab135d9000 rw-p 00000000 00:00 0 
+2aab135d9000-2aab14ac7000 rw-p 141b2000 00:2a 77378407534                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHC.so.1
+2aab14ac7000-2aab14c93000 r-xp 00000000 00:2a 77378407541                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCS.so.1
+2aab14c93000-2aab14e93000 ---p 001cc000 00:2a 77378407541                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCS.so.1
+2aab14e93000-2aab14e9a000 rw-p 001cc000 00:2a 77378407541                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCS.so.1
+2aab14e9a000-2aab14eaf000 rw-p 00000000 00:00 0 
+2aab14eaf000-2aab14ecb000 rw-p 00232000 00:2a 77378407541                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCS.so.1
+2aab14ecb000-2aab1986b000 r-xp 00000000 00:2a 77575484125                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCUNN.so.1
+2aab1986b000-2aab19a6a000 ---p 049a0000 00:2a 77575484125                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCUNN.so.1
+2aab19a6a000-2aab19a80000 rw-p 0499f000 00:2a 77575484125                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCUNN.so.1
+2aab19a80000-2aab19ac7000 rw-p 00000000 00:00 0 
+2aab19ac7000-2aab19da6000 rw-p 04d49000 00:2a 77575484125                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libTHCUNN.so.1
+2aab19da6000-2aab1c87e000 r-xp 00000000 00:2a 77378407542                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnccl.so.1
+2aab1c87e000-2aab1ca7e000 ---p 02ad8000 00:2a 77378407542                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnccl.so.1
+2aab1ca7e000-2aab1ca7f000 rw-p 02ad8000 00:2a 77378407542                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnccl.so.1
+2aab1ca7f000-2aab1ca81000 rw-p 02ae4000 00:2a 77378407542                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libnccl.so.1
+2aab1ca81000-2aab1ca96000 r-xp 00000000 08:01 38176527                   /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2aab1ca96000-2aab1cc95000 ---p 00015000 08:01 38176527                   /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2aab1cc95000-2aab1cc96000 r--p 00014000 08:01 38176527                   /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2aab1cc96000-2aab1cc97000 rw-p 00015000 08:01 38176527                   /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2aab1cc97000-2aab1cd80000 r-xp 00000000 08:01 38616372                   /usr/lib64/libstdc++.so.6.0.19
+2aab1cd80000-2aab1cf80000 ---p 000e9000 08:01 38616372                   /usr/lib64/libstdc++.so.6.0.19
+2aab1cf80000-2aab1cf89000 r--p 000e9000 08:01 38616372                   /usr/lib64/libstdc++.so.6.0.19
+2aab1cf89000-2aab1cf8b000 rw-p 000f2000 08:01 38616372                   /usr/lib64/libstdc++.so.6.0.19
+2aab1cf8b000-2aab1cfa0000 rw-p 00000000 00:00 0 
+2aab1cfa0000-2aab1cfb5000 r-xp 00000000 00:2a 77378407565                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libgomp-ae56ecdc.so.1
+2aab1cfb5000-2aab1d1b4000 ---p 00015000 00:2a 77378407565                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libgomp-ae56ecdc.so.1
+2aab1d1b4000-2aab1d1b7000 rw-p 00014000 00:2a 77378407565                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libgomp-ae56ecdc.so.1
+2aab1d1b7000-2aab1ffcf000 r-xp 00000000 00:2a 77378408321                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcublas-e78c880d.so.8.0.88
+2aab1ffcf000-2aab201cf000 ---p 02e18000 00:2a 77378408321                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcublas-e78c880d.so.8.0.88
+2aab201cf000-2aab201ed000 rw-p 02e18000 00:2a 77378408321                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcublas-e78c880d.so.8.0.88
+2aab201ed000-2aab201fc000 rw-p 00000000 00:00 0 
+2aab201fc000-2aab201ff000 rw-p 02e36000 00:2a 77378408321                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcublas-e78c880d.so.8.0.88
+2aab201ff000-2aab2269a000 r-xp 00000000 00:2a 77378407571                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcurand-3d68c345.so.8.0.61
+2aab2269a000-2aab2289a000 ---p 0249b000 00:2a 77378407571                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcurand-3d68c345.so.8.0.61
+2aab2289a000-2aab23c6b000 rw-p 0249b000 00:2a 77378407571                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcurand-3d68c345.so.8.0.61
+2aab23c6b000-2aab24175000 rw-p 00000000 00:00 0 
+2aab24175000-2aab24176000 rw-p 0386d000 00:2a 77378407571                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcurand-3d68c345.so.8.0.61
+2aab24176000-2aab26a67000 r-xp 00000000 00:2a 77378407535                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcusparse-94011b8d.so.8.0.61
+2aab26a67000-2aab26c67000 ---p 028f1000 00:2a 77378407535                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcusparse-94011b8d.so.8.0.61
+2aab26c67000-2aab26c80000 rw-p 028f1000 00:2a 77378407535                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcusparse-94011b8d.so.8.0.61
+2aab26c80000-2aab26c91000 rw-p 00000000 00:00 0 
+2aab26c91000-2aab26c96000 rw-p 0290b000 00:2a 77378407535                /home/usaxena/.local/lib/python3.5/site-packages/torch/lib/libcusparse-94011b8d.so.8.0.61
+2aab26c96000-2aab26d56000 rw-p 00000000 00:00 0 
+2aab26d56000-2aab26d57000 r-xp 00000000 00:29 4302194212                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+2aab26d57000-2aab26f56000 ---p 00001000 00:29 4302194212                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+2aab26f56000-2aab26f57000 r--p 00000000 00:29 4302194212                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+2aab26f57000-2aab26f58000 rw-p 00001000 00:29 4302194212                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_opcode.cpython-35m-x86_64-linux-gnu.so
+2aab26f58000-2aab26fd8000 rw-p 00000000 00:00 0 
+2aab26fd8000-2aab26fdb000 r-xp 00000000 00:29 4302194226                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_posixsubprocess.cpython-35m-x86_64-linux-gnu.so
+2aab26fdb000-2aab271da000 ---p 00003000 00:29 4302194226                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_posixsubprocess.cpython-35m-x86_64-linux-gnu.so
+2aab271da000-2aab271db000 r--p 00002000 00:29 4302194226                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_posixsubprocess.cpython-35m-x86_64-linux-gnu.so
+2aab271db000-2aab271dc000 rw-p 00003000 00:29 4302194226                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_posixsubprocess.cpython-35m-x86_64-linux-gnu.so
+2aab271dc000-2aab271e1000 r-xp 00000000 00:29 4302194225                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/select.cpython-35m-x86_64-linux-gnu.so
+2aab271e1000-2aab273e0000 ---p 00005000 00:29 4302194225                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/select.cpython-35m-x86_64-linux-gnu.so
+2aab273e0000-2aab273e1000 r--p 00004000 00:29 4302194225                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/select.cpython-35m-x86_64-linux-gnu.so
+2aab273e1000-2aab273e3000 rw-p 00005000 00:29 4302194225                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/select.cpython-35m-x86_64-linux-gnu.so
+2aab273e3000-2aab277a3000 rw-p 00000000 00:00 0 
+2aab277a3000-2aab277a5000 r-xp 00000000 00:29 4302194213                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bisect.cpython-35m-x86_64-linux-gnu.so
+2aab277a5000-2aab279a4000 ---p 00002000 00:29 4302194213                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bisect.cpython-35m-x86_64-linux-gnu.so
+2aab279a4000-2aab279a5000 r--p 00001000 00:29 4302194213                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bisect.cpython-35m-x86_64-linux-gnu.so
+2aab279a5000-2aab279a6000 rw-p 00002000 00:29 4302194213                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_bisect.cpython-35m-x86_64-linux-gnu.so
+2aab279a6000-2aab279b9000 r-xp 00000000 00:29 4302194258                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_socket.cpython-35m-x86_64-linux-gnu.so
+2aab279b9000-2aab27bb8000 ---p 00013000 00:29 4302194258                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_socket.cpython-35m-x86_64-linux-gnu.so
+2aab27bb8000-2aab27bb9000 r--p 00012000 00:29 4302194258                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_socket.cpython-35m-x86_64-linux-gnu.so
+2aab27bb9000-2aab27bbe000 rw-p 00013000 00:29 4302194258                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_socket.cpython-35m-x86_64-linux-gnu.so
+2aab27bbe000-2aab27bc9000 r-xp 00000000 00:29 4302194239                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/array.cpython-35m-x86_64-linux-gnu.so
+2aab27bc9000-2aab27dc8000 ---p 0000b000 00:29 4302194239                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/array.cpython-35m-x86_64-linux-gnu.so
+2aab27dc8000-2aab27dc9000 r--p 0000a000 00:29 4302194239                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/array.cpython-35m-x86_64-linux-gnu.so
+2aab27dc9000-2aab27dcc000 rw-p 0000b000 00:29 4302194239                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/array.cpython-35m-x86_64-linux-gnu.so
+2aab27dcc000-2aab27dd5000 r-xp 00000000 00:29 4302194250                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+2aab27dd5000-2aab27fd5000 ---p 00009000 00:29 4302194250                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+2aab27fd5000-2aab27fd6000 r--p 00009000 00:29 4302194250                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+2aab27fd6000-2aab27fd7000 rw-p 0000a000 00:29 4302194250                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_json.cpython-35m-x86_64-linux-gnu.so
+2aab27fd7000-2aab28017000 rw-p 00000000 00:00 0 
+2aab28017000-2aab28021000 r-xp 00000000 00:29 98795701748                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_errors.cpython-35m-x86_64-linux-gnu.so
+2aab28021000-2aab28221000 ---p 0000a000 00:29 98795701748                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_errors.cpython-35m-x86_64-linux-gnu.so
+2aab28221000-2aab28222000 rw-p 0000a000 00:29 98795701748                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_errors.cpython-35m-x86_64-linux-gnu.so
+2aab28222000-2aab28224000 rw-p 00031000 00:29 98795701748                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_errors.cpython-35m-x86_64-linux-gnu.so
+2aab28224000-2aab284f9000 r-xp 00000000 00:29 25822111827                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5-7f238e4e.so.10.2.1
+2aab284f9000-2aab286f9000 ---p 002d5000 00:29 25822111827                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5-7f238e4e.so.10.2.1
+2aab286f9000-2aab28704000 rw-p 002d5000 00:29 25822111827                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5-7f238e4e.so.10.2.1
+2aab28704000-2aab28706000 rw-p 00000000 00:00 0 
+2aab28706000-2aab28736000 rw-p 0031f000 00:29 25822111827                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5-7f238e4e.so.10.2.1
+2aab28736000-2aab28754000 r-xp 00000000 00:29 25822111828                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5_hl-6491d8e2.so.10.1.1
+2aab28754000-2aab28954000 ---p 0001e000 00:29 25822111828                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5_hl-6491d8e2.so.10.1.1
+2aab28954000-2aab28955000 rw-p 0001e000 00:29 25822111828                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5_hl-6491d8e2.so.10.1.1
+2aab28955000-2aab28956000 rw-p 00000000 00:00 0 
+2aab28956000-2aab28960000 rw-p 00024000 00:29 25822111828                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libhdf5_hl-6491d8e2.so.10.1.1
+2aab28960000-2aab28962000 r-xp 00000000 00:29 25822111829                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libsz-08416a88.so.2.0.1
+2aab28962000-2aab28b61000 ---p 00002000 00:29 25822111829                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libsz-08416a88.so.2.0.1
+2aab28b61000-2aab28b62000 rw-p 00001000 00:29 25822111829                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libsz-08416a88.so.2.0.1
+2aab28b62000-2aab28b64000 rw-p 00006000 00:29 25822111829                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libsz-08416a88.so.2.0.1
+2aab28b64000-2aab28b6b000 r-xp 00000000 00:29 25822111830                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libaec-39ca7337.so.0.0.4
+2aab28b6b000-2aab28d6a000 ---p 00007000 00:29 25822111830                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libaec-39ca7337.so.0.0.4
+2aab28d6a000-2aab28d6b000 rw-p 00006000 00:29 25822111830                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libaec-39ca7337.so.0.0.4
+2aab28d6b000-2aab28d6c000 rw-p 0001a000 00:29 25822111830                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libaec-39ca7337.so.0.0.4
+2aab28d6c000-2aab28d80000 r-xp 00000000 00:29 25822111826                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libz-a147dcb0.so.1.2.3
+2aab28d80000-2aab28f7f000 ---p 00014000 00:29 25822111826                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libz-a147dcb0.so.1.2.3
+2aab28f7f000-2aab28f80000 rw-p 00013000 00:29 25822111826                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libz-a147dcb0.so.1.2.3
+2aab28f80000-2aab28f81000 rw-p 00015000 00:29 25822111826                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/.libs/libz-a147dcb0.so.1.2.3
+2aab28f81000-2aab28f93000 r-xp 00000000 00:29 98795701753                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_conv.cpython-35m-x86_64-linux-gnu.so
+2aab28f93000-2aab29192000 ---p 00012000 00:29 98795701753                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_conv.cpython-35m-x86_64-linux-gnu.so
+2aab29192000-2aab29193000 rw-p 00011000 00:29 98795701753                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_conv.cpython-35m-x86_64-linux-gnu.so
+2aab29193000-2aab29195000 rw-p 00064000 00:29 98795701753                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_conv.cpython-35m-x86_64-linux-gnu.so
+2aab29195000-2aab291a0000 r-xp 00000000 00:29 98795701739                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5r.cpython-35m-x86_64-linux-gnu.so
+2aab291a0000-2aab293a0000 ---p 0000b000 00:29 98795701739                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5r.cpython-35m-x86_64-linux-gnu.so
+2aab293a0000-2aab293a2000 rw-p 0000b000 00:29 98795701739                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5r.cpython-35m-x86_64-linux-gnu.so
+2aab293a2000-2aab293a4000 rw-p 00039000 00:29 98795701739                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5r.cpython-35m-x86_64-linux-gnu.so
+2aab293a4000-2aab293bf000 r-xp 00000000 00:29 98795701740                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_objects.cpython-35m-x86_64-linux-gnu.so
+2aab293bf000-2aab295be000 ---p 0001b000 00:29 98795701740                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_objects.cpython-35m-x86_64-linux-gnu.so
+2aab295be000-2aab295c1000 rw-p 0001a000 00:29 98795701740                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_objects.cpython-35m-x86_64-linux-gnu.so
+2aab295c1000-2aab295c3000 rw-p 00092000 00:29 98795701740                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_objects.cpython-35m-x86_64-linux-gnu.so
+2aab295c3000-2aab295f2000 r-xp 00000000 00:29 98795701741                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/defs.cpython-35m-x86_64-linux-gnu.so
+2aab295f2000-2aab297f2000 ---p 0002f000 00:29 98795701741                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/defs.cpython-35m-x86_64-linux-gnu.so
+2aab297f2000-2aab297f4000 rw-p 0002f000 00:29 98795701741                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/defs.cpython-35m-x86_64-linux-gnu.so
+2aab297f4000-2aab297f8000 rw-p 000c8000 00:29 98795701741                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/defs.cpython-35m-x86_64-linux-gnu.so
+2aab297f8000-2aab2985b000 r-xp 00000000 00:29 98795701742                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5t.cpython-35m-x86_64-linux-gnu.so
+2aab2985b000-2aab29a5a000 ---p 00063000 00:29 98795701742                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5t.cpython-35m-x86_64-linux-gnu.so
+2aab29a5a000-2aab29a63000 rw-p 00062000 00:29 98795701742                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5t.cpython-35m-x86_64-linux-gnu.so
+2aab29a63000-2aab29a65000 rw-p 00000000 00:00 0 
+2aab29a65000-2aab29a67000 rw-p 00360000 00:29 98795701742                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5t.cpython-35m-x86_64-linux-gnu.so
+2aab29a67000-2aab29a70000 r-xp 00000000 00:29 98795701732                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/utils.cpython-35m-x86_64-linux-gnu.so
+2aab29a70000-2aab29c6f000 ---p 00009000 00:29 98795701732                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/utils.cpython-35m-x86_64-linux-gnu.so
+2aab29c6f000-2aab29c70000 rw-p 00008000 00:29 98795701732                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/utils.cpython-35m-x86_64-linux-gnu.so
+2aab29c70000-2aab29c72000 rw-p 0002c000 00:29 98795701732                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/utils.cpython-35m-x86_64-linux-gnu.so
+2aab29c72000-2aab29c85000 r-xp 00000000 00:29 98795701749                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5.cpython-35m-x86_64-linux-gnu.so
+2aab29c85000-2aab29e84000 ---p 00013000 00:29 98795701749                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5.cpython-35m-x86_64-linux-gnu.so
+2aab29e84000-2aab29e86000 rw-p 00012000 00:29 98795701749                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5.cpython-35m-x86_64-linux-gnu.so
+2aab29e86000-2aab29e87000 rw-p 00000000 00:00 0 
+2aab29e87000-2aab29e89000 rw-p 00069000 00:29 98795701749                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5.cpython-35m-x86_64-linux-gnu.so
+2aab29e89000-2aab29eb7000 r-xp 00000000 00:29 98795701752                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5p.cpython-35m-x86_64-linux-gnu.so
+2aab29eb7000-2aab2a0b6000 ---p 0002e000 00:29 98795701752                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5p.cpython-35m-x86_64-linux-gnu.so
+2aab2a0b6000-2aab2a0be000 rw-p 0002d000 00:29 98795701752                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5p.cpython-35m-x86_64-linux-gnu.so
+2aab2a0be000-2aab2a0bf000 rw-p 00000000 00:00 0 
+2aab2a0bf000-2aab2a0c1000 rw-p 001f3000 00:29 98795701752                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5p.cpython-35m-x86_64-linux-gnu.so
+2aab2a0c1000-2aab2a0ca000 r-xp 00000000 00:29 98795701751                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ac.cpython-35m-x86_64-linux-gnu.so
+2aab2a0ca000-2aab2a2ca000 ---p 00009000 00:29 98795701751                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ac.cpython-35m-x86_64-linux-gnu.so
+2aab2a2ca000-2aab2a2cb000 rw-p 00009000 00:29 98795701751                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ac.cpython-35m-x86_64-linux-gnu.so
+2aab2a2cb000-2aab2a2cd000 rw-p 00035000 00:29 98795701751                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ac.cpython-35m-x86_64-linux-gnu.so
+2aab2a2cd000-2aab2a2d5000 r-xp 00000000 00:29 98795701745                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_proxy.cpython-35m-x86_64-linux-gnu.so
+2aab2a2d5000-2aab2a4d5000 ---p 00008000 00:29 98795701745                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_proxy.cpython-35m-x86_64-linux-gnu.so
+2aab2a4d5000-2aab2a4d6000 rw-p 00008000 00:29 98795701745                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_proxy.cpython-35m-x86_64-linux-gnu.so
+2aab2a4d6000-2aab2a4d8000 rw-p 0002c000 00:29 98795701745                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/_proxy.cpython-35m-x86_64-linux-gnu.so
+2aab2a4d8000-2aab2a4ef000 r-xp 00000000 00:29 98795701744                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5d.cpython-35m-x86_64-linux-gnu.so
+2aab2a4ef000-2aab2a6ef000 ---p 00017000 00:29 98795701744                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5d.cpython-35m-x86_64-linux-gnu.so
+2aab2a6ef000-2aab2a6f2000 rw-p 00017000 00:29 98795701744                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5d.cpython-35m-x86_64-linux-gnu.so
+2aab2a6f2000-2aab2a6f4000 rw-p 0007a000 00:29 98795701744                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5d.cpython-35m-x86_64-linux-gnu.so
+2aab2a6f4000-2aab2a701000 r-xp 00000000 00:29 98795701734                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ds.cpython-35m-x86_64-linux-gnu.so
+2aab2a701000-2aab2a901000 ---p 0000d000 00:29 98795701734                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ds.cpython-35m-x86_64-linux-gnu.so
+2aab2a901000-2aab2a903000 rw-p 0000d000 00:29 98795701734                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ds.cpython-35m-x86_64-linux-gnu.so
+2aab2a903000-2aab2a905000 rw-p 00041000 00:29 98795701734                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5ds.cpython-35m-x86_64-linux-gnu.so
+2aab2a905000-2aab2a91c000 r-xp 00000000 00:29 98795701746                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5f.cpython-35m-x86_64-linux-gnu.so
+2aab2a91c000-2aab2ab1c000 ---p 00017000 00:29 98795701746                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5f.cpython-35m-x86_64-linux-gnu.so
+2aab2ab1c000-2aab2ab1f000 rw-p 00017000 00:29 98795701746                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5f.cpython-35m-x86_64-linux-gnu.so
+2aab2ab1f000-2aab2ab20000 rw-p 00000000 00:00 0 
+2aab2ab20000-2aab2ab22000 rw-p 00077000 00:29 98795701746                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5f.cpython-35m-x86_64-linux-gnu.so
+2aab2ab22000-2aab2ab3f000 r-xp 00000000 00:29 98795701733                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5g.cpython-35m-x86_64-linux-gnu.so
+2aab2ab3f000-2aab2ad3f000 ---p 0001d000 00:29 98795701733                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5g.cpython-35m-x86_64-linux-gnu.so
+2aab2ad3f000-2aab2ad42000 rw-p 0001d000 00:29 98795701733                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5g.cpython-35m-x86_64-linux-gnu.so
+2aab2ad42000-2aab2ad43000 rw-p 00000000 00:00 0 
+2aab2ad43000-2aab2ad45000 rw-p 000b2000 00:29 98795701733                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5g.cpython-35m-x86_64-linux-gnu.so
+2aab2ad45000-2aab2ad51000 r-xp 00000000 00:29 98795701731                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5i.cpython-35m-x86_64-linux-gnu.so
+2aab2ad51000-2aab2af50000 ---p 0000c000 00:29 98795701731                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5i.cpython-35m-x86_64-linux-gnu.so
+2aab2af50000-2aab2af52000 rw-p 0000b000 00:29 98795701731                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5i.cpython-35m-x86_64-linux-gnu.so
+2aab2af52000-2aab2af54000 rw-p 0003d000 00:29 98795701731                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5i.cpython-35m-x86_64-linux-gnu.so
+2aab2af54000-2aab2af58000 r-xp 00000000 00:29 98795701735                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5fd.cpython-35m-x86_64-linux-gnu.so
+2aab2af58000-2aab2b158000 ---p 00004000 00:29 98795701735                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5fd.cpython-35m-x86_64-linux-gnu.so
+2aab2b158000-2aab2b159000 rw-p 00004000 00:29 98795701735                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5fd.cpython-35m-x86_64-linux-gnu.so
+2aab2b159000-2aab2b15b000 rw-p 00016000 00:29 98795701735                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5fd.cpython-35m-x86_64-linux-gnu.so
+2aab2b15b000-2aab2b16e000 r-xp 00000000 00:29 98795701738                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5o.cpython-35m-x86_64-linux-gnu.so
+2aab2b16e000-2aab2b36d000 ---p 00013000 00:29 98795701738                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5o.cpython-35m-x86_64-linux-gnu.so
+2aab2b36d000-2aab2b370000 rw-p 00012000 00:29 98795701738                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5o.cpython-35m-x86_64-linux-gnu.so
+2aab2b370000-2aab2b371000 rw-p 00000000 00:00 0 
+2aab2b371000-2aab2b373000 rw-p 00060000 00:29 98795701738                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5o.cpython-35m-x86_64-linux-gnu.so
+2aab2b373000-2aab2b384000 r-xp 00000000 00:29 98795701737                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5l.cpython-35m-x86_64-linux-gnu.so
+2aab2b384000-2aab2b583000 ---p 00011000 00:29 98795701737                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5l.cpython-35m-x86_64-linux-gnu.so
+2aab2b583000-2aab2b586000 rw-p 00010000 00:29 98795701737                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5l.cpython-35m-x86_64-linux-gnu.so
+2aab2b586000-2aab2b588000 rw-p 0005b000 00:29 98795701737                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/h5l.cpython-35m-x86_64-linux-gnu.so
+2aab2b588000-2aab2b58a000 r-xp 00000000 00:29 8595850031                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/__check_build/_check_build.cpython-35m-x86_64-linux-gnu.so
+2aab2b58a000-2aab2b78a000 ---p 00002000 00:29 8595850031                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/__check_build/_check_build.cpython-35m-x86_64-linux-gnu.so
+2aab2b78a000-2aab2b78b000 rw-p 00002000 00:29 8595850031                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/__check_build/_check_build.cpython-35m-x86_64-linux-gnu.so
+2aab2b78b000-2aab2b79a000 r-xp 00000000 00:2a 55853954684                /home/usaxena/.local/lib/python3.5/site-packages/scipy/_lib/_ccallback_c.cpython-35m-x86_64-linux-gnu.so
+2aab2b79a000-2aab2b99a000 ---p 0000f000 00:2a 55853954684                /home/usaxena/.local/lib/python3.5/site-packages/scipy/_lib/_ccallback_c.cpython-35m-x86_64-linux-gnu.so
+2aab2b99a000-2aab2b99c000 rw-p 0000f000 00:2a 55853954684                /home/usaxena/.local/lib/python3.5/site-packages/scipy/_lib/_ccallback_c.cpython-35m-x86_64-linux-gnu.so
+2aab2b99c000-2aab2bd3b000 r-xp 00000000 00:2a 73076118117                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/_sparsetools.cpython-35m-x86_64-linux-gnu.so
+2aab2bd3b000-2aab2bf3a000 ---p 0039f000 00:2a 73076118117                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/_sparsetools.cpython-35m-x86_64-linux-gnu.so
+2aab2bf3a000-2aab2bf40000 rw-p 0039e000 00:2a 73076118117                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/_sparsetools.cpython-35m-x86_64-linux-gnu.so
+2aab2bf40000-2aab2bfaa000 r-xp 00000000 00:2a 73076118126                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/_csparsetools.cpython-35m-x86_64-linux-gnu.so
+2aab2bfaa000-2aab2c1aa000 ---p 0006a000 00:2a 73076118126                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/_csparsetools.cpython-35m-x86_64-linux-gnu.so
+2aab2c1aa000-2aab2c1af000 rw-p 0006a000 00:2a 73076118126                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/_csparsetools.cpython-35m-x86_64-linux-gnu.so
+2aab2c1af000-2aab2c1f0000 rw-p 00000000 00:00 0 
+2aab2c1f0000-2aab2c227000 r-xp 00000000 00:2a 77354084556                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_shortest_path.cpython-35m-x86_64-linux-gnu.so
+2aab2c227000-2aab2c426000 ---p 00037000 00:2a 77354084556                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_shortest_path.cpython-35m-x86_64-linux-gnu.so
+2aab2c426000-2aab2c42d000 rw-p 00036000 00:2a 77354084556                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_shortest_path.cpython-35m-x86_64-linux-gnu.so
+2aab2c42d000-2aab2c44c000 r-xp 00000000 00:2a 77354084558                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_tools.cpython-35m-x86_64-linux-gnu.so
+2aab2c44c000-2aab2c64c000 ---p 0001f000 00:2a 77354084558                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_tools.cpython-35m-x86_64-linux-gnu.so
+2aab2c64c000-2aab2c650000 rw-p 0001f000 00:2a 77354084558                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_tools.cpython-35m-x86_64-linux-gnu.so
+2aab2c650000-2aab2c66c000 r-xp 00000000 00:2a 77354084563                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_traversal.cpython-35m-x86_64-linux-gnu.so
+2aab2c66c000-2aab2c86c000 ---p 0001c000 00:2a 77354084563                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_traversal.cpython-35m-x86_64-linux-gnu.so
+2aab2c86c000-2aab2c870000 rw-p 0001c000 00:2a 77354084563                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_traversal.cpython-35m-x86_64-linux-gnu.so
+2aab2c870000-2aab2c897000 r-xp 00000000 00:2a 77354084554                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_min_spanning_tree.cpython-35m-x86_64-linux-gnu.so
+2aab2c897000-2aab2ca96000 ---p 00027000 00:2a 77354084554                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_min_spanning_tree.cpython-35m-x86_64-linux-gnu.so
+2aab2ca96000-2aab2ca99000 rw-p 00026000 00:2a 77354084554                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_min_spanning_tree.cpython-35m-x86_64-linux-gnu.so
+2aab2ca99000-2aab2ca9a000 rw-p 00000000 00:00 0 
+2aab2ca9a000-2aab2cae1000 r-xp 00000000 00:2a 77354084557                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_reordering.cpython-35m-x86_64-linux-gnu.so
+2aab2cae1000-2aab2cce0000 ---p 00047000 00:2a 77354084557                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_reordering.cpython-35m-x86_64-linux-gnu.so
+2aab2cce0000-2aab2cce5000 rw-p 00046000 00:2a 77354084557                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/csgraph/_reordering.cpython-35m-x86_64-linux-gnu.so
+2aab2cce5000-2aab2cce6000 rw-p 00000000 00:00 0 
+2aab2cce6000-2aab2ccf8000 r-xp 00000000 00:29 8595850016                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/murmurhash.cpython-35m-x86_64-linux-gnu.so
+2aab2ccf8000-2aab2cef8000 ---p 00012000 00:29 8595850016                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/murmurhash.cpython-35m-x86_64-linux-gnu.so
+2aab2cef8000-2aab2cefa000 rw-p 00012000 00:29 8595850016                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/murmurhash.cpython-35m-x86_64-linux-gnu.so
+2aab2cefa000-2aab2cf3a000 rw-p 00000000 00:00 0 
+2aab2cf3a000-2aab2d0cc000 r-xp 00000000 00:2a 21476418608                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+2aab2d0cc000-2aab2d2cb000 ---p 00192000 00:2a 21476418608                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+2aab2d2cb000-2aab2d2d6000 rw-p 00191000 00:2a 21476418608                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+2aab2d2d6000-2aab2d2df000 rw-p 00000000 00:00 0 
+2aab2d2df000-2aab2d2e9000 rw-p 004d9000 00:2a 21476418608                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ufuncs.cpython-35m-x86_64-linux-gnu.so
+2aab2d2e9000-2aab2d307000 r-xp 00000000 00:2a 21476418618                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ufuncs_cxx.cpython-35m-x86_64-linux-gnu.so
+2aab2d307000-2aab2d506000 ---p 0001e000 00:2a 21476418618                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ufuncs_cxx.cpython-35m-x86_64-linux-gnu.so
+2aab2d506000-2aab2d508000 rw-p 0001d000 00:2a 21476418618                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ufuncs_cxx.cpython-35m-x86_64-linux-gnu.so
+2aab2d508000-2aab2d5d1000 r-xp 00000000 00:2a 21476418623                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+2aab2d5d1000-2aab2d7d0000 ---p 000c9000 00:2a 21476418623                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+2aab2d7d0000-2aab2d7d8000 rw-p 000c8000 00:2a 21476418623                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+2aab2d7d8000-2aab2d7da000 rw-p 001c6000 00:2a 21476418623                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/specfun.cpython-35m-x86_64-linux-gnu.so
+2aab2d7da000-2aab2d81a000 rw-p 00000000 00:00 0 
+2aab2d81a000-2aab2d862000 r-xp 00000000 00:2a 17337032                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+2aab2d862000-2aab2da61000 ---p 00048000 00:2a 17337032                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+2aab2da61000-2aab2da7b000 rw-p 00047000 00:2a 17337032                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+2aab2da7b000-2aab2da7e000 rw-p 000e7000 00:2a 17337032                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_fblas.cpython-35m-x86_64-linux-gnu.so
+2aab2da7e000-2aab2db46000 r-xp 00000000 00:2a 17330312                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+2aab2db46000-2aab2dd46000 ---p 000c8000 00:2a 17330312                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+2aab2dd46000-2aab2dd8e000 rw-p 000c8000 00:2a 17330312                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+2aab2dd8e000-2aab2dd94000 rw-p 002cb000 00:2a 17330312                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flapack.cpython-35m-x86_64-linux-gnu.so
+2aab2dd94000-2aab2dda2000 r-xp 00000000 00:2a 17330309                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+2aab2dda2000-2aab2dfa1000 ---p 0000e000 00:2a 17330309                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+2aab2dfa1000-2aab2dfa4000 rw-p 0000d000 00:2a 17330309                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+2aab2dfa4000-2aab2dfa7000 rw-p 00032000 00:2a 17330309                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_flinalg.cpython-35m-x86_64-linux-gnu.so
+2aab2dfa7000-2aab2dfd8000 r-xp 00000000 00:2a 17330291                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_solve_toeplitz.cpython-35m-x86_64-linux-gnu.so
+2aab2dfd8000-2aab2e1d7000 ---p 00031000 00:2a 17330291                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_solve_toeplitz.cpython-35m-x86_64-linux-gnu.so
+2aab2e1d7000-2aab2e1db000 rw-p 00030000 00:2a 17330291                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_solve_toeplitz.cpython-35m-x86_64-linux-gnu.so
+2aab2e1db000-2aab2e21c000 rw-p 00000000 00:00 0 
+2aab2e21c000-2aab2e267000 r-xp 00000000 00:2a 17330298                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_decomp_update.cpython-35m-x86_64-linux-gnu.so
+2aab2e267000-2aab2e466000 ---p 0004b000 00:2a 17330298                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_decomp_update.cpython-35m-x86_64-linux-gnu.so
+2aab2e466000-2aab2e46c000 rw-p 0004a000 00:2a 17330298                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/_decomp_update.cpython-35m-x86_64-linux-gnu.so
+2aab2e46c000-2aab2e46d000 rw-p 00000000 00:00 0 
+2aab2e46d000-2aab2e4a3000 r-xp 00000000 00:2a 17330296                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+2aab2e4a3000-2aab2e6a2000 ---p 00036000 00:2a 17330296                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+2aab2e6a2000-2aab2e6a6000 rw-p 00035000 00:2a 17330296                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+2aab2e6a6000-2aab2e6ac000 rw-p 0011c000 00:2a 17330296                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_blas.cpython-35m-x86_64-linux-gnu.so
+2aab2e6ac000-2aab2e738000 r-xp 00000000 00:2a 17337044                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+2aab2e738000-2aab2e937000 ---p 0008c000 00:2a 17337044                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+2aab2e937000-2aab2e93b000 rw-p 0008b000 00:2a 17337044                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+2aab2e93b000-2aab2e947000 rw-p 001e5000 00:2a 17337044                   /home/usaxena/.local/lib/python3.5/site-packages/scipy/linalg/cython_lapack.cpython-35m-x86_64-linux-gnu.so
+2aab2e947000-2aab2eac8000 rw-p 00000000 00:00 0 
+2aab2eac8000-2aab2eace000 r-xp 00000000 00:2a 21476418624                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_comb.cpython-35m-x86_64-linux-gnu.so
+2aab2eace000-2aab2eccd000 ---p 00006000 00:2a 21476418624                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_comb.cpython-35m-x86_64-linux-gnu.so
+2aab2eccd000-2aab2ecce000 rw-p 00005000 00:2a 21476418624                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_comb.cpython-35m-x86_64-linux-gnu.so
+2aab2ecce000-2aab2ecdf000 r-xp 00000000 00:2a 21476418620                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+2aab2ecdf000-2aab2eedf000 ---p 00011000 00:2a 21476418620                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+2aab2eedf000-2aab2eee1000 rw-p 00011000 00:2a 21476418620                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+2aab2eee1000-2aab2eee5000 rw-p 00058000 00:2a 21476418620                /home/usaxena/.local/lib/python3.5/site-packages/scipy/special/_ellip_harm_2.cpython-35m-x86_64-linux-gnu.so
+2aab2eee5000-2aab2ef0e000 r-xp 00000000 00:2a 8606056873                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+2aab2ef0e000-2aab2f10d000 ---p 00029000 00:2a 8606056873                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+2aab2f10d000-2aab2f10e000 rw-p 00028000 00:2a 8606056873                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+2aab2f10e000-2aab2f10f000 rw-p 00000000 00:00 0 
+2aab2f10f000-2aab2f112000 rw-p 00067000 00:2a 8606056873                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_odepack.cpython-35m-x86_64-linux-gnu.so
+2aab2f112000-2aab2f12d000 r-xp 00000000 00:2a 8606056868                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+2aab2f12d000-2aab2f32d000 ---p 0001b000 00:2a 8606056868                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+2aab2f32d000-2aab2f32e000 rw-p 0001b000 00:2a 8606056868                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+2aab2f32e000-2aab2f331000 rw-p 00055000 00:2a 8606056868                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_quadpack.cpython-35m-x86_64-linux-gnu.so
+2aab2f331000-2aab2f363000 r-xp 00000000 00:2a 8606056886                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+2aab2f363000-2aab2f563000 ---p 00032000 00:2a 8606056886                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+2aab2f563000-2aab2f565000 rw-p 00032000 00:2a 8606056886                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+2aab2f565000-2aab2f566000 rw-p 00000000 00:00 0 
+2aab2f566000-2aab2f569000 rw-p 00084000 00:2a 8606056886                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/vode.cpython-35m-x86_64-linux-gnu.so
+2aab2f569000-2aab2f584000 r-xp 00000000 00:2a 8605992285                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+2aab2f584000-2aab2f784000 ---p 0001b000 00:2a 8605992285                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+2aab2f784000-2aab2f786000 rw-p 0001b000 00:2a 8605992285                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+2aab2f786000-2aab2f788000 rw-p 00047000 00:2a 8605992285                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/_dop.cpython-35m-x86_64-linux-gnu.so
+2aab2f788000-2aab2f7b4000 r-xp 00000000 00:2a 8606056874                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+2aab2f7b4000-2aab2f9b4000 ---p 0002c000 00:2a 8606056874                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+2aab2f9b4000-2aab2f9b6000 rw-p 0002c000 00:2a 8606056874                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+2aab2f9b6000-2aab2f9b9000 rw-p 00074000 00:2a 8606056874                 /home/usaxena/.local/lib/python3.5/site-packages/scipy/integrate/lsoda.cpython-35m-x86_64-linux-gnu.so
+2aab2f9b9000-2aab2f9f0000 r-xp 00000000 00:2a 68723900616                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+2aab2f9f0000-2aab2fbef000 ---p 00037000 00:2a 68723900616                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+2aab2fbef000-2aab2fbf7000 rw-p 00036000 00:2a 68723900616                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+2aab2fbf7000-2aab2fbf9000 rw-p 00000000 00:00 0 
+2aab2fbf9000-2aab2fbfc000 rw-p 000bc000 00:2a 68723900616                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/isolve/_iterative.cpython-35m-x86_64-linux-gnu.so
+2aab2fbfc000-2aab2fc4f000 r-xp 00000000 00:2a 51541832905                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+2aab2fc4f000-2aab2fe4f000 ---p 00053000 00:2a 51541832905                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+2aab2fe4f000-2aab2fe51000 rw-p 00053000 00:2a 51541832905                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+2aab2fe51000-2aab2fe58000 rw-p 0019d000 00:2a 51541832905                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/dsolve/_superlu.cpython-35m-x86_64-linux-gnu.so
+2aab2fe58000-2aab2fee4000 r-xp 00000000 00:2a 21476514506                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+2aab2fee4000-2aab300e3000 ---p 0008c000 00:2a 21476514506                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+2aab300e3000-2aab300ef000 rw-p 0008b000 00:2a 21476514506                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+2aab300ef000-2aab300f0000 rw-p 00000000 00:00 0 
+2aab300f0000-2aab300f5000 rw-p 0017f000 00:2a 21476514506                /home/usaxena/.local/lib/python3.5/site-packages/scipy/sparse/linalg/eigen/arpack/_arpack.cpython-35m-x86_64-linux-gnu.so
+2aab300f5000-2aab300fe000 r-xp 00000000 00:2a 42957689871                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+2aab300fe000-2aab302fe000 ---p 00009000 00:2a 42957689871                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+2aab302fe000-2aab302ff000 rw-p 00009000 00:2a 42957689871                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+2aab302ff000-2aab30301000 rw-p 00022000 00:2a 42957689871                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/minpack2.cpython-35m-x86_64-linux-gnu.so
+2aab30301000-2aab3031f000 r-xp 00000000 00:2a 42957689872                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+2aab3031f000-2aab3051f000 ---p 0001e000 00:2a 42957689872                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+2aab3051f000-2aab30520000 rw-p 0001e000 00:2a 42957689872                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+2aab30520000-2aab30523000 rw-p 00052000 00:2a 42957689872                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_lbfgsb.cpython-35m-x86_64-linux-gnu.so
+2aab30523000-2aab3052f000 r-xp 00000000 00:2a 42957689873                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/moduleTNC.cpython-35m-x86_64-linux-gnu.so
+2aab3052f000-2aab3072e000 ---p 0000c000 00:2a 42957689873                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/moduleTNC.cpython-35m-x86_64-linux-gnu.so
+2aab3072e000-2aab3072f000 rw-p 0000b000 00:2a 42957689873                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/moduleTNC.cpython-35m-x86_64-linux-gnu.so
+2aab3072f000-2aab3074d000 r-xp 00000000 00:2a 42956448585                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+2aab3074d000-2aab3094d000 ---p 0001e000 00:2a 42956448585                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+2aab3094d000-2aab3094e000 rw-p 0001e000 00:2a 42956448585                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+2aab3094e000-2aab30950000 rw-p 00046000 00:2a 42956448585                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_cobyla.cpython-35m-x86_64-linux-gnu.so
+2aab30950000-2aab30967000 r-xp 00000000 00:2a 42957678433                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+2aab30967000-2aab30b67000 ---p 00017000 00:2a 42957678433                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+2aab30b67000-2aab30b68000 rw-p 00017000 00:2a 42957678433                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+2aab30b68000-2aab30b6a000 rw-p 00041000 00:2a 42957678433                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_slsqp.cpython-35m-x86_64-linux-gnu.so
+2aab30b6a000-2aab30baa000 rw-p 00000000 00:00 0 
+2aab30baa000-2aab30bc9000 r-xp 00000000 00:2a 42956448582                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+2aab30bc9000-2aab30dc9000 ---p 0001f000 00:2a 42956448582                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+2aab30dc9000-2aab30dca000 rw-p 0001f000 00:2a 42956448582                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+2aab30dca000-2aab30dcc000 rw-p 0004e000 00:2a 42956448582                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_minpack.cpython-35m-x86_64-linux-gnu.so
+2aab30dcc000-2aab30df2000 r-xp 00000000 00:2a 42956448575                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_group_columns.cpython-35m-x86_64-linux-gnu.so
+2aab30df2000-2aab30ff2000 ---p 00026000 00:2a 42956448575                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_group_columns.cpython-35m-x86_64-linux-gnu.so
+2aab30ff2000-2aab30ff5000 rw-p 00026000 00:2a 42956448575                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_group_columns.cpython-35m-x86_64-linux-gnu.so
+2aab30ff5000-2aab31017000 r-xp 00000000 00:2a 47290929339                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_lsq/givens_elimination.cpython-35m-x86_64-linux-gnu.so
+2aab31017000-2aab31217000 ---p 00022000 00:2a 47290929339                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_lsq/givens_elimination.cpython-35m-x86_64-linux-gnu.so
+2aab31217000-2aab3121a000 rw-p 00022000 00:2a 47290929339                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_lsq/givens_elimination.cpython-35m-x86_64-linux-gnu.so
+2aab3121a000-2aab3125a000 rw-p 00000000 00:00 0 
+2aab3125a000-2aab3125d000 r-xp 00000000 00:2a 42957689874                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_zeros.cpython-35m-x86_64-linux-gnu.so
+2aab3125d000-2aab3145c000 ---p 00003000 00:2a 42957689874                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_zeros.cpython-35m-x86_64-linux-gnu.so
+2aab3145c000-2aab3145d000 rw-p 00002000 00:2a 42957689874                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_zeros.cpython-35m-x86_64-linux-gnu.so
+2aab3145d000-2aab31467000 r-xp 00000000 00:2a 42956448581                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+2aab31467000-2aab31667000 ---p 0000a000 00:2a 42956448581                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+2aab31667000-2aab31668000 rw-p 0000a000 00:2a 42956448581                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+2aab31668000-2aab3166a000 rw-p 00022000 00:2a 42956448581                /home/usaxena/.local/lib/python3.5/site-packages/scipy/optimize/_nnls.cpython-35m-x86_64-linux-gnu.so
+2aab3166a000-2aab316ea000 rw-p 00000000 00:00 0 
+2aab316ea000-2aab3171f000 r-xp 00000000 00:2a 21476418646                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_fitpack.cpython-35m-x86_64-linux-gnu.so
+2aab3171f000-2aab3191f000 ---p 00035000 00:2a 21476418646                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_fitpack.cpython-35m-x86_64-linux-gnu.so
+2aab3191f000-2aab31920000 rw-p 00035000 00:2a 21476418646                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_fitpack.cpython-35m-x86_64-linux-gnu.so
+2aab31920000-2aab31922000 rw-p 00092000 00:2a 21476418646                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_fitpack.cpython-35m-x86_64-linux-gnu.so
+2aab31922000-2aab31981000 r-xp 00000000 00:2a 21476418629                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/dfitpack.cpython-35m-x86_64-linux-gnu.so
+2aab31981000-2aab31b81000 ---p 0005f000 00:2a 21476418629                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/dfitpack.cpython-35m-x86_64-linux-gnu.so
+2aab31b81000-2aab31b88000 rw-p 0005f000 00:2a 21476418629                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/dfitpack.cpython-35m-x86_64-linux-gnu.so
+2aab31b88000-2aab31b8a000 rw-p 0010f000 00:2a 21476418629                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/dfitpack.cpython-35m-x86_64-linux-gnu.so
+2aab31b8a000-2aab31bc3000 r-xp 00000000 00:2a 21476418636                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_bspl.cpython-35m-x86_64-linux-gnu.so
+2aab31bc3000-2aab31dc2000 ---p 00039000 00:2a 21476418636                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_bspl.cpython-35m-x86_64-linux-gnu.so
+2aab31dc2000-2aab31dc7000 rw-p 00038000 00:2a 21476418636                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_bspl.cpython-35m-x86_64-linux-gnu.so
+2aab31dc7000-2aab31dc8000 rw-p 00000000 00:00 0 
+2aab31dc8000-2aab31dcb000 rw-p 0012c000 00:2a 21476418636                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_bspl.cpython-35m-x86_64-linux-gnu.so
+2aab31dcb000-2aab31e1a000 r-xp 00000000 00:2a 21476418638                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_ppoly.cpython-35m-x86_64-linux-gnu.so
+2aab31e1a000-2aab3201a000 ---p 0004f000 00:2a 21476418638                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_ppoly.cpython-35m-x86_64-linux-gnu.so
+2aab3201a000-2aab32020000 rw-p 0004f000 00:2a 21476418638                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_ppoly.cpython-35m-x86_64-linux-gnu.so
+2aab32020000-2aab32021000 rw-p 00000000 00:00 0 
+2aab32021000-2aab32025000 rw-p 0019b000 00:2a 21476418638                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/_ppoly.cpython-35m-x86_64-linux-gnu.so
+2aab32025000-2aab32073000 r-xp 00000000 00:2a 21476418633                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/interpnd.cpython-35m-x86_64-linux-gnu.so
+2aab32073000-2aab32273000 ---p 0004e000 00:2a 21476418633                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/interpnd.cpython-35m-x86_64-linux-gnu.so
+2aab32273000-2aab32278000 rw-p 0004e000 00:2a 21476418633                /home/usaxena/.local/lib/python3.5/site-packages/scipy/interpolate/interpnd.cpython-35m-x86_64-linux-gnu.so
+2aab32278000-2aab322b9000 rw-p 00000000 00:00 0 
+2aab322b9000-2aab32350000 r-xp 00000000 00:2a 68722135543                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/ckdtree.cpython-35m-x86_64-linux-gnu.so
+2aab32350000-2aab32550000 ---p 00097000 00:2a 68722135543                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/ckdtree.cpython-35m-x86_64-linux-gnu.so
+2aab32550000-2aab32558000 rw-p 00097000 00:2a 68722135543                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/ckdtree.cpython-35m-x86_64-linux-gnu.so
+2aab32558000-2aab32635000 r-xp 00000000 00:2a 68722135540                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+2aab32635000-2aab32835000 ---p 000dd000 00:2a 68722135540                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+2aab32835000-2aab3283e000 rw-p 000dd000 00:2a 68722135540                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+2aab3283e000-2aab32840000 rw-p 00000000 00:00 0 
+2aab32840000-2aab3284a000 rw-p 00407000 00:2a 68722135540                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/qhull.cpython-35m-x86_64-linux-gnu.so
+2aab3284a000-2aab3286f000 r-xp 00000000 00:2a 68722135541                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_voronoi.cpython-35m-x86_64-linux-gnu.so
+2aab3286f000-2aab32a6f000 ---p 00025000 00:2a 68722135541                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_voronoi.cpython-35m-x86_64-linux-gnu.so
+2aab32a6f000-2aab32a72000 rw-p 00025000 00:2a 68722135541                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_voronoi.cpython-35m-x86_64-linux-gnu.so
+2aab32a72000-2aab32a88000 r-xp 00000000 00:2a 68722135536                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_distance_wrap.cpython-35m-x86_64-linux-gnu.so
+2aab32a88000-2aab32c88000 ---p 00016000 00:2a 68722135536                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_distance_wrap.cpython-35m-x86_64-linux-gnu.so
+2aab32c88000-2aab32c89000 rw-p 00016000 00:2a 68722135536                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_distance_wrap.cpython-35m-x86_64-linux-gnu.so
+2aab32c89000-2aab32cae000 r-xp 00000000 00:2a 68722135537                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_hausdorff.cpython-35m-x86_64-linux-gnu.so
+2aab32cae000-2aab32eae000 ---p 00025000 00:2a 68722135537                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_hausdorff.cpython-35m-x86_64-linux-gnu.so
+2aab32eae000-2aab32eb1000 rw-p 00025000 00:2a 68722135537                /home/usaxena/.local/lib/python3.5/site-packages/scipy/spatial/_hausdorff.cpython-35m-x86_64-linux-gnu.so
+2aab32eb1000-2aab32ef1000 rw-p 00000000 00:00 0 
+2aab32ef1000-2aab32f64000 r-xp 00000000 00:2a 51592881471                /home/usaxena/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+2aab32f64000-2aab33163000 ---p 00073000 00:2a 51592881471                /home/usaxena/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+2aab33163000-2aab33169000 rw-p 00072000 00:2a 51592881471                /home/usaxena/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+2aab33169000-2aab3316a000 rw-p 00000000 00:00 0 
+2aab3316a000-2aab33179000 rw-p 001d8000 00:2a 51592881471                /home/usaxena/.local/lib/python3.5/site-packages/PIL/_imaging.cpython-35m-x86_64-linux-gnu.so
+2aab33179000-2aab331b3000 r-xp 00000000 00:2a 55865153163                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+2aab331b3000-2aab333b3000 ---p 0003a000 00:2a 55865153163                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+2aab333b3000-2aab333b4000 rw-p 0003a000 00:2a 55865153163                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+2aab333b4000-2aab333b6000 rw-p 00146000 00:2a 55865153163                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libjpeg-bcb94a84.so.9.2.0
+2aab333b6000-2aab333fd000 r-xp 00000000 00:2a 55865241698                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+2aab333fd000-2aab335fd000 ---p 00047000 00:2a 55865241698                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+2aab335fd000-2aab335ff000 rw-p 00047000 00:2a 55865241698                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+2aab335ff000-2aab33601000 rw-p 00052000 00:2a 55865241698                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libopenjp2-59185378.so.2.1.0
+2aab33601000-2aab33672000 r-xp 00000000 00:2a 55845493053                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-fa49d64f.so.5.2.6
+2aab33672000-2aab33872000 ---p 00071000 00:2a 55845493053                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-fa49d64f.so.5.2.6
+2aab33872000-2aab33876000 rw-p 00071000 00:2a 55845493053                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-fa49d64f.so.5.2.6
+2aab33876000-2aab3387e000 rw-p 001a6000 00:2a 55845493053                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/libtiff-fa49d64f.so.5.2.6
+2aab3387e000-2aab338a2000 r-xp 00000000 00:2a 55845493052                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+2aab338a2000-2aab33aa2000 ---p 00024000 00:2a 55845493052                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+2aab33aa2000-2aab33aa3000 rw-p 00024000 00:2a 55845493052                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+2aab33aa3000-2aab33aa4000 rw-p 000d3000 00:2a 55845493052                /home/usaxena/.local/lib/python3.5/site-packages/PIL/.libs/liblzma-f444c404.so.5.2.2
+2aab33aa4000-2aab33b24000 rw-p 00000000 00:00 0 
+2aab33b24000-2aab33b86000 r-xp 00000000 00:2a 73076117253                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/_stats.cpython-35m-x86_64-linux-gnu.so
+2aab33b86000-2aab33d86000 ---p 00062000 00:2a 73076117253                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/_stats.cpython-35m-x86_64-linux-gnu.so
+2aab33d86000-2aab33d8b000 rw-p 00062000 00:2a 73076117253                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/_stats.cpython-35m-x86_64-linux-gnu.so
+2aab33d8b000-2aab33ecc000 rw-p 00000000 00:00 0 
+2aab33ecc000-2aab33ed7000 r-xp 00000000 00:2a 73076117267                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+2aab33ed7000-2aab340d6000 ---p 0000b000 00:2a 73076117267                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+2aab340d6000-2aab340d8000 rw-p 0000a000 00:2a 73076117267                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+2aab340d8000-2aab340da000 rw-p 00026000 00:2a 73076117267                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/statlib.cpython-35m-x86_64-linux-gnu.so
+2aab340da000-2aab340eb000 r-xp 00000000 00:2a 73076117266                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+2aab340eb000-2aab342ea000 ---p 00011000 00:2a 73076117266                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+2aab342ea000-2aab342ec000 rw-p 00010000 00:2a 73076117266                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+2aab342ec000-2aab343e3000 rw-p 00000000 00:00 0 
+2aab343e3000-2aab343e5000 rw-p 00031000 00:2a 73076117266                /home/usaxena/.local/lib/python3.5/site-packages/scipy/stats/mvn.cpython-35m-x86_64-linux-gnu.so
+2aab343e5000-2aab34465000 rw-p 00000000 00:00 0 
+2aab34465000-2aab3446b000 r-xp 00000000 00:29 4302194242                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/zlib.cpython-35m-x86_64-linux-gnu.so
+2aab3446b000-2aab3466a000 ---p 00006000 00:29 4302194242                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/zlib.cpython-35m-x86_64-linux-gnu.so
+2aab3466a000-2aab3466b000 r--p 00005000 00:29 4302194242                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/zlib.cpython-35m-x86_64-linux-gnu.so
+2aab3466b000-2aab3466d000 rw-p 00006000 00:29 4302194242                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/zlib.cpython-35m-x86_64-linux-gnu.so
+2aab3466d000-2aab346ad000 rw-p 00000000 00:00 0 
+2aab346ad000-2aab346b0000 r-xp 00000000 00:29 4302194254                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_multiprocessing.cpython-35m-x86_64-linux-gnu.so
+2aab346b0000-2aab348af000 ---p 00003000 00:29 4302194254                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_multiprocessing.cpython-35m-x86_64-linux-gnu.so
+2aab348af000-2aab348b0000 r--p 00002000 00:29 4302194254                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_multiprocessing.cpython-35m-x86_64-linux-gnu.so
+2aab348b0000-2aab348b1000 rw-p 00003000 00:29 4302194254                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_multiprocessing.cpython-35m-x86_64-linux-gnu.so
+2aab348b1000-2aab348b6000 r-xp 00000000 00:29 4302194224                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+2aab348b6000-2aab34ab5000 ---p 00005000 00:29 4302194224                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+2aab34ab5000-2aab34ab6000 r--p 00004000 00:29 4302194224                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+2aab34ab6000-2aab34ab7000 rw-p 00005000 00:29 4302194224                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/mmap.cpython-35m-x86_64-linux-gnu.so
+2aab34ab7000-2aab34af7000 rw-p 00000000 00:00 0 
+2aab34af7000-2aab34aff000 r-xp 00000000 00:29 8592271801                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/_logistic_sigmoid.cpython-35m-x86_64-linux-gnu.so
+2aab34aff000-2aab34cfe000 ---p 00008000 00:29 8592271801                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/_logistic_sigmoid.cpython-35m-x86_64-linux-gnu.so
+2aab34cfe000-2aab34cff000 rw-p 00007000 00:29 8592271801                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/_logistic_sigmoid.cpython-35m-x86_64-linux-gnu.so
+2aab34cff000-2aab34d64000 r-xp 00000000 00:29 8592271805                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/sparsefuncs_fast.cpython-35m-x86_64-linux-gnu.so
+2aab34d64000-2aab34f63000 ---p 00065000 00:29 8592271805                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/sparsefuncs_fast.cpython-35m-x86_64-linux-gnu.so
+2aab34f63000-2aab34f68000 rw-p 00064000 00:29 8592271805                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/sparsefuncs_fast.cpython-35m-x86_64-linux-gnu.so
+2aab34f68000-2aab34fa9000 rw-p 00000000 00:00 0 
+2aab34fa9000-2aab34fc0000 r-xp 00000000 00:29 38778262789                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/metrics/cluster/expected_mutual_info_fast.cpython-35m-x86_64-linux-gnu.so
+2aab34fc0000-2aab351c0000 ---p 00017000 00:29 38778262789                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/metrics/cluster/expected_mutual_info_fast.cpython-35m-x86_64-linux-gnu.so
+2aab351c0000-2aab351c2000 rw-p 00017000 00:29 38778262789                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/metrics/cluster/expected_mutual_info_fast.cpython-35m-x86_64-linux-gnu.so
+2aab351c2000-2aab351c5000 r-xp 00000000 00:29 8596909427                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/lgamma.cpython-35m-x86_64-linux-gnu.so
+2aab351c5000-2aab353c5000 ---p 00003000 00:29 8596909427                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/lgamma.cpython-35m-x86_64-linux-gnu.so
+2aab353c5000-2aab353c6000 rw-p 00003000 00:29 8596909427                 /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/utils/lgamma.cpython-35m-x86_64-linux-gnu.so
+2aab353c6000-2aab353f8000 r-xp 00000000 00:29 34373985561                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/metrics/pairwise_fast.cpython-35m-x86_64-linux-gnu.so
+2aab353f8000-2aab355f7000 ---p 00032000 00:29 34373985561                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/metrics/pairwise_fast.cpython-35m-x86_64-linux-gnu.so
+2aab355f7000-2aab355fb000 rw-p 00031000 00:29 34373985561                /cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/sklearn/metrics/pairwise_fast.cpython-35m-x86_64-linux-gnu.so
+2aab355fb000-2aab355fc000 rw-p 00000000 00:00 0 
+2aab355fc000-2aab35603000 r-xp 00000000 00:29 4302194236                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+2aab35603000-2aab35802000 ---p 00007000 00:29 4302194236                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+2aab35802000-2aab35803000 r--p 00006000 00:29 4302194236                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+2aab35803000-2aab35805000 rw-p 00007000 00:29 4302194236                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_csv.cpython-35m-x86_64-linux-gnu.so
+2aab35805000-2aab35885000 rw-p 00000000 00:00 0 
+2aab35885000-2aab3593f000 r-xp 00000000 00:29 4302194253                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/unicodedata.cpython-35m-x86_64-linux-gnu.so
+2aab3593f000-2aab35b3e000 ---p 000ba000 00:29 4302194253                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/unicodedata.cpython-35m-x86_64-linux-gnu.so
+2aab35b3e000-2aab35b3f000 r--p 000b9000 00:29 4302194253                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/unicodedata.cpython-35m-x86_64-linux-gnu.so
+2aab35b3f000-2aab35b58000 rw-p 000ba000 00:29 4302194253                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/unicodedata.cpython-35m-x86_64-linux-gnu.so
+2aab35b58000-2aab35b98000 rw-p 00000000 00:00 0 
+2aab35b98000-2aab35b9d000 r-xp 00000000 00:29 4302194243                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/binascii.cpython-35m-x86_64-linux-gnu.so
+2aab35b9d000-2aab35d9c000 ---p 00005000 00:29 4302194243                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/binascii.cpython-35m-x86_64-linux-gnu.so
+2aab35d9c000-2aab35d9d000 r--p 00004000 00:29 4302194243                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/binascii.cpython-35m-x86_64-linux-gnu.so
+2aab35d9d000-2aab35d9e000 rw-p 00005000 00:29 4302194243                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/binascii.cpython-35m-x86_64-linux-gnu.so
+2aab35d9e000-2aab35e1e000 rw-p 00000000 00:00 0 
+2aab35e1e000-2aab35e34000 r-xp 00000000 00:29 4302194261                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+2aab35e34000-2aab36033000 ---p 00016000 00:29 4302194261                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+2aab36033000-2aab36034000 r--p 00015000 00:29 4302194261                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+2aab36034000-2aab36039000 rw-p 00016000 00:29 4302194261                 /cm/shared/apps/python/3.5.2/lib/python3.5/lib-dynload/_ssl.cpython-35m-x86_64-linux-gnu.so
+2aab36039000-2aab36079000 rw-p 00000000 00:00 0 
+2aab36079000-2aab3619c000 r-xp 00000000 00:2a 73077981669                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslib.cpython-35m-x86_64-linux-gnu.so
+2aab3619c000-2aab3639b000 ---p 00123000 00:2a 73077981669                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslib.cpython-35m-x86_64-linux-gnu.so
+2aab3639b000-2aab363ab000 rw-p 00122000 00:2a 73077981669                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslib.cpython-35m-x86_64-linux-gnu.so
+2aab363ab000-2aab363ef000 rw-p 00000000 00:00 0 
+2aab363ef000-2aab363ff000 r-xp 00000000 00:2a 77575484114                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/timedeltas.cpython-35m-x86_64-linux-gnu.so
+2aab363ff000-2aab365ff000 ---p 00010000 00:2a 77575484114                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/timedeltas.cpython-35m-x86_64-linux-gnu.so
+2aab365ff000-2aab36601000 rw-p 00010000 00:2a 77575484114                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/timedeltas.cpython-35m-x86_64-linux-gnu.so
+2aab36601000-2aab3661c000 r-xp 00000000 00:2a 77575484113                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/timezones.cpython-35m-x86_64-linux-gnu.so
+2aab3661c000-2aab3681b000 ---p 0001b000 00:2a 77575484113                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/timezones.cpython-35m-x86_64-linux-gnu.so
+2aab3681b000-2aab3681d000 rw-p 0001a000 00:2a 77575484113                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/timezones.cpython-35m-x86_64-linux-gnu.so
+2aab3681d000-2aab3681e000 rw-p 00000000 00:00 0 
+2aab3681e000-2aab36860000 r-xp 00000000 00:2a 77575484110                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/parsing.cpython-35m-x86_64-linux-gnu.so
+2aab36860000-2aab36a5f000 ---p 00042000 00:2a 77575484110                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/parsing.cpython-35m-x86_64-linux-gnu.so
+2aab36a5f000-2aab36a65000 rw-p 00041000 00:2a 77575484110                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/parsing.cpython-35m-x86_64-linux-gnu.so
+2aab36a65000-2aab36a66000 rw-p 00000000 00:00 0 
+2aab36a66000-2aab36a87000 r-xp 00000000 00:2a 77575484111                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/fields.cpython-35m-x86_64-linux-gnu.so
+2aab36a87000-2aab36c87000 ---p 00021000 00:2a 77575484111                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/fields.cpython-35m-x86_64-linux-gnu.so
+2aab36c87000-2aab36c89000 rw-p 00021000 00:2a 77575484111                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/fields.cpython-35m-x86_64-linux-gnu.so
+2aab36c89000-2aab36c8a000 rw-p 00000000 00:00 0 
+2aab36c8a000-2aab36d19000 r-xp 00000000 00:2a 73077981675                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/hashtable.cpython-35m-x86_64-linux-gnu.so
+2aab36d19000-2aab36f18000 ---p 0008f000 00:2a 73077981675                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/hashtable.cpython-35m-x86_64-linux-gnu.so
+2aab36f18000-2aab36f20000 rw-p 0008e000 00:2a 73077981675                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/hashtable.cpython-35m-x86_64-linux-gnu.so
+2aab36f20000-2aab36f22000 rw-p 00000000 00:00 0 
+2aab36f22000-2aab37026000 r-xp 00000000 00:2a 73077981678                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/lib.cpython-35m-x86_64-linux-gnu.so
+2aab37026000-2aab37226000 ---p 00104000 00:2a 73077981678                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/lib.cpython-35m-x86_64-linux-gnu.so
+2aab37226000-2aab37236000 rw-p 00104000 00:2a 73077981678                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/lib.cpython-35m-x86_64-linux-gnu.so
+2aab37236000-2aab3723a000 rw-p 00000000 00:00 0 
+2aab3723a000-2aab373d8000 r-xp 00000000 00:2a 73077981680                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/interval.cpython-35m-x86_64-linux-gnu.so
+2aab373d8000-2aab375d8000 ---p 0019e000 00:2a 73077981680                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/interval.cpython-35m-x86_64-linux-gnu.so
+2aab375d8000-2aab375e5000 rw-p 0019e000 00:2a 73077981680                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/interval.cpython-35m-x86_64-linux-gnu.so
+2aab375e5000-2aab37667000 rw-p 00000000 00:00 0 
+2aab37667000-2aab377bf000 r-xp 00000000 00:2a 73077981665                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/algos.cpython-35m-x86_64-linux-gnu.so
+2aab377bf000-2aab379be000 ---p 00158000 00:2a 73077981665                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/algos.cpython-35m-x86_64-linux-gnu.so
+2aab379be000-2aab379ca000 rw-p 00157000 00:2a 73077981665                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/algos.cpython-35m-x86_64-linux-gnu.so
+2aab379ca000-2aab37a4e000 rw-p 00000000 00:00 0 
+2aab37a4e000-2aab37a5c000 r-xp 00000000 00:2a 73077981676                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/properties.cpython-35m-x86_64-linux-gnu.so
+2aab37a5c000-2aab37c5b000 ---p 0000e000 00:2a 73077981676                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/properties.cpython-35m-x86_64-linux-gnu.so
+2aab37c5b000-2aab37c5d000 rw-p 0000d000 00:2a 73077981676                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/properties.cpython-35m-x86_64-linux-gnu.so
+2aab37c5d000-2aab37c6a000 r-xp 00000000 00:2a 73077981672                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/hashing.cpython-35m-x86_64-linux-gnu.so
+2aab37c6a000-2aab37e69000 ---p 0000d000 00:2a 73077981672                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/hashing.cpython-35m-x86_64-linux-gnu.so
+2aab37e69000-2aab37e6b000 rw-p 0000c000 00:2a 73077981672                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/hashing.cpython-35m-x86_64-linux-gnu.so
+2aab37e6b000-2aab37f2b000 rw-p 00000000 00:00 0 
+2aab37f2b000-2aab37f9f000 r-xp 00000000 00:2a 73077981673                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/index.cpython-35m-x86_64-linux-gnu.so
+2aab37f9f000-2aab3819e000 ---p 00074000 00:2a 73077981673                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/index.cpython-35m-x86_64-linux-gnu.so
+2aab3819e000-2aab381a5000 rw-p 00073000 00:2a 73077981673                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/index.cpython-35m-x86_64-linux-gnu.so
+2aab381a5000-2aab381a6000 rw-p 00000000 00:00 0 
+2aab381a6000-2aab383bd000 r-xp 00000000 00:2a 73077981668                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/join.cpython-35m-x86_64-linux-gnu.so
+2aab383bd000-2aab385bd000 ---p 00217000 00:2a 73077981668                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/join.cpython-35m-x86_64-linux-gnu.so
+2aab385bd000-2aab385c6000 rw-p 00217000 00:2a 73077981668                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/join.cpython-35m-x86_64-linux-gnu.so
+2aab385c6000-2aab386c8000 rw-p 00000000 00:00 0 
+2aab386c8000-2aab3870c000 r-xp 00000000 00:2a 77575484116                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/strptime.cpython-35m-x86_64-linux-gnu.so
+2aab3870c000-2aab3890c000 ---p 00044000 00:2a 77575484116                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/strptime.cpython-35m-x86_64-linux-gnu.so
+2aab3890c000-2aab38911000 rw-p 00044000 00:2a 77575484116                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/strptime.cpython-35m-x86_64-linux-gnu.so
+2aab38911000-2aab38953000 rw-p 00000000 00:00 0 
+2aab38953000-2aab38962000 r-xp 00000000 00:2a 77575484112                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/frequencies.cpython-35m-x86_64-linux-gnu.so
+2aab38962000-2aab38b61000 ---p 0000f000 00:2a 77575484112                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/frequencies.cpython-35m-x86_64-linux-gnu.so
+2aab38b61000-2aab38b63000 rw-p 0000e000 00:2a 77575484112                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/tslibs/frequencies.cpython-35m-x86_64-linux-gnu.so
+2aab38b63000-2aab38b64000 rw-p 00000000 00:00 0 
+2aab38b64000-2aab38bc6000 r-xp 00000000 00:2a 73077981674                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/period.cpython-35m-x86_64-linux-gnu.so
+2aab38bc6000-2aab38dc6000 ---p 00062000 00:2a 73077981674                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/period.cpython-35m-x86_64-linux-gnu.so
+2aab38dc6000-2aab38dcd000 rw-p 00062000 00:2a 73077981674                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/period.cpython-35m-x86_64-linux-gnu.so
+2aab38dcd000-2aab38ece000 rw-p 00000000 00:00 0 
+2aab38ece000-2aab38fb6000 r-xp 00000000 00:2a 73077981671                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/sparse.cpython-35m-x86_64-linux-gnu.so
+2aab38fb6000-2aab391b6000 ---p 000e8000 00:2a 73077981671                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/sparse.cpython-35m-x86_64-linux-gnu.so
+2aab391b6000-2aab391bb000 rw-p 000e8000 00:2a 73077981671                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/sparse.cpython-35m-x86_64-linux-gnu.so
+2aab391bb000-2aab392fc000 rw-p 00000000 00:00 0 
+2aab392fc000-2aab393a3000 r-xp 00000000 00:2a 73077981679                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/window.cpython-35m-x86_64-linux-gnu.so
+2aab393a3000-2aab395a2000 ---p 000a7000 00:2a 73077981679                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/window.cpython-35m-x86_64-linux-gnu.so
+2aab395a2000-2aab395aa000 rw-p 000a6000 00:2a 73077981679                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/window.cpython-35m-x86_64-linux-gnu.so
+2aab395aa000-2aab395ec000 rw-p 00000000 00:00 0 
+2aab395ec000-2aab39689000 r-xp 00000000 00:2a 73077981681                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/groupby.cpython-35m-x86_64-linux-gnu.so
+2aab39689000-2aab39889000 ---p 0009d000 00:2a 73077981681                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/groupby.cpython-35m-x86_64-linux-gnu.so
+2aab39889000-2aab3988f000 rw-p 0009d000 00:2a 73077981681                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/groupby.cpython-35m-x86_64-linux-gnu.so
+2aab3988f000-2aab39911000 rw-p 00000000 00:00 0 
+2aab39911000-2aab39928000 r-xp 00000000 00:2a 73077981667                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/reshape.cpython-35m-x86_64-linux-gnu.so
+2aab39928000-2aab39b28000 ---p 00017000 00:2a 73077981667                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/reshape.cpython-35m-x86_64-linux-gnu.so
+2aab39b28000-2aab39b2b000 rw-p 00017000 00:2a 73077981667                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/reshape.cpython-35m-x86_64-linux-gnu.so
+2aab39b2b000-2aab39b6b000 rw-p 00000000 00:00 0 
+2aab39b6b000-2aab39bf2000 r-xp 00000000 00:2a 73077981682                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/parsers.cpython-35m-x86_64-linux-gnu.so
+2aab39bf2000-2aab39df1000 ---p 00087000 00:2a 73077981682                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/parsers.cpython-35m-x86_64-linux-gnu.so
+2aab39df1000-2aab39df8000 rw-p 00086000 00:2a 73077981682                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/parsers.cpython-35m-x86_64-linux-gnu.so
+2aab39df8000-2aab39e3a000 rw-p 00000000 00:00 0 
+2aab39e3a000-2aab39e50000 r-xp 00000000 00:2a 73077981666                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/json.cpython-35m-x86_64-linux-gnu.so
+2aab39e50000-2aab3a050000 ---p 00016000 00:2a 73077981666                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/json.cpython-35m-x86_64-linux-gnu.so
+2aab3a050000-2aab3a051000 rw-p 00016000 00:2a 73077981666                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/json.cpython-35m-x86_64-linux-gnu.so
+2aab3a051000-2aab3a151000 rw-p 00000000 00:00 0 
+2aab3a151000-2aab3a162000 r-xp 00000000 00:2a 17228334447                /home/usaxena/.local/lib/python3.5/site-packages/pandas/io/msgpack/_packer.cpython-35m-x86_64-linux-gnu.so
+2aab3a162000-2aab3a361000 ---p 00011000 00:2a 17228334447                /home/usaxena/.local/lib/python3.5/site-packages/pandas/io/msgpack/_packer.cpython-35m-x86_64-linux-gnu.so
+2aab3a361000-2aab3a363000 rw-p 00010000 00:2a 17228334447                /home/usaxena/.local/lib/python3.5/site-packages/pandas/io/msgpack/_packer.cpython-35m-x86_64-linux-gnu.so
+2aab3a363000-2aab3a379000 r-xp 00000000 00:2a 17228334449                /home/usaxena/.local/lib/python3.5/site-packages/pandas/io/msgpack/_unpacker.cpython-35m-x86_64-linux-gnu.so
+2aab3a379000-2aab3a579000 ---p 00016000 00:2a 17228334449                /home/usaxena/.local/lib/python3.5/site-packages/pandas/io/msgpack/_unpacker.cpython-35m-x86_64-linux-gnu.so
+2aab3a579000-2aab3a57c000 rw-p 00016000 00:2a 17228334449                /home/usaxena/.local/lib/python3.5/site-packages/pandas/io/msgpack/_unpacker.cpython-35m-x86_64-linux-gnu.so
+2aab3a57c000-2aab3a57d000 r-xp 00000000 00:2a 107452556454               /home/usaxena/.local/lib/python3.5/site-packages/pandas/util/_move.cpython-35m-x86_64-linux-gnu.so
+2aab3a57d000-2aab3a77d000 ---p 00001000 00:2a 107452556454               /home/usaxena/.local/lib/python3.5/site-packages/pandas/util/_move.cpython-35m-x86_64-linux-gnu.so
+2aab3a77d000-2aab3a77e000 rw-p 00001000 00:2a 107452556454               /home/usaxena/.local/lib/python3.5/site-packages/pandas/util/_move.cpython-35m-x86_64-linux-gnu.so
+2aab3a77e000-2aab3a790000 r-xp 00000000 00:2a 73077981670                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/testing.cpython-35m-x86_64-linux-gnu.so
+2aab3a790000-2aab3a990000 ---p 00012000 00:2a 73077981670                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/testing.cpython-35m-x86_64-linux-gnu.so
+2aab3a990000-2aab3a992000 rw-p 00012000 00:2a 73077981670                /home/usaxena/.local/lib/python3.5/site-packages/pandas/_libs/testing.cpython-35m-x86_64-linux-gnu.so
+2aab3a992000-2aab3cad2000 rw-p 00000000 00:00 0 
+2aab3cb0b000-2aab3cf93000 rw-p 00000000 00:00 0 
+2aab3d013000-2aab3d053000 rw-p 00000000 00:00 0 
+2aab3d0d3000-2aab3d113000 rw-p 00000000 00:00 0 
+2aab3d113000-2aab3d28b000 r-xp 00000000 00:2a 81701702146                /home/usaxena/.local/lib/python3.5/site-packages/torch/_thnn/_THCUNN.cpython-35m-x86_64-linux-gnu.so
+2aab3d28b000-2aab3d48b000 ---p 00178000 00:2a 81701702146                /home/usaxena/.local/lib/python3.5/site-packages/torch/_thnn/_THCUNN.cpython-35m-x86_64-linux-gnu.so
+2aab3d48b000-2aab3d496000 rw-p 00178000 00:2a 81701702146                /home/usaxena/.local/lib/python3.5/site-packages/torch/_thnn/_THCUNN.cpython-35m-x86_64-linux-gnu.so
+2aab3d496000-2aab3d4aa000 rw-p 00000000 00:00 0 
+2aab3d6ab000-2aab3d7c1000 rw-p 00000000 00:00 0 
+2aab3d96e000-2aab3db1b000 rw-p 00000000 00:00 0 
+2aab3dd07000-2aab3def3000 rw-p 00000000 00:00 0 
+2aab3e091000-2aab8c669000 rw-p 00000000 00:00 0 
+2aab8c669000-2aab8ce33000 r-xp 00000000 08:01 5106738                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libnvidia-ptxjitcompiler.so.375.20
+2aab8ce33000-2aab8d032000 ---p 007ca000 08:01 5106738                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libnvidia-ptxjitcompiler.so.375.20
+2aab8d032000-2aab8d125000 rw-p 007c9000 08:01 5106738                    /cm/local/apps/cuda-driver/libs/375.20/lib64/libnvidia-ptxjitcompiler.so.375.20
+2aab8d125000-2aab8d12e000 rw-p 00000000 00:00 0 
+2aab90000000-2aab90021000 rw-p 00000000 00:00 0 
+2aab90021000-2aab94000000 ---p 00000000 00:00 0 
+2aab94000000-2aab94879000 rw-p 00000000 00:00 0 
+2aab956a8000-2aab964d7000 rw-p 00000000 00:00 0 
+2aab977b2000-2aab98a8d000 rw-p 00000000 00:00 0 
+2aab9c000000-2aab9c021000 rw-p 00000000 00:00 0 
+2aab9c021000-2aaba0000000 ---p 00000000 00:00 0 
+2aaba0000000-2aaba0021000 rw-p 00000000 00:00 0 
+2aaba0021000-2aaba4000000 ---p 00000000 00:00 0 
+2aaba4000000-2aaba4021000 rw-p 00000000 00:00 0 
+2aaba4021000-2aaba8000000 ---p 00000000 00:00 0 
+7ffffffdd000-7ffffffff000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/cm/local/apps/slurm/var/spool/job3501209/slurm_script: line 57:  9640 Aborted                 python -m src.VDCNN --dataset "${dataset}" --test_dataset "${test_dataset}" --model_folder "${model_folder}" --model_save_path "${model_folder}" --depth ${depth} --maxlen 1024 --chunk_size 2048 --batch_size ${batch_size} --test_batch_size ${batch_size} --test_interval ${test_interval} --iterations ${iterations} --lr 0.01 --num_embedding_features 100 --lr_halve_interval ${halving} --seed 1337 --test_only 0 --model_load_path "${model_folder}/best_model.pt" --joint_training True --joint_ratio 0.05 --combined_datasets "${combined_datasets}" --shuffle --gpu
