@@ -45,7 +45,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --test_interval ${test_interval} \
                     --iterations ${iterations} \
                     --lr 0.01 \
-                    --num_embedding_features 100 \
+                    --num_embedding_features 500 \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --test_only 0 \
