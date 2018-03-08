@@ -326,14 +326,14 @@ def test(model, te_data, n_classes, dataset_name):
 def joint_train(opt, logger):
     ## get a mixed dataset
     mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels, \
-    root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels = mix_datasets(opt, logger)
+    root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels, total_classes = mix_datasets(opt, logger)
 
     ## preprocess
     logger.info("  - txt vectorization...")
     n_txt_feats, tr_data, te_data, root_te_data, transfer_te_data = \
         vectorize(opt, mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels,
                   root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels)
-
+    logger.info("n_txt_feats before overriding: ", n_txt_feats)
     n_classes = int(np.max(mixed_data_label) + 1)
     logger.info("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
     ## construct model
@@ -342,7 +342,7 @@ def joint_train(opt, logger):
     if (opt.num_embedding_features != -1):
         n_txt_feats = opt.num_embedding_features
         logger.info("Overriding the number of embedding features to: ", n_txt_feats)
-    model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+    model = VDCNN(n_classes=total_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                   n_fc_neurons=2048, shortcut=opt.shortcut)
 
     if opt.gpu:

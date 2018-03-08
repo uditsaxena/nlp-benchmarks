@@ -115,10 +115,10 @@ def mix_datasets(opt, logger):
     root_dataset = datasets[0]
     transfer_dataset = datasets[1]
 
-    root_tr_data, root_te_data = load_train_test_raw_dataset(root_dataset, logger)
+    root_tr_data, root_te_data, root_n_classes = load_train_test_raw_dataset(root_dataset, logger)
 
-    transfer_tr_data, transfer_te_data = load_train_test_raw_dataset(transfer_dataset, logger)
-
+    transfer_tr_data, transfer_te_data, transfer_n_classes = load_train_test_raw_dataset(transfer_dataset, logger)
+    total_classes = root_n_classes + transfer_n_classes
     logger.info("Both datasets loaded, going to mix ...")
 
     mixed_data_tr_sentences, mixed_data_label, unused_transfer_sentences, unused_transfer_labels = \
@@ -155,7 +155,7 @@ def mix_datasets(opt, logger):
                                                                         len(mixed_data_label)))
 
     return mixed_data_tr_sentences, mixed_data_label, mixed_te_sentences, mixed_te_labels, \
-           root_te_sentences, root_te_labels, updated_te_sentences, updated_te_labels
+           root_te_sentences, root_te_labels, updated_te_sentences, updated_te_labels, total_classes
 
 
 def load_train_test_raw_dataset(dataset_name, logger):
@@ -169,4 +169,4 @@ def load_train_test_raw_dataset(dataset_name, logger):
     tr_data = dataset.load_train_data()
     te_data = dataset.load_test_data()
 
-    return tr_data, te_data
+    return tr_data, te_data, n_classes

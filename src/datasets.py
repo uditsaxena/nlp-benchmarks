@@ -17,7 +17,7 @@ from urllib.error import URLError
 from urllib.error import HTTPError
 
 csv.field_size_limit(sys.maxsize)
-DATA_FOLDER = "../datasets"
+DATA_FOLDER = "datasets"
 
 
 def _progress(count, block_size, total_size):
