@@ -307,7 +307,7 @@ def joint_train(opt, logger):
         test(model, logger, opt, te_data, n_classes, dataset_name)
     else:
         logger.info("Joint training")
-        train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
+        train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_name)
 
         logger.info("After Training: Testing on root dataset only")
         test(model, logger, opt, root_te_data, n_classes, dataset_name)
