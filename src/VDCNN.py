@@ -4,9 +4,6 @@
 @brief:
 """
 
-import argparse
-import os
-
 import numpy as np
 import torch
 import torch.nn as nn
@@ -16,8 +13,10 @@ from torch.nn.init import kaiming_normal, constant
 from src import lib
 from src.dataset_utils import preprocess_data, mix_datasets, vectorize
 
+
 class VDCNN(nn.Module):
-    def __init__(self, n_classes=2, num_embedding=141, embedding_dim=16, depth=9, n_fc_neurons=2048, shortcut=False):
+    def __init__(self, opt, n_classes=2, num_embedding=141, embedding_dim=16, depth=9, n_fc_neurons=2048,
+                 shortcut=False):
         super(VDCNN, self).__init__()
 
         layers = []
@@ -98,6 +97,7 @@ class VDCNN(nn.Module):
 
         return out
 
+
 class BasicConvResBlock(nn.Module):
     def __init__(self, input_dim=128, n_filters=256, kernel_size=3, padding=1, stride=1, shortcut=False,
                  downsample=None):
@@ -132,6 +132,7 @@ class BasicConvResBlock(nn.Module):
 
         return out
 
+
 def predict_from_model(generator, model, gpu=True):
     model.eval()
     y_prob = []
@@ -160,6 +161,7 @@ def batchify(arrays, batch_size=128):
 
     for j in range(0, len(arrays[0]), batch_size):
         yield [x[j: j + batch_size] for x in arrays]
+
 
 def train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_name):
     lr = opt.lr
@@ -251,7 +253,7 @@ def train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_na
             logger.info("new lr: {}".format(lr))
 
 
-def test(model, te_data, n_classes, dataset_name):
+def test(model, logger, opt, te_data, n_classes, dataset_name):
     xte, yte = te_data
     te_gen = batchify([xte, yte], batch_size=opt.batch_size)
     checkpoint = torch.load(opt.model_load_path)
@@ -268,7 +270,8 @@ def test(model, te_data, n_classes, dataset_name):
 def joint_train(opt, logger):
     ## get a mixed dataset
     mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels, \
-    root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels, total_classes = mix_datasets(opt, logger)
+    root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels, total_classes = mix_datasets(opt,
+                                                                                                               logger)
 
     ## preprocess
     logger.info(" Joint Training: Txt vectorization...")
@@ -284,7 +287,7 @@ def joint_train(opt, logger):
     if (opt.num_embedding_features != -1):
         n_txt_feats = opt.num_embedding_features
         logger.info("Overriding the number of embedding features to: ", n_txt_feats)
-    model = VDCNN(n_classes=total_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+    model = VDCNN(opt=opt, n_classes=total_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                   n_fc_neurons=2048, shortcut=opt.shortcut)
 
     if opt.gpu:
@@ -295,25 +298,25 @@ def joint_train(opt, logger):
     dataset_name = "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio)
     if opt.joint_test == 1:
         logger.info("Testing on root dataset only")
-        test(model, root_te_data, n_classes, dataset_name)
+        test(model, logger, opt, root_te_data, n_classes, dataset_name)
     elif opt.joint_test == 2:
         logger.info("Testing on transfer dataset only")
-        test(model, transfer_te_data, n_classes, dataset_name)
+        test(model, logger, opt, transfer_te_data, n_classes, dataset_name)
     elif opt.joint_test == 3:
         logger.info("Testing on both datasets only")
-        test(model, te_data, n_classes, dataset_name)
+        test(model, logger, opt, te_data, n_classes, dataset_name)
     else:
         logger.info("Joint training")
         train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
 
         logger.info("After Training: Testing on root dataset only")
-        test(model, root_te_data, n_classes, dataset_name)
+        test(model, logger, opt, root_te_data, n_classes, dataset_name)
 
         logger.info("After Training: Testing on transfer dataset only")
-        test(model, transfer_te_data, n_classes, dataset_name)
+        test(model, logger, opt, transfer_te_data, n_classes, dataset_name)
 
         logger.info("After Training: Testing on both datasets only")
-        test(model, te_data, n_classes, dataset_name)
+        test(model, logger, opt, te_data, n_classes, dataset_name)
 
 
 ## Use this to transfer weights from pre-trained layers and run a new model
@@ -325,7 +328,7 @@ def transfer_and_train(opt, logger):
     num_previous_classes = opt.num_prev_classes
     num_embeddings = opt.num_embedding_features
 
-    pretrained_model = VDCNN(n_classes=num_previous_classes, num_embedding=num_embeddings, embedding_dim=16,
+    pretrained_model = VDCNN(opt=opt, n_classes=num_previous_classes, num_embedding=num_embeddings, embedding_dim=16,
                              depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
 
     # load the previously trained model
@@ -333,7 +336,7 @@ def transfer_and_train(opt, logger):
     pretrained_model.load_state_dict(checkpoint['model'])
 
     # Construct the new model:
-    new_model = VDCNN(n_classes=n_classes, num_embedding=num_embeddings, embedding_dim=16,
+    new_model = VDCNN(opt=opt, n_classes=n_classes, num_embedding=num_embeddings, embedding_dim=16,
                       depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
 
     new_model = model_load_previous_structure(pretrained_model, new_model, opt.freeze_pre_trained_layers)
@@ -366,6 +369,3 @@ def model_load_previous_structure(old_model, new_model, freeze_pre_trained_layer
     new_model.load_state_dict(new_model_dict)
     # print(list(new_model.parameters()))
     return new_model
-
-
-

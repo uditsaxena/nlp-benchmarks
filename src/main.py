@@ -62,7 +62,6 @@ def get_args():
     return args
 
 
-
 if __name__ == "__main__":
 
     opt = get_args()
@@ -89,9 +88,6 @@ if __name__ == "__main__":
     else:
         logger.info("Simple training")
         tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
-        if opt.test_only == 1:
-            test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
-                                                                                                          test=True)
 
         torch.manual_seed(opt.seed)
         print("Seed for random numbers: ", torch.initial_seed())
@@ -106,11 +102,13 @@ if __name__ == "__main__":
         if opt.gpu:
             model.cuda()
 
-        criterion = get_criterion()
+        criterion = get_criterion(opt)
 
         if opt.test_only == 1:
             logger.info("Testing only")
-            test(model, test_te_data, n_classes)
+            test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = \
+                preprocess_data(opt, logger, test=True)
+            test(model, test_te_data, n_classes, dataset_name)
         else:
             logger.info("Training...")
-            train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)
+            train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_name)
