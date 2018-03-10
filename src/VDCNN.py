@@ -16,126 +16,6 @@ from torch.nn.init import kaiming_normal, constant
 from src import lib
 from src.dataset_utils import preprocess_data, mix_datasets, vectorize
 
-
-def get_args():
-    parser = argparse.ArgumentParser("""
-    Very Deep CNN with optional residual connections (https://arxiv.org/abs/1606.01781)
-    """)
-    parser.add_argument("--dataset", type=str, default='imdb')
-    parser.add_argument("--test_dataset", type=str, default='ng20', help="The dataset to test on")
-    parser.add_argument("--model_folder", type=str, default="models/VDCNN/imdb")
-    parser.add_argument("--model_save_path", type=str, default="models/VDCNN/VDCNN_ag_news_depth@9")
-    parser.add_argument("--depth", type=int, choices=[9, 17, 29, 49], default=9,
-                        help="Depth of the network tested in the paper (9, 17, 29, 49)")
-    parser.add_argument("--maxlen", type=int, default=1024)
-    parser.add_argument('--shortcut', action='store_true', default=False)
-    parser.add_argument('--shuffle', action='store_true', default=False, help="shuffle train and test sets")
-    parser.add_argument("--chunk_size", type=int, default=2048, help="number of examples read from disk")
-    parser.add_argument("--batch_size", type=int, default=128, help="number of example read by the gpu")
-    parser.add_argument("--test_batch_size", type=int, default=512,
-                        help="number of example read by the gpu during test time")
-    parser.add_argument("--iterations", type=int, default=1000)
-    parser.add_argument("--lr", type=float, default=0.01)
-    parser.add_argument("--lr_halve_interval", type=float, default=100,
-                        help="Number of iterations before halving learning rate")
-    parser.add_argument("--class_weights", nargs='+', type=float, default=None)
-    parser.add_argument("--test_interval", type=int, default=50, help="Number of iterations between testing phases")
-    parser.add_argument('--gpu', action='store_true', default=False)
-    parser.add_argument("--seed", type=int, default=1337)
-    parser.add_argument("--last_pooling_layer", type=str, choices=['k-max-pooling', 'max-pooling'],
-                        default='k-max-pooling', help="type of last pooling layer")
-
-    parser.add_argument("--test_only", type=int, default=0, help="If you want to test only")
-    parser.add_argument("--model_load_path", type=str, default="models/VDCNN/VDCNN_ag_news_depth@9",
-                        help="Load pre-trained model from here")
-
-    parser.add_argument("--combined_datasets", type=str, default="ag_news---ng20",
-                        help="comma-sep list of two datasets, in the order - 'root,target' datasets")
-    parser.add_argument("--joint_training", type=bool, default=False,
-                        help="1 for joint training, 0 for no joint training")
-    parser.add_argument("--joint_ratio", type=float, default=0.5,
-                        help="Ratio of target to source dataset for joint training")
-    parser.add_argument(("--joint_test"), type=int, default=0,
-                        help="0 for none, 1 for root, 2 for transfer, 3 for both")
-    parser.add_argument(("--num_embedding_features"), type=int, default=-1, help="-1 for no use, otherwise use")
-
-    parser.add_argument("--transfer_weights", type=bool, default=False,
-                        help="If true, transfer all except last fc-pre-trained layers")
-    parser.add_argument("--num_prev_classes", type=int, default=20,
-                        help="Number of classes in previously trained model")
-    parser.add_argument("--transfer_lr", type=float, default=0.001, help="Used for fine tuning the final layer")
-    parser.add_argument("--freeze_pre_trained_layers", type=bool, default=False,
-                        help="Set to True if freezing previously trained layers")
-
-    args = parser.parse_args()
-    return args
-
-
-def predict_from_model(generator, model, gpu=True):
-    model.eval()
-    y_prob = []
-
-    for data in generator:
-        tdata = [Variable(torch.from_numpy(x).long(), volatile=True) for x in data]
-        if gpu:
-            tdata = [x.cuda() for x in tdata]
-
-        yhat = model(tdata[0])
-
-        # normalizing probs
-        yhat = nn.functional.softmax(yhat)
-
-        y_prob.append(yhat)
-
-    y_prob = torch.cat(y_prob, 0)
-    y_prob = y_prob.cpu().data.numpy()
-
-    model.train()
-    return y_prob
-
-
-def batchify(arrays, batch_size=128):
-    assert np.std([x.shape[0] for x in arrays]) == 0
-
-    for j in range(0, len(arrays[0]), batch_size):
-        yield [x[j: j + batch_size] for x in arrays]
-
-
-class BasicConvResBlock(nn.Module):
-    def __init__(self, input_dim=128, n_filters=256, kernel_size=3, padding=1, stride=1, shortcut=False,
-                 downsample=None):
-        super(BasicConvResBlock, self).__init__()
-
-        self.downsample = downsample
-        self.shortcut = shortcut
-
-        self.conv1 = nn.Conv1d(input_dim, n_filters, kernel_size=kernel_size, padding=padding, stride=stride)
-        self.bn1 = nn.BatchNorm1d(n_filters)
-        self.relu = nn.ReLU()
-        self.conv2 = nn.Conv1d(n_filters, n_filters, kernel_size=kernel_size, padding=padding, stride=stride)
-        self.bn2 = nn.BatchNorm1d(n_filters)
-
-    def forward(self, x):
-
-        residual = x
-
-        out = self.conv1(x)
-        out = self.bn1(out)
-        out = self.relu(out)
-
-        out = self.conv2(out)
-        out = self.bn2(out)
-
-        if self.shortcut:
-            if self.downsample is not None:
-                residual = self.downsample(x)
-            out += residual
-
-        out = self.relu(out)
-
-        return out
-
-
 class VDCNN(nn.Module):
     def __init__(self, n_classes=2, num_embedding=141, embedding_dim=16, depth=9, n_fc_neurons=2048, shortcut=False):
         super(VDCNN, self).__init__()
@@ -218,8 +98,70 @@ class VDCNN(nn.Module):
 
         return out
 
+class BasicConvResBlock(nn.Module):
+    def __init__(self, input_dim=128, n_filters=256, kernel_size=3, padding=1, stride=1, shortcut=False,
+                 downsample=None):
+        super(BasicConvResBlock, self).__init__()
 
-def train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name):
+        self.downsample = downsample
+        self.shortcut = shortcut
+
+        self.conv1 = nn.Conv1d(input_dim, n_filters, kernel_size=kernel_size, padding=padding, stride=stride)
+        self.bn1 = nn.BatchNorm1d(n_filters)
+        self.relu = nn.ReLU()
+        self.conv2 = nn.Conv1d(n_filters, n_filters, kernel_size=kernel_size, padding=padding, stride=stride)
+        self.bn2 = nn.BatchNorm1d(n_filters)
+
+    def forward(self, x):
+
+        residual = x
+
+        out = self.conv1(x)
+        out = self.bn1(out)
+        out = self.relu(out)
+
+        out = self.conv2(out)
+        out = self.bn2(out)
+
+        if self.shortcut:
+            if self.downsample is not None:
+                residual = self.downsample(x)
+            out += residual
+
+        out = self.relu(out)
+
+        return out
+
+def predict_from_model(generator, model, gpu=True):
+    model.eval()
+    y_prob = []
+
+    for data in generator:
+        tdata = [Variable(torch.from_numpy(x).long(), volatile=True) for x in data]
+        if gpu:
+            tdata = [x.cuda() for x in tdata]
+
+        yhat = model(tdata[0])
+
+        # normalizing probs
+        yhat = nn.functional.softmax(yhat)
+
+        y_prob.append(yhat)
+
+    y_prob = torch.cat(y_prob, 0)
+    y_prob = y_prob.cpu().data.numpy()
+
+    model.train()
+    return y_prob
+
+
+def batchify(arrays, batch_size=128):
+    assert np.std([x.shape[0] for x in arrays]) == 0
+
+    for j in range(0, len(arrays[0]), batch_size):
+        yield [x[j: j + batch_size] for x in arrays]
+
+def train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_name):
     lr = opt.lr
     if (opt.transfer_weights):
         lr = opt.transfer_lr
@@ -329,7 +271,7 @@ def joint_train(opt, logger):
     root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels, total_classes = mix_datasets(opt, logger)
 
     ## preprocess
-    logger.info("  - txt vectorization...")
+    logger.info(" Joint Training: Txt vectorization...")
     n_txt_feats, tr_data, te_data, root_te_data, transfer_te_data = \
         vectorize(opt, mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels,
                   root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels)
@@ -348,10 +290,7 @@ def joint_train(opt, logger):
     if opt.gpu:
         model.cuda()
 
-    if opt.class_weights:
-        criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
-    else:
-        criterion = nn.CrossEntropyLoss()
+    criterion = get_criterion(opt)
 
     dataset_name = "Mixed_" + opt.combined_datasets + "_" + str(opt.joint_ratio)
     if opt.joint_test == 1:
@@ -402,12 +341,12 @@ def transfer_and_train(opt, logger):
         new_model.cuda()
 
     logger.info("New model loaded successfully, going to train")
-    criterion = get_criterion()
+    criterion = get_criterion(opt)
 
-    train(opt, new_model, criterion, tr_data, te_data, n_classes, dataset_name)
+    train(opt, logger, new_model, criterion, tr_data, te_data, n_classes, dataset_name)
 
 
-def get_criterion():
+def get_criterion(opt):
     if opt.class_weights:
         criterion = nn.CrossEntropyLoss(torch.cuda.FloatTensor(opt.class_weights))
         return criterion
@@ -429,54 +368,4 @@ def model_load_previous_structure(old_model, new_model, freeze_pre_trained_layer
     return new_model
 
 
-if __name__ == "__main__":
 
-    opt = get_args()
-
-    if not os.path.exists(opt.model_folder):
-        os.makedirs(opt.model_folder)
-
-    logger = lib.get_logger(logdir=opt.model_folder, logname="logs.txt")
-    logger.info("parameters: {}".format(vars(opt)))
-
-    # ut.print_dataset(tr_data, "train", True, 5)
-    # ut.print_dataset(te_data, "test", True, 5)
-
-    ## check if jointly training
-
-    if (opt.transfer_weights):
-        logger.info("Transfer weights from pre-trained layers")
-        transfer_and_train(opt, logger)
-
-    elif (opt.joint_training):
-        logger.info("Joint Training !")
-        joint_train(opt, logger)
-
-    else:
-        logger.info("Simple training")
-        tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
-        if opt.test_only == 1:
-            test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = preprocess_data(opt, logger,
-                                                                                                          test=True)
-
-        torch.manual_seed(opt.seed)
-        print("Seed for random numbers: ", torch.initial_seed())
-
-        if (opt.num_embedding_features != -1):
-            n_txt_feats = opt.num_embedding_features
-            logger.info("Overriding the number of embedding features to: ", n_txt_feats)
-
-        model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
-                      n_fc_neurons=2048, shortcut=opt.shortcut)
-
-        if opt.gpu:
-            model.cuda()
-
-        criterion = get_criterion()
-
-        if opt.test_only == 1:
-            logger.info("Testing only")
-            test(model, test_te_data, n_classes)
-        else:
-            logger.info("Training...")
-            train(opt, model, criterion, tr_data, te_data, n_classes, dataset_name)

@@ -8,8 +8,10 @@ from src.datasets import load_datasets
 ##
 def preprocess_data(opt, logger, test=False):
     dataset = load_datasets(names=[opt.dataset])[0]
+
     if (test == True):
         dataset = load_datasets(names=[opt.test_dataset])[0]
+
     dataset_name = dataset.__class__.__name__
     n_classes = dataset.n_classes
 
@@ -38,7 +40,12 @@ def preprocess_data(opt, logger, test=False):
     return tr_data, te_data, n_classes, n_txt_feats, dataset_name
 
 
-def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, root_te_sent=None, root_te_labels=None, transfer_te_sent=None,
+'''
+Vectorizes data using the vectors from tr_sentences and then 
+applies this vector transformation onto all other sentences/labels
+'''
+def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, root_te_sent=None, root_te_labels=None,
+              transfer_te_sent=None,
               transfer_te_labels=None):
     vec = lib.StringToSequence(level="char")
     vec.fit(tr_sentences)
@@ -48,28 +55,29 @@ def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, root_te_sen
     x_te = np.array(lib.pad_sequence(x_te, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
     n_txt_feats = int(max(x_tr.max(), x_te.max()) + 10)
 
-    root_te_data=None
-    transfer_te_data=None
+    root_te_data = None
+    transfer_te_data = None
 
-    if (root_te_sent!=None and transfer_te_sent!=None):
+    if root_te_sent != None and transfer_te_sent != None:
         print(" Root test txt vectorization...")
         root_te_sent = vec.transform(root_te_sent)
-        root_te_sent = np.array(lib.pad_sequence(root_te_sent, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
+        root_te_sent = np.array(
+            lib.pad_sequence(root_te_sent, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
         root_te_data = [root_te_sent, np.array(root_te_labels)]
 
         print(" Transfer test txt vectorization...")
         transfer_te_sent = vec.transform(transfer_te_sent)
-        transfer_te_sent = np.array(lib.pad_sequence(transfer_te_sent, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
+        transfer_te_sent = np.array(
+            lib.pad_sequence(transfer_te_sent, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
         transfer_te_data = [transfer_te_sent, np.array(transfer_te_labels)]
-
-
 
     tr_data = [x_tr, np.array(tr_labels)]
     te_data = [x_te, np.array(te_labels)]
+
     return n_txt_feats, tr_data, te_data, root_te_data, transfer_te_data
 
 
-def mix_data_using_ratio(root_data, transfer_data, joint_ratio):
+def mix_data_using_ratio(logger, root_data, transfer_data, joint_ratio):
     root_sentences, root_labels = lib.create_dataset(root_data, subsample_count=0)
     max_root_label_separation = np.max(root_labels) + 1
 
@@ -78,9 +86,9 @@ def mix_data_using_ratio(root_data, transfer_data, joint_ratio):
     transfer_sentences, transfer_labels = lib.create_dataset(transfer_data, subsample_count=0,
                                                              base_label=max_root_label_separation)
     transfer_data_size = len(list(transfer_sentences))
-    print("Transfer Data Size: {}".format(transfer_data_size))
+    logger.info("Transfer Data Size: {}".format(transfer_data_size))
     transfer_size = int(round(joint_ratio * transfer_data_size))
-    print("Transfer Ratio Size: {}".format(transfer_size))
+    logger.info("Transfer Ratio Size: {}".format(transfer_size))
 
     mixed_data_train, mixed_data_label = [], []
     mixed_data_train.extend(root_sentences)
@@ -93,21 +101,12 @@ def mix_data_using_ratio(root_data, transfer_data, joint_ratio):
     unused_transfer_sentences, unused_transfer_labels = transfer_sentences[transfer_size:], transfer_labels[
                                                                                             transfer_size:]
 
-    # print("Root dataset length - sentences {}, labels {}".format(len(root_sentences), len(root_labels)))
-    # print("Transfer dataset length - sentences {}, labels {}".format(len(transfer_sentences), len(transfer_labels)))
-    # print("Transfer Size: ", transfer_size)
-    # print("Mix dataset length - sentences {}, labels {}".format(len(mixed_data_train), len(mixed_data_label)))
-    # print("Unused dataset length - sentences {}, labels {}".format(len(unused_transfer_sentences),
-    #                                                                len(unused_transfer_labels)))
-
     return mixed_data_train, mixed_data_label, unused_transfer_sentences, unused_transfer_labels
 
 
 '''
 Returns mix data training and testing, root testing data and transfer testing data
 '''
-
-
 def mix_datasets(opt, logger):
     joint_ratio = opt.joint_ratio
 
@@ -122,7 +121,7 @@ def mix_datasets(opt, logger):
     logger.info("Both datasets loaded, going to mix ...")
 
     mixed_data_tr_sentences, mixed_data_label, unused_transfer_sentences, unused_transfer_labels = \
-        mix_data_using_ratio(root_tr_data, transfer_tr_data, joint_ratio)
+        mix_data_using_ratio(logger, root_tr_data, transfer_tr_data, joint_ratio)
 
     root_te_sentences, root_te_labels = lib.create_dataset(root_te_data, subsample_count=0)
     max_label_separation = np.max(root_te_labels) + 1
@@ -145,14 +144,16 @@ def mix_datasets(opt, logger):
     updated_te_sentences.extend(unused_transfer_sentences)
     updated_te_labels.extend(unused_transfer_labels)
 
-    print("Root dataset Test length - sentences {}, labels {}".format(len(root_te_sentences), len(root_te_labels)))
-    print("Transfer dataset Test length - sentences {}, labels {}".format(len(transfer_te_sentences),
-                                                                          len(transfer_te_labels)))
-    print("Unused dataset Test length - sentences {}, labels {}".format(len(unused_transfer_sentences),
-                                                                        len(unused_transfer_labels)))
-    print("Mixed dataset Test length - sentences {}, labels {}".format(len(mixed_te_sentences), len(mixed_te_labels)))
-    print("Mixed dataset Train length - sentences {}, labels {}".format(len(mixed_data_tr_sentences),
-                                                                        len(mixed_data_label)))
+    logger.info(
+        "Root dataset Test length - sentences {}, labels {}".format(len(root_te_sentences), len(root_te_labels)))
+    logger.info("Transfer dataset Test length - sentences {}, labels {}".format(len(transfer_te_sentences),
+                                                                                len(transfer_te_labels)))
+    logger.info("Unused dataset Test length - sentences {}, labels {}".format(len(unused_transfer_sentences),
+                                                                              len(unused_transfer_labels)))
+    logger.info(
+        "Mixed dataset Test length - sentences {}, labels {}".format(len(mixed_te_sentences), len(mixed_te_labels)))
+    logger.info("Mixed dataset Train length - sentences {}, labels {}".format(len(mixed_data_tr_sentences),
+                                                                              len(mixed_data_label)))
 
     return mixed_data_tr_sentences, mixed_data_label, mixed_te_sentences, mixed_te_labels, \
            root_te_sentences, root_te_labels, updated_te_sentences, updated_te_labels, total_classes

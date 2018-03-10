@@ -2,8 +2,8 @@
 #
 #SBATCH --job-name=mixed-002-us-vdcnn
 #SBATCH --partition=m40-short
-#SBATCH --output=2-no-shf-train-%A.out
-#SBATCH --error=2-no-shf-train-%A.err
+#SBATCH --output=2-train-%A.out
+#SBATCH --error=2-train-%A.err
 #SBATCH --gres=gpu:1
 
 # Log what we're running and where.
@@ -19,6 +19,7 @@ batch_size=128
 iterations=$(($epoch_size*10))
 halving=$((3*$epoch_size))
 test_interval=1000
+num_embedding_features=500
 
 module purge
 module load python/3.5.2
@@ -45,7 +46,7 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --test_interval ${test_interval} \
                     --iterations ${iterations} \
                     --lr 0.01 \
-                    --num_embedding_features 100 \
+                    --num_embedding_features ${num_embedding_features} \
                     --lr_halve_interval ${halving} \
                     --seed 1337 \
                     --test_only 0 \
