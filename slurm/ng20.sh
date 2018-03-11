@@ -31,6 +31,7 @@ cd /home/usaxena/work/s18/lex/code/vdcnn/
 python -m src.main --dataset "${dataset}" \
                     --model_folder "${model_folder}" \
                     --model_save_path "${model_folder}" \
+                    --model_load_path "${model_folder}/best_model.pt" \
                     --depth ${depth} \
                     --maxlen 1024 \
                     --chunk_size 2048 \

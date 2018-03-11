@@ -40,5 +40,6 @@ python -m src.main --dataset "${dataset}" \
                     --iterations ${iterations} \
                     --lr 0.01 \
                     --lr_halve_interval ${halving} \
+                    --model_load_path "${model_folder}/best_model.pt" \
                     --seed 1337 \
                     --gpu
