@@ -35,9 +35,9 @@ def preprocess_data(opt, logger, test=False):
         te_sentences, te_labels = utils.shuffle(te_sentences, te_labels, random_state=opt.seed)
 
     logger.info("  - txt vectorization...")
-    n_txt_feats, te_data, tr_data, _, _ = vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels)
+    n_txt_feats, tr_data, val_data, te_data, _, _ = vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels)
 
-    return tr_data, te_data, n_classes, n_txt_feats, dataset_name
+    return tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name
 
 
 '''
@@ -71,10 +71,19 @@ def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, root_te_sen
             lib.pad_sequence(transfer_te_sent, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
         transfer_te_data = [transfer_te_sent, np.array(transfer_te_labels)]
 
-    tr_data = [x_tr, np.array(tr_labels)]
+    length = len(x_tr)
+    rounded_off_length = int(round(length * opt.validation_ratio))
+    x_val = x_tr[:rounded_off_length]
+    val_labels = np.array(tr_labels)[:rounded_off_length]
+    x_train = x_tr[rounded_off_length:]
+    train_labels = np.array(tr_labels)[rounded_off_length:]
+    # tr_data = [x_tr, np.array(tr_labels)]
+
+    train_data = [x_train, train_labels]
+    val_data = [x_val, val_labels]
     te_data = [x_te, np.array(te_labels)]
 
-    return n_txt_feats, tr_data, te_data, root_te_data, transfer_te_data
+    return n_txt_feats, train_data, val_data, te_data, root_te_data, transfer_te_data
 
 
 def mix_data_using_ratio(logger, root_data, transfer_data, joint_ratio):

@@ -163,7 +163,7 @@ def batchify(arrays, batch_size=128):
         yield [x[j: j + batch_size] for x in arrays]
 
 
-def train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_name):
+def train(opt, logger, model, criterion, tr_data, val_data, te_data, n_classes, dataset_name):
     lr = opt.lr
     if (opt.transfer_weights):
         lr = opt.transfer_lr
@@ -199,22 +199,23 @@ def train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_na
         tr_metrics = lib.get_metrics(y_true, y_prob, n_classes=n_classes, list_metrics=['accuracy', 'log_loss'])
 
         params = [dataset_name, n_iter, opt.iterations, tr_metrics]
-        logger.info('{} - Iter [{}/{}] - train metrics: {}'.format(*params))
+        # logger.info('{} - Iter [{}/{}] - train metrics: {}'.format(*params))
 
         if n_iter % opt.test_interval == 0:
-            xte, yte = te_data
-            te_gen = batchify([xte, yte], batch_size=opt.batch_size)
-            y_prob = predict_from_model(te_gen, model, gpu=opt.gpu)
-            te_metrics = lib.get_metrics(yte, y_prob, n_classes=n_classes, list_metrics=['accuracy', 'log_loss'])
-            params = [dataset_name, n_iter, opt.iterations, tr_metrics, te_metrics]
-            logger.info('{} - Iter [{}/{}] - train metrics: {}, test: {}'.format(*params))
-            test_params = [dataset_name, n_iter, opt.iterations, te_metrics]
-            logger.info('{} - Iter [{}/{}] - test-metrics: {}'.format(*test_params))
+            # xte, yte = te_data
+            x_val, y_val = val_data
+            val_gen = batchify([x_val, y_val], batch_size=opt.batch_size)
+            y_prob = predict_from_model(val_gen, model, gpu=opt.gpu)
+            val_metrics = lib.get_metrics(y_val, y_prob, n_classes=n_classes, list_metrics=['accuracy', 'log_loss'])
+            params = [dataset_name, n_iter, opt.iterations, tr_metrics, val_metrics]
+            logger.info('{} - Iter [{}/{}]: train-metrics- {} ; val-metrics- {}'.format(*params))
+            # val_params = [dataset_name, n_iter, opt.iterations, val_metrics]
+            # logger.info('{} - Iter [{}/{}] - val-metrics: {}'.format(*val_params))
 
             diclogs = {
                 "predictions": {
                     "test": {
-                        "y_true": yte,
+                        "y_true": y_val,
                         "y_prob": y_prob
                     }
                 },
@@ -225,9 +226,9 @@ def train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_na
             import pickle
             filename = "diclog_[{}|{}]_loss[{:.3f}|{:.3f}]_acc[{:.3f}|{:.3f}].pkl".format(n_iter, opt.iterations,
                                                                                           tr_metrics['logloss'],
-                                                                                          te_metrics['logloss'],
+                                                                                          val_metrics['logloss'],
                                                                                           tr_metrics['accuracy'],
-                                                                                          te_metrics['accuracy'])
+                                                                                          val_metrics['accuracy'])
 
             with open('{}/{}'.format(opt.model_folder, filename), 'wb') as f:
                 pickle.dump(diclogs, f, protocol=4)
@@ -237,8 +238,8 @@ def train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_na
                 'optimizer': optimizer.state_dict(),
                 'model': model.state_dict()
             }
-            if best_accuracy < float(te_metrics['accuracy']):
-                best_accuracy = float(te_metrics['accuracy'])
+            if best_accuracy < float(val_metrics['accuracy']):
+                best_accuracy = float(val_metrics['accuracy'])
                 torch.save(model_dict, opt.model_save_path + "/{}".format("best") + "_model.pt")
 
             model_count = n_iter % (opt.test_interval * 5)
@@ -275,7 +276,7 @@ def joint_train(opt, logger):
 
     ## preprocess
     logger.info(" Joint Training: Txt vectorization...")
-    n_txt_feats, tr_data, te_data, root_te_data, transfer_te_data = \
+    n_txt_feats, tr_data, val_data, te_data, root_te_data, transfer_te_data = \
         vectorize(opt, mixed_data_tr_sentences, mixed_data_label, mix_data_te_sentences, mix_data_te_labels,
                   root_te_sentences, root_te_labels, transfer_te_sentences, transfer_te_labels)
     logger.info("n_txt_feats before overriding: ", n_txt_feats)
@@ -307,7 +308,7 @@ def joint_train(opt, logger):
         test(model, logger, opt, te_data, n_classes, dataset_name)
     else:
         logger.info("Joint training")
-        train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_name)
+        train(opt, logger, model, criterion, tr_data, val_data, te_data, n_classes, dataset_name)
 
         logger.info("After Training: Testing on root dataset only")
         test(model, logger, opt, root_te_data, n_classes, dataset_name)
@@ -322,7 +323,7 @@ def joint_train(opt, logger):
 ## Use this to transfer weights from pre-trained layers and run a new model
 def transfer_and_train(opt, logger):
     # load the new data set:
-    tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
+    tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
 
     # define the structure of the model to be loaded - get most of the structure from the user, using input args:
     num_previous_classes = opt.num_prev_classes
@@ -346,7 +347,8 @@ def transfer_and_train(opt, logger):
     logger.info("New model loaded successfully, going to train")
     criterion = get_criterion(opt)
 
-    train(opt, logger, new_model, criterion, tr_data, te_data, n_classes, dataset_name)
+    train(opt, logger, new_model, criterion, tr_data, val_data, te_data, n_classes, dataset_name)
+    test(new_model, logger, opt, te_data, n_classes, dataset_name)
 
 
 def get_criterion(opt):

@@ -33,6 +33,7 @@ def get_args():
     parser.add_argument("--test_interval", type=int, default=50, help="Number of iterations between testing phases")
     parser.add_argument('--gpu', action='store_true', default=False)
     parser.add_argument("--seed", type=int, default=1337)
+    parser.add_argument("--validation_ratio", type=float, default=0.1)
     parser.add_argument("--last_pooling_layer", type=str, choices=['k-max-pooling', 'max-pooling'],
                         default='k-max-pooling', help="type of last pooling layer")
 
@@ -87,7 +88,7 @@ if __name__ == "__main__":
 
     else:
         logger.info("Simple training")
-        tr_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
+        tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name = preprocess_data(opt, logger)
 
         torch.manual_seed(opt.seed)
         print("Seed for random numbers: ", torch.initial_seed())
@@ -96,7 +97,7 @@ if __name__ == "__main__":
             n_txt_feats = opt.num_embedding_features
             logger.info("Overriding the number of embedding features to: ", n_txt_feats)
 
-        model = VDCNN(n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+        model = VDCNN(opt,n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                       n_fc_neurons=2048, shortcut=opt.shortcut)
 
         if opt.gpu:
@@ -106,9 +107,12 @@ if __name__ == "__main__":
 
         if opt.test_only == 1:
             logger.info("Testing only")
-            test_tr_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = \
+            test_tr_data, test_val_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name = \
                 preprocess_data(opt, logger, test=True)
-            test(model, test_te_data, n_classes, dataset_name)
+            test(model, logger, opt, test_te_data, n_classes, dataset_name)
         else:
             logger.info("Training...")
-            train(opt, logger, model, criterion, tr_data, te_data, n_classes, dataset_name)
+            train(opt, logger, model, criterion, tr_data, val_data, te_data, n_classes, dataset_name)
+
+            logger.info("Testing...")
+            test(model, logger, opt, te_data, n_classes, dataset_name)
