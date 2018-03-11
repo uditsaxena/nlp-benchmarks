@@ -1,0 +1,70 @@
+/cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+parameters: {'dataset': 'lex1', 'batch_size': 128, 'joint_test': 0, 'joint_ratio': 0.5, 'test_batch_size': 128, 'lr': 0.01, 'depth': 9, 'freeze_pre_trained_layers': False, 'shortcut': False, 'combined_datasets': 'ag_news---ng20', 'transfer_weights': False, 'model_save_path': 'models/VDCNN/VDCNN_lex1_depth@9', 'chunk_size': 2048, 'validation_ratio': 0.1, 'test_interval': 1000, 'iterations': 50000, 'seed': 1337, 'test_only': 0, 'last_pooling_layer': 'k-max-pooling', 'shuffle': False, 'model_folder': 'models/VDCNN/VDCNN_lex1_depth@9', 'num_embedding_features': -1, 'transfer_lr': 0.001, 'test_dataset': 'ng20', 'model_load_path': 'models/VDCNN/VDCNN_lex1_depth@9/best_model.pt', 'gpu': True, 'class_weights': None, 'lr_halve_interval': 15000.0, 'joint_training': False, 'maxlen': 1024, 'num_prev_classes': 20}
+Simple training
+dataset: Lex1, n_classes: 38
+  - loading dataset...
+  - loading train samples...
+  - loading train samples... 12194 samples
+  - loading test samples...
+  - loading test samples... 756 samples
+  - txt vectorization...
+Training...
+Setting the lr to : 0.01
+/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py:148: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  yhat = nn.functional.softmax(yhat)
+Lex1 - Iter [0/50000]: train-metrics- {'accuracy': 0.0234375, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [1000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [2000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [3000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [4000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [5000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [6000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [7000/50000]: train-metrics- {'accuracy': 0.046875, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [8000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [9000/50000]: train-metrics- {'accuracy': 0.921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [10000/50000]: train-metrics- {'accuracy': 0.0234375, 'logloss': -1} ; val-metrics- {'accuracy': 0.0475799835931091, 'logloss': -1}
+Lex1 - Iter [11000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.0, 'logloss': -1}
+Lex1 - Iter [12000/50000]: train-metrics- {'accuracy': 0.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.054142739950779326, 'logloss': -1}
+Lex1 - Iter [13000/50000]: train-metrics- {'accuracy': 0.2734375, 'logloss': -1} ; val-metrics- {'accuracy': 0.07465135356849877, 'logloss': -1}
+Lex1 - Iter [14000/50000]: train-metrics- {'accuracy': 0.640625, 'logloss': -1} ; val-metrics- {'accuracy': 0.07547169811320754, 'logloss': -1}
+Lex1 - Iter [15000/50000]: train-metrics- {'accuracy': 0.6953125, 'logloss': -1} ; val-metrics- {'accuracy': 0.24446267432321575, 'logloss': -1}
+new lr: 0.005
+Lex1 - Iter [16000/50000]: train-metrics- {'accuracy': 0.5390625, 'logloss': -1} ; val-metrics- {'accuracy': 0.3018867924528302, 'logloss': -1}
+Lex1 - Iter [17000/50000]: train-metrics- {'accuracy': 0.859375, 'logloss': -1} ; val-metrics- {'accuracy': 0.43970467596390483, 'logloss': -1}
+Lex1 - Iter [18000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.3806398687448728, 'logloss': -1}
+Lex1 - Iter [19000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5799835931091059, 'logloss': -1}
+Lex1 - Iter [20000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6004922067268252, 'logloss': -1}
+Lex1 - Iter [21000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6226415094339622, 'logloss': -1}
+Lex1 - Iter [22000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5849056603773585, 'logloss': -1}
+Lex1 - Iter [23000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.4479081214109926, 'logloss': -1}
+Lex1 - Iter [24000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6168990976210008, 'logloss': -1}
+Lex1 - Iter [25000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6136177194421657, 'logloss': -1}
+Lex1 - Iter [26000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.35684987694831827, 'logloss': -1}
+Lex1 - Iter [27000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5988515176374077, 'logloss': -1}
+Lex1 - Iter [28000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5947497949138638, 'logloss': -1}
+Lex1 - Iter [29000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5455291222313372, 'logloss': -1}
+Lex1 - Iter [30000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5619360131255127, 'logloss': -1}
+new lr: 0.0025
+Lex1 - Iter [31000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.4889253486464315, 'logloss': -1}
+Lex1 - Iter [32000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6201804757998359, 'logloss': -1}
+Lex1 - Iter [33000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6119770303527482, 'logloss': -1}
+Lex1 - Iter [34000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.3338802296964725, 'logloss': -1}
+Lex1 - Iter [35000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5914684167350287, 'logloss': -1}
+Lex1 - Iter [36000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5947497949138638, 'logloss': -1}
+Lex1 - Iter [37000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.4864643150123052, 'logloss': -1}
+Lex1 - Iter [38000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5734208367514356, 'logloss': -1}
+Lex1 - Iter [39000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5283018867924528, 'logloss': -1}
+Lex1 - Iter [40000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6218211648892535, 'logloss': -1}
+Lex1 - Iter [41000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5980311730926989, 'logloss': -1}
+Lex1 - Iter [42000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.33716160787530763, 'logloss': -1}
+Lex1 - Iter [43000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5881870385561936, 'logloss': -1}
+Lex1 - Iter [44000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6029532403609515, 'logloss': -1}
+Lex1 - Iter [45000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.42904019688269074, 'logloss': -1}
+new lr: 0.00125
+Lex1 - Iter [46000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5783429040196882, 'logloss': -1}
+Lex1 - Iter [47000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5463494667760459, 'logloss': -1}
+Lex1 - Iter [48000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.6300246103363413, 'logloss': -1}
+Lex1 - Iter [49000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.5955701394585726, 'logloss': -1}
+Testing...
+Lex1 - , test metrics: {'accuracy': 0.03835978835978836, 'logloss': -1}

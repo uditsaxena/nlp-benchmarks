@@ -1,0 +1,70 @@
+/cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+parameters: {'transfer_weights': False, 'num_prev_classes': 20, 'gpu': True, 'test_only': 0, 'iterations': 50000, 'transfer_lr': 0.001, 'joint_test': 0, 'shortcut': False, 'validation_ratio': 0.1, 'freeze_pre_trained_layers': False, 'batch_size': 128, 'model_load_path': 'models/VDCNN/VDCNN_ng20_depth@9/best_model.pt', 'shuffle': False, 'depth': 9, 'seed': 1337, 'last_pooling_layer': 'k-max-pooling', 'test_interval': 1000, 'test_dataset': 'ng20', 'num_embedding_features': -1, 'model_folder': 'models/VDCNN/VDCNN_ng20_depth@9', 'joint_ratio': 0.5, 'test_batch_size': 128, 'class_weights': None, 'chunk_size': 2048, 'lr': 0.01, 'model_save_path': 'models/VDCNN/VDCNN_ng20_depth@9', 'joint_training': False, 'combined_datasets': 'ag_news---ng20', 'dataset': 'ng20', 'lr_halve_interval': 15000.0, 'maxlen': 1024}
+Simple training
+dataset: Newsgroup20, n_classes: 20
+  - loading dataset...
+  - loading train samples...
+  - loading train samples... 13179 samples
+  - loading test samples...
+  - loading test samples... 5645 samples
+  - txt vectorization...
+Training...
+Setting the lr to : 0.01
+/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py:148: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  yhat = nn.functional.softmax(yhat)
+Newsgroup20 - Iter [0/50000]: train-metrics- {'logloss': 16.37637108936906, 'accuracy': 0.0546875} ; val-metrics- {'logloss': 2.9954506075617395, 'accuracy': 0.06600910470409711}
+Newsgroup20 - Iter [1000/50000]: train-metrics- {'logloss': 2.6401523798704147, 'accuracy': 0.6875} ; val-metrics- {'logloss': 2.0339911542653706, 'accuracy': 0.47496206373292865}
+Newsgroup20 - Iter [2000/50000]: train-metrics- {'logloss': 2.069410787895322, 'accuracy': 0.96875} ; val-metrics- {'logloss': 2.4745842001497294, 'accuracy': 0.5538694992412747}
+Newsgroup20 - Iter [3000/50000]: train-metrics- {'logloss': 2.0865388503298163, 'accuracy': 0.984375} ; val-metrics- {'logloss': 2.243413085121482, 'accuracy': 0.6995447647951442}
+Newsgroup20 - Iter [4000/50000]: train-metrics- {'logloss': 2.101686427369714, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.5701219625395368, 'accuracy': 0.8019726858877086}
+Newsgroup20 - Iter [5000/50000]: train-metrics- {'logloss': 2.0758908642455935, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.6253790949757756, 'accuracy': 0.8012139605462822}
+Newsgroup20 - Iter [6000/50000]: train-metrics- {'logloss': 2.0743887117132545, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.6700244559272661, 'accuracy': 0.8103186646433991}
+Newsgroup20 - Iter [7000/50000]: train-metrics- {'logloss': 2.104939411394298, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.705492116143317, 'accuracy': 0.8095599393019727}
+Newsgroup20 - Iter [8000/50000]: train-metrics- {'logloss': 2.1024908907711506, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.7215200498802161, 'accuracy': 0.8065250379362671}
+Newsgroup20 - Iter [9000/50000]: train-metrics- {'logloss': 2.120426593348384, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.742710353200552, 'accuracy': 0.8065250379362671}
+Newsgroup20 - Iter [10000/50000]: train-metrics- {'logloss': 2.1037771916016936, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.757211011099661, 'accuracy': 0.8080424886191199}
+Newsgroup20 - Iter [11000/50000]: train-metrics- {'logloss': 2.1188181899487972, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.77563739603858, 'accuracy': 0.8103186646433991}
+Newsgroup20 - Iter [12000/50000]: train-metrics- {'logloss': 2.0904047684744, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.782962159236864, 'accuracy': 0.8057663125948407}
+Newsgroup20 - Iter [13000/50000]: train-metrics- {'logloss': 2.1176751405000687, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.790347317924988, 'accuracy': 0.8095599393019727}
+Newsgroup20 - Iter [14000/50000]: train-metrics- {'logloss': 2.120078045874834, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8034585661894131, 'accuracy': 0.8080424886191199}
+Newsgroup20 - Iter [15000/50000]: train-metrics- {'logloss': 2.0854639261960983, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8104411903086532, 'accuracy': 0.8088012139605463}
+new lr: 0.005
+Newsgroup20 - Iter [16000/50000]: train-metrics- {'logloss': 2.086142231710255, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8175005951119905, 'accuracy': 0.8065250379362671}
+Newsgroup20 - Iter [17000/50000]: train-metrics- {'logloss': 2.106623618863523, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8139875237497898, 'accuracy': 0.8095599393019727}
+Newsgroup20 - Iter [18000/50000]: train-metrics- {'logloss': 2.1117178108543158, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8294837612154855, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [19000/50000]: train-metrics- {'logloss': 2.1116522178053856, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8249358175870731, 'accuracy': 0.8110773899848255}
+Newsgroup20 - Iter [20000/50000]: train-metrics- {'logloss': 2.093746037222445, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8345790713705044, 'accuracy': 0.8057663125948407}
+Newsgroup20 - Iter [21000/50000]: train-metrics- {'logloss': 2.125497307628393, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8321785972029891, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [22000/50000]: train-metrics- {'logloss': 2.1071082493290305, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8450377329545131, 'accuracy': 0.8095599393019727}
+Newsgroup20 - Iter [23000/50000]: train-metrics- {'logloss': 2.1052412912249565, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8399104341911312, 'accuracy': 0.8125948406676783}
+Newsgroup20 - Iter [24000/50000]: train-metrics- {'logloss': 2.120726960711181, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8458448665873806, 'accuracy': 0.8095599393019727}
+Newsgroup20 - Iter [25000/50000]: train-metrics- {'logloss': 2.1164134964346886, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.848203485762998, 'accuracy': 0.8080424886191199}
+Newsgroup20 - Iter [26000/50000]: train-metrics- {'logloss': 2.0905157644301653, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8570626876849006, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [27000/50000]: train-metrics- {'logloss': 2.113815736025572, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8563664885856892, 'accuracy': 0.8118361153262519}
+Newsgroup20 - Iter [28000/50000]: train-metrics- {'logloss': 2.1009702906012535, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8560912508066956, 'accuracy': 0.8095599393019727}
+Newsgroup20 - Iter [29000/50000]: train-metrics- {'logloss': 2.096248193643987, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.860118269409661, 'accuracy': 0.8072837632776935}
+Newsgroup20 - Iter [30000/50000]: train-metrics- {'logloss': 2.0983395213261247, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8698055461777692, 'accuracy': 0.8072837632776935}
+new lr: 0.0025
+Newsgroup20 - Iter [31000/50000]: train-metrics- {'logloss': 2.1032037176191807, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.864328556671128, 'accuracy': 0.8080424886191199}
+Newsgroup20 - Iter [32000/50000]: train-metrics- {'logloss': 2.08012861199677, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8610824304646072, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [33000/50000]: train-metrics- {'logloss': 2.1186977736651897, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8649759093023222, 'accuracy': 0.8057663125948407}
+Newsgroup20 - Iter [34000/50000]: train-metrics- {'logloss': 2.0908893393352628, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8741621866730378, 'accuracy': 0.8095599393019727}
+Newsgroup20 - Iter [35000/50000]: train-metrics- {'logloss': 2.0989374266937375, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8721988956035802, 'accuracy': 0.8072837632776935}
+Newsgroup20 - Iter [36000/50000]: train-metrics- {'logloss': 2.108999843709171, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8645935073930024, 'accuracy': 0.8080424886191199}
+Newsgroup20 - Iter [37000/50000]: train-metrics- {'logloss': 2.1123399371281266, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8652374584972429, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [38000/50000]: train-metrics- {'logloss': 2.1095381435006857, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8771833599611591, 'accuracy': 0.8065250379362671}
+Newsgroup20 - Iter [39000/50000]: train-metrics- {'logloss': 2.1146894795820117, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.876852800981225, 'accuracy': 0.8072837632776935}
+Newsgroup20 - Iter [40000/50000]: train-metrics- {'logloss': 2.099844079464674, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8718735924061574, 'accuracy': 0.8080424886191199}
+Newsgroup20 - Iter [41000/50000]: train-metrics- {'logloss': 2.1110877664759755, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8742242924311272, 'accuracy': 0.8065250379362671}
+Newsgroup20 - Iter [42000/50000]: train-metrics- {'logloss': 2.1182598378509283, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8792477720977243, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [43000/50000]: train-metrics- {'logloss': 2.099414763972163, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8821365040693103, 'accuracy': 0.8072837632776935}
+Newsgroup20 - Iter [44000/50000]: train-metrics- {'logloss': 2.103050200268626, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8765230731265223, 'accuracy': 0.8080424886191199}
+Newsgroup20 - Iter [45000/50000]: train-metrics- {'logloss': 2.095220087096095, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8812488744951403, 'accuracy': 0.8072837632776935}
+new lr: 0.00125
+Newsgroup20 - Iter [46000/50000]: train-metrics- {'logloss': 2.1102501740679145, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8812880821467612, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [47000/50000]: train-metrics- {'logloss': 2.1099246805533767, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8884277077108187, 'accuracy': 0.8065250379362671}
+Newsgroup20 - Iter [48000/50000]: train-metrics- {'logloss': 2.1121591813862324, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.880028910087793, 'accuracy': 0.8088012139605463}
+Newsgroup20 - Iter [49000/50000]: train-metrics- {'logloss': -1, 'accuracy': 1.0} ; val-metrics- {'logloss': 1.8807928887365408, 'accuracy': 0.8095599393019727}
+Testing...
+Newsgroup20 - , test metrics: {'logloss': 1.7611056889481354, 'accuracy': 0.7987599645704163}
