@@ -1,0 +1,256 @@
+/cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+parameters: {'num_prev_classes': 20, 'lr': 0.01, 'depth': 9, 'maxlen': 1024, 'chunk_size': 2048, 'joint_ratio': 0.02, 'transfer_lr': 0.001, 'dataset': 'ng20', 'seed': 1337, 'shuffle': True, 'test_only': 0, 'shortcut': False, 'model_load_path': 'models/VDCNN/VDCNN_ag_news---lex1_depth@9/2/best_model.pt', 'validation_ratio': 0.1, 'iterations': 50000, 'model_folder': 'models/VDCNN/VDCNN_ag_news---lex1_depth@9/2', 'combined_datasets': 'ag_news---lex1', 'num_embedding_features': 500, 'lr_halve_interval': 15000.0, 'gpu': True, 'batch_size': 128, 'joint_training': True, 'freeze_pre_trained_layers': False, 'model_save_path': 'models/VDCNN/VDCNN_ag_news---lex1_depth@9/2', 'transfer_weights': False, 'test_batch_size': 128, 'class_weights': None, 'test_dataset': 'ag_news', 'last_pooling_layer': 'k-max-pooling', 'joint_test': 0, 'test_interval': 1000}
+Joint Training !
+dataset: AgNews, n_classes: 4
+  - loading dataset...
+dataset: Lex1, n_classes: 38
+  - loading dataset...
+Both datasets loaded, going to mix ...
+Transfer Data Size: 12194
+Transfer Ratio Size: 244
+Root dataset Test length - sentences 7600, labels 7600
+Transfer dataset Test length - sentences 756, labels 756
+Unused dataset Test length - sentences 11950, labels 11950
+Mixed dataset Test length - sentences 20306, labels 20306
+Mixed dataset Train length - sentences 120244, labels 120244
+ Joint Training: Txt vectorization...
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 282, in joint_train
+    logger.info("n_txt_feats before overriding: ", n_txt_feats)
+Message: 'n_txt_feats before overriding: '
+Arguments: (95,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 282, in joint_train
+    logger.info("n_txt_feats before overriding: ", n_txt_feats)
+Message: 'n_txt_feats before overriding: '
+Arguments: (95,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 284, in joint_train
+    logger.info("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
+Message: 'Number of classes in the mixed dataset are: '
+Arguments: (14, <class 'int'>)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 284, in joint_train
+    logger.info("Number of classes in the mixed dataset are: ", n_classes, type(n_classes))
+Message: 'Number of classes in the mixed dataset are: '
+Arguments: (14, <class 'int'>)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 287, in joint_train
+    logger.info("Seed for random numbers: ", torch.initial_seed())
+Message: 'Seed for random numbers: '
+Arguments: (1337,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 287, in joint_train
+    logger.info("Seed for random numbers: ", torch.initial_seed())
+Message: 'Seed for random numbers: '
+Arguments: (1337,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 290, in joint_train
+    logger.info("Overriding the number of embedding features to: ", n_txt_feats)
+Message: 'Overriding the number of embedding features to: '
+Arguments: (500,)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 980, in emit
+    msg = self.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 830, in format
+    return fmt.format(record)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 567, in format
+    record.message = record.getMessage()
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/logging/__init__.py", line 330, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 184, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/cm/shared/apps/python/3.5.2/lib/python3.5/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/main.py", line 87, in <module>
+    joint_train(opt, logger)
+  File "/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py", line 290, in joint_train
+    logger.info("Overriding the number of embedding features to: ", n_txt_feats)
+Message: 'Overriding the number of embedding features to: '
+Arguments: (500,)
+Joint training
+Setting the lr to : 0.01
+/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py:148: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  yhat = nn.functional.softmax(yhat)
+Mixed_ag_news---lex1_0.02 - Iter [0/50000]: train-metrics- {'accuracy': 0.0234375, 'logloss': -1} ; val-metrics- {'accuracy': 0.2661343978709248, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [1000/50000]: train-metrics- {'accuracy': 0.6796875, 'logloss': -1} ; val-metrics- {'accuracy': 0.5854956753160346, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [2000/50000]: train-metrics- {'accuracy': 0.796875, 'logloss': -1} ; val-metrics- {'accuracy': 0.5912341982701265, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [3000/50000]: train-metrics- {'accuracy': 0.84375, 'logloss': -1} ; val-metrics- {'accuracy': 0.7198935462408517, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [4000/50000]: train-metrics- {'accuracy': 0.859375, 'logloss': -1} ; val-metrics- {'accuracy': 0.501746506986028, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [5000/50000]: train-metrics- {'accuracy': 0.890625, 'logloss': -1} ; val-metrics- {'accuracy': 0.7863439787092482, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [6000/50000]: train-metrics- {'accuracy': 0.9140625, 'logloss': -1} ; val-metrics- {'accuracy': 0.8025615435795076, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [7000/50000]: train-metrics- {'accuracy': 0.8515625, 'logloss': -1} ; val-metrics- {'accuracy': 0.8132900864936793, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [8000/50000]: train-metrics- {'accuracy': 0.9140625, 'logloss': -1} ; val-metrics- {'accuracy': 0.8514637391882901, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [9000/50000]: train-metrics- {'accuracy': 0.9609375, 'logloss': -1} ; val-metrics- {'accuracy': 0.8468063872255489, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [10000/50000]: train-metrics- {'accuracy': 0.921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8387391882900865, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [11000/50000]: train-metrics- {'accuracy': 0.9140625, 'logloss': -1} ; val-metrics- {'accuracy': 0.8255988023952096, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [12000/50000]: train-metrics- {'accuracy': 0.9453125, 'logloss': -1} ; val-metrics- {'accuracy': 0.8337491683300067, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [13000/50000]: train-metrics- {'accuracy': 0.921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8298403193612774, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [14000/50000]: train-metrics- {'accuracy': 0.90625, 'logloss': -1} ; val-metrics- {'accuracy': 0.7936626746506986, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [15000/50000]: train-metrics- {'accuracy': 0.9296875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8567864271457086, 'logloss': -1}
+new lr: 0.005
+Mixed_ag_news---lex1_0.02 - Iter [16000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8552894211576846, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [17000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': -1} ; val-metrics- {'accuracy': 0.7444278110445776, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [18000/50000]: train-metrics- {'accuracy': 0.953125, 'logloss': -1} ; val-metrics- {'accuracy': 0.8541250831669993, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [19000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': -1} ; val-metrics- {'accuracy': 0.8284264803725881, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [20000/50000]: train-metrics- {'accuracy': 0.9765625, 'logloss': -1} ; val-metrics- {'accuracy': 0.8402361942781105, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [21000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8279274783765802, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [22000/50000]: train-metrics- {'accuracy': 0.9765625, 'logloss': -1} ; val-metrics- {'accuracy': 0.834913506320692, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [23000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8388223552894212, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [24000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': -1} ; val-metrics- {'accuracy': 0.833915502328676, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [25000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8399035262807718, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [26000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8190286094477711, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [27000/50000]: train-metrics- {'accuracy': 0.9609375, 'logloss': -1} ; val-metrics- {'accuracy': 0.8386560212907518, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [28000/50000]: train-metrics- {'accuracy': 0.9609375, 'logloss': -1} ; val-metrics- {'accuracy': 0.8633566200931471, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [29000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8389886892880905, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [30000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8369095143047239, 'logloss': -1}
+new lr: 0.0025
+Mixed_ag_news---lex1_0.02 - Iter [31000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8522954091816367, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [32000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': -1} ; val-metrics- {'accuracy': 0.852960745176314, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [33000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8562874251497006, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [34000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8640219560878244, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [35000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8601962741184298, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [36000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8621922821024618, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [37000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8606952761144377, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [38000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.862109115103127, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [39000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8583666001330672, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [40000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8613606121091151, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [41000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8622754491017964, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [42000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8624417831004657, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [43000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8559547571523619, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [44000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': -1} ; val-metrics- {'accuracy': 0.8540419161676647, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [45000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': -1} ; val-metrics- {'accuracy': 0.8558715901530273, 'logloss': -1}
+new lr: 0.00125
+Mixed_ag_news---lex1_0.02 - Iter [46000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8616101131071191, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [47000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8629407850964738, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [48000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.8640219560878244, 'logloss': -1}
+Mixed_ag_news---lex1_0.02 - Iter [49000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': -1} ; val-metrics- {'accuracy': 0.864604125083167, 'logloss': -1}
+After Training: Testing on root dataset only
+Mixed_ag_news---lex1_0.02 - , test metrics: {'accuracy': 0.8919736842105264, 'logloss': -1}
+After Training: Testing on transfer dataset only
+Mixed_ag_news---lex1_0.02 - , test metrics: {'accuracy': 0.01605540689438061, 'logloss': -1}
+After Training: Testing on both datasets only
+Mixed_ag_news---lex1_0.02 - , test metrics: {'accuracy': 0.34388850586033687, 'logloss': 11.225499441437782}

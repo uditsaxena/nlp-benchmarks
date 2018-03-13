@@ -1,0 +1,70 @@
+/cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+parameters: {'gpu': True, 'depth': 9, 'model_folder': 'models/VDCNN/VDCNN_ag_news_depth@9', 'model_load_path': 'models/VDCNN/VDCNN_ag_news_depth@9/best_model.pt', 'lr': 0.01, 'combined_datasets': 'ag_news---ng20', 'transfer_lr': 0.001, 'model_save_path': 'models/VDCNN/VDCNN_ag_news_depth@9', 'last_pooling_layer': 'k-max-pooling', 'test_only': 0, 'test_dataset': 'ng20', 'num_prev_classes': 20, 'joint_test': 0, 'seed': 1337, 'validation_ratio': 0.1, 'shortcut': False, 'test_batch_size': 128, 'test_interval': 1000, 'transfer_weights': False, 'maxlen': 1024, 'class_weights': None, 'joint_training': False, 'num_embedding_features': -1, 'shuffle': False, 'batch_size': 128, 'lr_halve_interval': 15000.0, 'chunk_size': 2048, 'freeze_pre_trained_layers': False, 'joint_ratio': 0.5, 'dataset': 'ag_news', 'iterations': 50000}
+Simple training
+dataset: AgNews, n_classes: 4
+  - loading dataset...
+  - loading train samples...
+  - loading train samples... 120000 samples
+  - loading test samples...
+  - loading test samples... 7600 samples
+  - txt vectorization...
+Training...
+Setting the lr to : 0.01
+/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py:148: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  yhat = nn.functional.softmax(yhat)
+AgNews - Iter [0/50000]: train-metrics- {'accuracy': 0.28125, 'logloss': 14.455727152810141} ; val-metrics- {'accuracy': 0.258, 'logloss': 1.385817733079195}
+AgNews - Iter [1000/50000]: train-metrics- {'accuracy': 0.8125, 'logloss': 2.5185474048557808} ; val-metrics- {'accuracy': 0.5855833333333333, 'logloss': 1.0314586055264845}
+AgNews - Iter [2000/50000]: train-metrics- {'accuracy': 0.8203125, 'logloss': 2.0102906356041785} ; val-metrics- {'accuracy': 0.6566666666666666, 'logloss': 1.0931760014112513}
+AgNews - Iter [3000/50000]: train-metrics- {'accuracy': 0.8984375, 'logloss': 1.9822104102640878} ; val-metrics- {'accuracy': 0.7315, 'logloss': 0.8236604037873576}
+AgNews - Iter [4000/50000]: train-metrics- {'accuracy': 0.8984375, 'logloss': 1.0967601530137472} ; val-metrics- {'accuracy': 0.8333333333333334, 'logloss': 0.5156495350268457}
+AgNews - Iter [5000/50000]: train-metrics- {'accuracy': 0.90625, 'logloss': 1.1910235107206972} ; val-metrics- {'accuracy': 0.82975, 'logloss': 0.5293427991278713}
+AgNews - Iter [6000/50000]: train-metrics- {'accuracy': 0.921875, 'logloss': 0.43423331894155126} ; val-metrics- {'accuracy': 0.8220833333333334, 'logloss': 0.5617751659554229}
+AgNews - Iter [7000/50000]: train-metrics- {'accuracy': 0.9296875, 'logloss': 0.9194799695105758} ; val-metrics- {'accuracy': 0.8166666666666667, 'logloss': 0.541884008498523}
+AgNews - Iter [8000/50000]: train-metrics- {'accuracy': 0.8828125, 'logloss': 0.3852782265021233} ; val-metrics- {'accuracy': 0.83275, 'logloss': 0.5549956730943189}
+AgNews - Iter [9000/50000]: train-metrics- {'accuracy': 0.9296875, 'logloss': 0.5843985810643062} ; val-metrics- {'accuracy': 0.71975, 'logloss': 0.9945044097300455}
+AgNews - Iter [10000/50000]: train-metrics- {'accuracy': 0.9296875, 'logloss': 0.8900335297512356} ; val-metrics- {'accuracy': 0.78125, 'logloss': 0.7738479891165719}
+AgNews - Iter [11000/50000]: train-metrics- {'accuracy': 0.921875, 'logloss': 0.48193986843398307} ; val-metrics- {'accuracy': 0.7258333333333333, 'logloss': 0.971050679747437}
+AgNews - Iter [12000/50000]: train-metrics- {'accuracy': 0.8828125, 'logloss': 1.0088433811324649} ; val-metrics- {'accuracy': 0.806, 'logloss': 0.6519999545260521}
+AgNews - Iter [13000/50000]: train-metrics- {'accuracy': 0.9453125, 'logloss': 0.8520148573443294} ; val-metrics- {'accuracy': 0.85325, 'logloss': 0.5003396860300376}
+AgNews - Iter [14000/50000]: train-metrics- {'accuracy': 0.9453125, 'logloss': 1.1132250581504195} ; val-metrics- {'accuracy': 0.76325, 'logloss': 0.924195036260533}
+AgNews - Iter [15000/50000]: train-metrics- {'accuracy': 0.9375, 'logloss': 0.8116701203616685} ; val-metrics- {'accuracy': 0.7825833333333333, 'logloss': 0.7636728303479335}
+new lr: 0.005
+AgNews - Iter [16000/50000]: train-metrics- {'accuracy': 0.9609375, 'logloss': 0.3301549605821492} ; val-metrics- {'accuracy': 0.8509166666666667, 'logloss': 0.6020174521722376}
+AgNews - Iter [17000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': 0.3472018697648309} ; val-metrics- {'accuracy': 0.8484166666666667, 'logloss': 0.6405980416026676}
+AgNews - Iter [18000/50000]: train-metrics- {'accuracy': 0.9609375, 'logloss': 0.3069390604214277} ; val-metrics- {'accuracy': 0.85775, 'logloss': 0.6267641720486801}
+AgNews - Iter [19000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': 0.22741817162022926} ; val-metrics- {'accuracy': 0.8534166666666667, 'logloss': 0.6335321056683468}
+AgNews - Iter [20000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': 0.5484071931859944} ; val-metrics- {'accuracy': 0.8399166666666666, 'logloss': 0.6620659887341587}
+AgNews - Iter [21000/50000]: train-metrics- {'accuracy': 0.9609375, 'logloss': 0.310424066035921} ; val-metrics- {'accuracy': 0.8458333333333333, 'logloss': 0.8295377490093288}
+AgNews - Iter [22000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': 0.5009650912252255} ; val-metrics- {'accuracy': 0.8665833333333334, 'logloss': 0.6294247518079877}
+AgNews - Iter [23000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': 0.21833277062978595} ; val-metrics- {'accuracy': 0.8551666666666666, 'logloss': 0.7839763591500098}
+AgNews - Iter [24000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': 0.854026120960043} ; val-metrics- {'accuracy': 0.8508333333333333, 'logloss': 0.6982078293664324}
+AgNews - Iter [25000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': 0.179673697661201} ; val-metrics- {'accuracy': 0.8290833333333333, 'logloss': 1.0639218889775384}
+AgNews - Iter [26000/50000]: train-metrics- {'accuracy': 0.9765625, 'logloss': 0.2652672127587721} ; val-metrics- {'accuracy': 0.84625, 'logloss': 0.7685831935652573}
+AgNews - Iter [27000/50000]: train-metrics- {'accuracy': 0.96875, 'logloss': 0.29709162163635483} ; val-metrics- {'accuracy': 0.8373333333333334, 'logloss': 1.028450089155208}
+AgNews - Iter [28000/50000]: train-metrics- {'accuracy': 0.984375, 'logloss': 0.26291721434972715} ; val-metrics- {'accuracy': 0.8515, 'logloss': 0.9555152789928761}
+AgNews - Iter [29000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': 0.2193262754008174} ; val-metrics- {'accuracy': 0.8395, 'logloss': 0.9255138277844281}
+AgNews - Iter [30000/50000]: train-metrics- {'accuracy': 0.9765625, 'logloss': 0.1581214262987487} ; val-metrics- {'accuracy': 0.8303333333333334, 'logloss': 1.0857739090368732}
+new lr: 0.0025
+AgNews - Iter [31000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.13835466519230977} ; val-metrics- {'accuracy': 0.8505, 'logloss': 0.9483867248942327}
+AgNews - Iter [32000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.21597956484765746} ; val-metrics- {'accuracy': 0.858, 'logloss': 1.0444071017469336}
+AgNews - Iter [33000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.22886150109115988} ; val-metrics- {'accuracy': 0.8620833333333333, 'logloss': 1.0604141515714718}
+AgNews - Iter [34000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': 0.15586827936931513} ; val-metrics- {'accuracy': 0.8591666666666666, 'logloss': 1.1491105765614713}
+AgNews - Iter [35000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.15955824563570786} ; val-metrics- {'accuracy': 0.85775, 'logloss': 1.1440678022885598}
+AgNews - Iter [36000/50000]: train-metrics- {'accuracy': 0.9921875, 'logloss': 0.1730352817394305} ; val-metrics- {'accuracy': 0.85725, 'logloss': 1.3024473017732547}
+AgNews - Iter [37000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.11564149579498917} ; val-metrics- {'accuracy': 0.85925, 'logloss': 1.258925009953892}
+AgNews - Iter [38000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.1615823042811826} ; val-metrics- {'accuracy': 0.8535, 'logloss': 1.420067944601149}
+AgNews - Iter [39000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.17757869214983657} ; val-metrics- {'accuracy': 0.8636666666666667, 'logloss': 1.2713233204533356}
+AgNews - Iter [40000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.18187212356133386} ; val-metrics- {'accuracy': 0.8623333333333333, 'logloss': 1.2960693715328526}
+AgNews - Iter [41000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.1852194553357549} ; val-metrics- {'accuracy': 0.8604166666666667, 'logloss': 1.2776534966017123}
+AgNews - Iter [42000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.12435401842230931} ; val-metrics- {'accuracy': 0.8633333333333333, 'logloss': 1.302826536950494}
+AgNews - Iter [43000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.1840473431511782} ; val-metrics- {'accuracy': 0.8605833333333334, 'logloss': 1.3215698295010345}
+AgNews - Iter [44000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.11437830810609739} ; val-metrics- {'accuracy': 0.8661666666666666, 'logloss': 1.3461510125652445}
+AgNews - Iter [45000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.15069045044947416} ; val-metrics- {'accuracy': 0.8645, 'logloss': 1.3605122577354047}
+new lr: 0.00125
+AgNews - Iter [46000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.12803697501476563} ; val-metrics- {'accuracy': 0.86225, 'logloss': 1.32566331338382}
+AgNews - Iter [47000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.0738812570925802} ; val-metrics- {'accuracy': 0.86225, 'logloss': 1.4150578781271688}
+AgNews - Iter [48000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.15079159382730722} ; val-metrics- {'accuracy': 0.8633333333333333, 'logloss': 1.4612121859475704}
+AgNews - Iter [49000/50000]: train-metrics- {'accuracy': 1.0, 'logloss': 0.08794708142522722} ; val-metrics- {'accuracy': 0.8644166666666667, 'logloss': 1.4225702306180008}
+Testing...
+AgNews - , test metrics: {'accuracy': 0.8835526315789474, 'logloss': 0.5544744793038168}

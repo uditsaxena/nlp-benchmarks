@@ -28,7 +28,7 @@ pip install --user ipython h5py numpy scikit-learn pandas scipy torchvision requ
 pip install  --user http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
 
 cd /home/usaxena/work/s18/lex/code/vdcnn/
-python -m src.VDCNN --dataset "${dataset}" \
+python -m src.main --dataset "${dataset}" \
                     --model_folder "${model_folder}" \
                     --model_save_path "${model_folder}" \
                     --depth ${depth} \
@@ -40,5 +40,6 @@ python -m src.VDCNN --dataset "${dataset}" \
                     --iterations ${iterations} \
                     --lr 0.01 \
                     --lr_halve_interval ${halving} \
+                    --model_load_path "${model_folder}/best_model.pt" \
                     --seed 1337 \
                     --gpu

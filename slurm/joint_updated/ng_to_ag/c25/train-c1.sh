@@ -33,7 +33,7 @@ pip install  --user http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-
 cd /home/usaxena/work/s18/lex/code/vdcnn/
 
 # train joint, 
-python -m src.VDCNN --dataset "${dataset}" \
+python -m src.main --dataset "${dataset}" \
                     --test_dataset "${test_dataset}" \
                     --model_folder "${model_folder}" \
                     --model_save_path "${model_folder}" \

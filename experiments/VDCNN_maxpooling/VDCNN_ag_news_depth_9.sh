@@ -8,7 +8,7 @@ batch_size=128
 iterations=$(($epoch_size*50))
 halving=$((3*$epoch_size))
 
-python -m src.VDCNN --dataset "${dataset}" \
+python -m src.main --dataset "${dataset}" \
                     --model_folder "${model_folder}" \
                     --depth ${depth} \
                     --maxlen 1024 \

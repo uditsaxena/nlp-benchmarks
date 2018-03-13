@@ -1,0 +1,70 @@
+/cm/shared/apps/python/3.5.2/lib/python3.5/site-packages/h5py/__init__.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+parameters: {'test_interval': 1000, 'depth': 29, 'shortcut': False, 'joint_training': False, 'model_save_path': 'models/VDCNN/VDCNN_yelp_polarity_depth@29', 'class_weights': None, 'last_pooling_layer': 'k-max-pooling', 'validation_ratio': 0.1, 'transfer_weights': False, 'model_load_path': 'models/VDCNN/VDCNN_yelp_polarity_depth@29/best_model.pt', 'batch_size': 128, 'num_prev_classes': 20, 'seed': 1337, 'joint_test': 0, 'test_batch_size': 128, 'shuffle': False, 'test_only': 0, 'transfer_lr': 0.001, 'iterations': 50000, 'chunk_size': 2048, 'test_dataset': 'ng20', 'lr': 0.01, 'num_embedding_features': -1, 'lr_halve_interval': 15000.0, 'dataset': 'yelp_polarity', 'maxlen': 1024, 'model_folder': 'models/VDCNN/VDCNN_yelp_polarity_depth@29', 'gpu': True, 'combined_datasets': 'ag_news---ng20', 'joint_ratio': 0.5, 'freeze_pre_trained_layers': False}
+Simple training
+dataset: YelpPolarity, n_classes: 2
+  - loading dataset...
+  - loading train samples...
+  - loading train samples... 560000 samples
+  - loading test samples...
+  - loading test samples... 38000 samples
+  - txt vectorization...
+Training...
+Setting the lr to : 0.01
+/home/usaxena/work/s18/lex/code/vdcnn/src/VDCNN.py:148: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  yhat = nn.functional.softmax(yhat)
+YelpPolarity - Iter [0/50000]: train-metrics- {'logloss': 2.465310111641884, 'accuracy': 0.4375} ; val-metrics- {'logloss': 0.6940563209024924, 'accuracy': 0.46014285714285713}
+YelpPolarity - Iter [1000/50000]: train-metrics- {'logloss': 5.401769567106385, 'accuracy': 0.8359375} ; val-metrics- {'logloss': 0.5155552522544996, 'accuracy': 0.7266607142857143}
+YelpPolarity - Iter [2000/50000]: train-metrics- {'logloss': 6.281343695707619, 'accuracy': 0.8125} ; val-metrics- {'logloss': 0.5506942318904688, 'accuracy': 0.7535178571428571}
+YelpPolarity - Iter [3000/50000]: train-metrics- {'logloss': 3.32986980676651, 'accuracy': 0.8984375} ; val-metrics- {'logloss': 0.2584949368897027, 'accuracy': 0.8854821428571429}
+YelpPolarity - Iter [4000/50000]: train-metrics- {'logloss': 4.965005040168762, 'accuracy': 0.8515625} ; val-metrics- {'logloss': 0.2479193437838446, 'accuracy': 0.8930892857142857}
+YelpPolarity - Iter [5000/50000]: train-metrics- {'logloss': 7.406879723072052, 'accuracy': 0.78125} ; val-metrics- {'logloss': 0.22262779968534344, 'accuracy': 0.9094107142857143}
+YelpPolarity - Iter [6000/50000]: train-metrics- {'logloss': 6.113987306598574, 'accuracy': 0.8203125} ; val-metrics- {'logloss': 0.2206657768141202, 'accuracy': 0.9096607142857143}
+YelpPolarity - Iter [7000/50000]: train-metrics- {'logloss': 1.3199649453163147, 'accuracy': 0.9609375} ; val-metrics- {'logloss': 0.19789770711264998, 'accuracy': 0.918875}
+YelpPolarity - Iter [8000/50000]: train-metrics- {'logloss': 5.594804406166077, 'accuracy': 0.8359375} ; val-metrics- {'logloss': 0.19964892851019103, 'accuracy': 0.9187678571428571}
+YelpPolarity - Iter [9000/50000]: train-metrics- {'logloss': 3.6770185232162476, 'accuracy': 0.890625} ; val-metrics- {'logloss': 0.19311056592852166, 'accuracy': 0.9223928571428571}
+YelpPolarity - Iter [10000/50000]: train-metrics- {'logloss': 2.6211961689405143, 'accuracy': 0.921875} ; val-metrics- {'logloss': 0.22036620510653418, 'accuracy': 0.9113571428571429}
+YelpPolarity - Iter [11000/50000]: train-metrics- {'logloss': 2.3739594221115112, 'accuracy': 0.9296875} ; val-metrics- {'logloss': 0.17992172808633056, 'accuracy': 0.9286785714285715}
+YelpPolarity - Iter [12000/50000]: train-metrics- {'logloss': 2.893492110655643, 'accuracy': 0.9140625} ; val-metrics- {'logloss': 0.32000292583512974, 'accuracy': 0.8585357142857143}
+YelpPolarity - Iter [13000/50000]: train-metrics- {'logloss': 2.107541084289551, 'accuracy': 0.9375} ; val-metrics- {'logloss': 0.17220114618042057, 'accuracy': 0.9315357142857142}
+YelpPolarity - Iter [14000/50000]: train-metrics- {'logloss': 2.608813837170601, 'accuracy': 0.921875} ; val-metrics- {'logloss': 0.1686588241087818, 'accuracy': 0.9333035714285715}
+YelpPolarity - Iter [15000/50000]: train-metrics- {'logloss': 2.6462781727313995, 'accuracy': 0.921875} ; val-metrics- {'logloss': 0.15827639704914812, 'accuracy': 0.9373035714285715}
+new lr: 0.005
+YelpPolarity - Iter [16000/50000]: train-metrics- {'logloss': 1.075132966041565, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.22458780128369413, 'accuracy': 0.9119107142857142}
+YelpPolarity - Iter [17000/50000]: train-metrics- {'logloss': 1.0660275220870972, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.15267112418825365, 'accuracy': 0.94}
+YelpPolarity - Iter [18000/50000]: train-metrics- {'logloss': 1.8611508905887604, 'accuracy': 0.9453125} ; val-metrics- {'logloss': 0.15290433263472658, 'accuracy': 0.9393928571428571}
+YelpPolarity - Iter [19000/50000]: train-metrics- {'logloss': 2.1291921138763428, 'accuracy': 0.9375} ; val-metrics- {'logloss': 0.1527962747796236, 'accuracy': 0.9395892857142857}
+YelpPolarity - Iter [20000/50000]: train-metrics- {'logloss': 1.350613840855658, 'accuracy': 0.9609375} ; val-metrics- {'logloss': 0.15845261383287035, 'accuracy': 0.9364821428571428}
+YelpPolarity - Iter [21000/50000]: train-metrics- {'logloss': 0.2694549039006233, 'accuracy': 0.984375} ; val-metrics- {'logloss': 0.17686434527885503, 'accuracy': 0.9296428571428571}
+YelpPolarity - Iter [22000/50000]: train-metrics- {'logloss': 2.0978117883205414, 'accuracy': 0.9375} ; val-metrics- {'logloss': 0.14731457836807582, 'accuracy': 0.9420535714285714}
+YelpPolarity - Iter [23000/50000]: train-metrics- {'logloss': 1.3187122344970703, 'accuracy': 0.9609375} ; val-metrics- {'logloss': 0.1839302547122941, 'accuracy': 0.9295178571428572}
+YelpPolarity - Iter [24000/50000]: train-metrics- {'logloss': 3.6406295001506805, 'accuracy': 0.890625} ; val-metrics- {'logloss': 0.14769816604017244, 'accuracy': 0.9419464285714285}
+YelpPolarity - Iter [25000/50000]: train-metrics- {'logloss': 2.6270784437656403, 'accuracy': 0.921875} ; val-metrics- {'logloss': 0.1471725113817254, 'accuracy': 0.9429107142857143}
+YelpPolarity - Iter [26000/50000]: train-metrics- {'logloss': 0.8016444146633148, 'accuracy': 0.9765625} ; val-metrics- {'logloss': 0.15379035035695454, 'accuracy': 0.9415}
+YelpPolarity - Iter [27000/50000]: train-metrics- {'logloss': 0.7817830145359039, 'accuracy': 0.9765625} ; val-metrics- {'logloss': 0.16923169049469913, 'accuracy': 0.9333928571428571}
+YelpPolarity - Iter [28000/50000]: train-metrics- {'logloss': 0.783087968826294, 'accuracy': 0.9765625} ; val-metrics- {'logloss': 0.19733237661045816, 'accuracy': 0.9200892857142857}
+YelpPolarity - Iter [29000/50000]: train-metrics- {'logloss': 2.41044303169474, 'accuracy': 0.9296875} ; val-metrics- {'logloss': 0.15454417755270405, 'accuracy': 0.9390892857142857}
+YelpPolarity - Iter [30000/50000]: train-metrics- {'logloss': 2.3831825852394104, 'accuracy': 0.9296875} ; val-metrics- {'logloss': 0.19251266952074084, 'accuracy': 0.9274107142857143}
+new lr: 0.0025
+YelpPolarity - Iter [31000/50000]: train-metrics- {'logloss': 1.055882215499878, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.16034750848783935, 'accuracy': 0.9387321428571429}
+YelpPolarity - Iter [32000/50000]: train-metrics- {'logloss': 1.3139194250106812, 'accuracy': 0.9609375} ; val-metrics- {'logloss': 0.14206539987244374, 'accuracy': 0.9450535714285714}
+YelpPolarity - Iter [33000/50000]: train-metrics- {'logloss': 1.0442154109477997, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.14151823729665758, 'accuracy': 0.9460357142857143}
+YelpPolarity - Iter [34000/50000]: train-metrics- {'logloss': 2.357934907078743, 'accuracy': 0.9296875} ; val-metrics- {'logloss': 0.14406045430597317, 'accuracy': 0.9446785714285715}
+YelpPolarity - Iter [35000/50000]: train-metrics- {'logloss': 0.7880632672458887, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.1431691008222859, 'accuracy': 0.9454642857142858}
+YelpPolarity - Iter [36000/50000]: train-metrics- {'logloss': 0.5304184556007385, 'accuracy': 0.984375} ; val-metrics- {'logloss': 0.15280331469555947, 'accuracy': 0.9433571428571429}
+YelpPolarity - Iter [37000/50000]: train-metrics- {'logloss': 2.126548503525555, 'accuracy': 0.9375} ; val-metrics- {'logloss': 0.14687131771060727, 'accuracy': 0.9436071428571429}
+YelpPolarity - Iter [38000/50000]: train-metrics- {'logloss': 1.060367614030838, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.15010553734442303, 'accuracy': 0.9444285714285714}
+YelpPolarity - Iter [39000/50000]: train-metrics- {'logloss': 0.2698341906070709, 'accuracy': 0.9921875} ; val-metrics- {'logloss': 0.15773825431286456, 'accuracy': 0.9424464285714286}
+YelpPolarity - Iter [40000/50000]: train-metrics- {'logloss': 1.0571566224098206, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.17497421431891141, 'accuracy': 0.9335535714285714}
+YelpPolarity - Iter [41000/50000]: train-metrics- {'logloss': 1.0631036758422852, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.15022049517374245, 'accuracy': 0.9425178571428572}
+YelpPolarity - Iter [42000/50000]: train-metrics- {'logloss': 1.0424404254590627, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.1496536269425369, 'accuracy': 0.943625}
+YelpPolarity - Iter [43000/50000]: train-metrics- {'logloss': 1.5893158055841923, 'accuracy': 0.9453125} ; val-metrics- {'logloss': 0.15363212208141502, 'accuracy': 0.9433214285714285}
+YelpPolarity - Iter [44000/50000]: train-metrics- {'logloss': 2.674210169909202, 'accuracy': 0.9140625} ; val-metrics- {'logloss': 0.15700435070555718, 'accuracy': 0.9390892857142857}
+YelpPolarity - Iter [45000/50000]: train-metrics- {'logloss': 0.7889896221458912, 'accuracy': 0.96875} ; val-metrics- {'logloss': 0.16275916307248, 'accuracy': 0.941125}
+new lr: 0.00125
+YelpPolarity - Iter [46000/50000]: train-metrics- {'logloss': 1.588298499584198, 'accuracy': 0.953125} ; val-metrics- {'logloss': 0.16327212951205244, 'accuracy': 0.9398928571428572}
+YelpPolarity - Iter [47000/50000]: train-metrics- {'logloss': 1.3083874583244324, 'accuracy': 0.9609375} ; val-metrics- {'logloss': 0.14983858360766597, 'accuracy': 0.9454285714285714}
+YelpPolarity - Iter [48000/50000]: train-metrics- {'logloss': 1.2981223613023758, 'accuracy': 0.9609375} ; val-metrics- {'logloss': 0.14820564292358376, 'accuracy': 0.9446785714285715}
+YelpPolarity - Iter [49000/50000]: train-metrics- {'logloss': 1.3506585322320461, 'accuracy': 0.953125} ; val-metrics- {'logloss': 0.15653661235929864, 'accuracy': 0.9437857142857143}
+Testing...
+YelpPolarity - , test metrics: {'logloss': 0.13736207970018754, 'accuracy': 0.9467631578947369}
