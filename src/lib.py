@@ -7,6 +7,8 @@ import os
 import h5py
 import datetime
 import logging
+
+import nltk
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn import metrics
@@ -38,7 +40,6 @@ def get_logger(logdir, logname, loglevel=logging.INFO):
 
 
 def gen_from_hdf5(filename, batch_size=128, loop_infinite=True):
-
     f = h5py.File(filename, 'r', libver='latest')
     n_chunks = len(f.keys()) // 2
 
@@ -48,13 +49,13 @@ def gen_from_hdf5(filename, batch_size=128, loop_infinite=True):
                 x = f["data_{}".format(i)]
                 y = f["label_{}".format(i)]
                 for j in range(0, len(x), batch_size):
-                    yield x[j: j + batch_size], y[j: j+batch_size]
+                    yield x[j: j + batch_size], y[j: j + batch_size]
     else:
         for i in range(n_chunks):
             x = f["data_{}".format(i)]
             y = f["label_{}".format(i)]
             for j in range(0, len(x), batch_size):
-                yield x[j: j + batch_size], y[j: j+batch_size]
+                yield x[j: j + batch_size], y[j: j + batch_size]
     f.close()
 
 
@@ -77,8 +78,6 @@ def pad_sequence(sequences, maxlen=10, padding='pre', truncating='pre', value=0)
 
     """
 
-
-
     padded_sequences = []
 
     for seq in sequences:
@@ -95,7 +94,7 @@ def pad_sequence(sequences, maxlen=10, padding='pre', truncating='pre', value=0)
             diff = np.abs(length - maxlen)
 
             if padding == 'pre':
-               seq = [value] * diff + seq
+                seq = [value] * diff + seq
 
             elif padding == 'post':
                 seq = seq + [value] * diff
@@ -113,7 +112,6 @@ def pad_sequence(sequences, maxlen=10, padding='pre', truncating='pre', value=0)
 #       @Arg: base_label adds to all the label values - to be used when mixing
 #             two datasets
 def create_dataset(generator, lowercase=True, subsample_count=0, base_label=0):
-
     sentences, labels = [], []
     subsample = True
     if subsample_count == 0:
@@ -121,8 +119,11 @@ def create_dataset(generator, lowercase=True, subsample_count=0, base_label=0):
 
     if lowercase:
         for phrase, label in generator:
+            # print("Phrase Before: ",len(phrase), phrase[0])
             phrase = [r.lower() for r in phrase]
+            # print("\nPhrase After: ",len(phrase))
             sentences.extend(phrase)
+            # print("Sentences after: ", len(sentences))
             label = [base_label + i for i in label]
             labels.extend(label)
             if (subsample == True):
@@ -297,7 +298,7 @@ class CharOHEncoder(object):
         for i, sentence in enumerate(sentences):
             X[i] = self._encode(sentence, self.maxlen, self.token_indice)
 
-        #sanity check
+        # sanity check
         for i in range(min(3, len(sentences))):
             assert self._assert_transform(sentences[i], X[i], self.token_indice,
                                           self.indice_token)
@@ -305,18 +306,18 @@ class CharOHEncoder(object):
 
     def fit(self, sentences, y=None, **fit_params):
 
-            if not self.maxlen:
-                # finding longest sentence
-                self.maxlen = max(list(map(len, sentences)))
+        if not self.maxlen:
+            # finding longest sentence
+            self.maxlen = max(list(map(len, sentences)))
 
-            if not self.alphabet:
-                #alphabet is made up of all characters
-                self.alphabet = "".join(set(char for sentence in sentences for char in sentence))
+        if not self.alphabet:
+            # alphabet is made up of all characters
+            self.alphabet = "".join(set(char for sentence in sentences for char in sentence))
 
-            self.token_indice, self.indice_token = self._createMappingfromAlphabet(self.alphabet)
-            assert self._assert_mapping(self.token_indice, self.indice_token)
+        self.token_indice, self.indice_token = self._createMappingfromAlphabet(self.alphabet)
+        assert self._assert_mapping(self.token_indice, self.indice_token)
 
-            return self
+        return self
 
 
 class StringToSequence(object):
@@ -344,12 +345,47 @@ class StringToSequence(object):
     >>> vec.transform(test_sentences)
     [[6, 5, 3, 13, 14, 2, 5, 12, 2, 2, 12, 5, 4, 10, 11], [12, 4, 12, 5, 2, 12, 2, 5, 11, 7]]
     """
-    def __init__(self, level="word", ngram_range=(1, 1), **kvargs):
+
+    def __init__(self, level="word", ngram_range=(1, 1), w2v=None, **kvargs):
         self.level = level
         self.ngram_range = ngram_range
         self.kvargs = kvargs
-
+        self.w2v = None
+        self.w2v_word_to_idx = None
+        if w2v is not None:
+            # print("w2v is not none")
+            self.w2v = w2v
         assert self.level in ["word", "char"]
+
+    def _word_token_indice_nltk(self, sentences, ngram_range=(1, 1)):
+        """
+        Take sentences and return dictionary mapping ngrams >> interger (unique)
+
+        :param ngram_range:
+        :return:
+        """
+        min_ngrams, max_ngrams = ngram_range
+        token_indice = {}
+        w2v_word_to_idx = {}
+        # We make sure the minimum value of our mapping is 1 (0 will be reserved)
+        indexer = 1
+        words = []
+        for sentence_instance in sentences:
+            for sentence in nltk.sent_tokenize(sentence_instance):
+                word_list = nltk.word_tokenize(sentence)
+                for word in word_list:
+                    if word not in token_indice:
+                        if self.w2v is not None:
+                            if word in self.w2v.wv.vocab:
+                                words.append(word)
+                                w2v_word_to_idx[word] = indexer
+                        token_indice[word] = indexer
+                        indexer += 1
+
+        # print(len(token_indice))
+        # print(words)
+        self.w2v_word_to_idx = w2v_word_to_idx
+        return token_indice
 
     def _word_token_indice(self, sentences, ngram_range=(1, 1)):
         """
@@ -365,13 +401,15 @@ class StringToSequence(object):
 
         for sentence in sentences:
             sentence = sentence.split(" ")
-            for i in range(0, len(sentence)-max_ngrams+1, min_ngrams):
-                for ngram_value in range(min_ngrams, max_ngrams+1):
-                    ngram = " ".join(sentence[i:i+ngram_value])
+            for i in range(0, len(sentence) - max_ngrams + 1, min_ngrams):
+                for ngram_value in range(min_ngrams, max_ngrams + 1):
+                    ngram = " ".join(sentence[i:i + ngram_value])
                     if ngram not in token_indice:
+                        # print(ngram, ngram_range)
                         token_indice[ngram] = indexer
                         indexer += 1
-
+                        # print(indexer)
+        # print(token_indice)
         return token_indice
 
     def _char_token_indice(self, sentences, ngram_range=(1, 1)):
@@ -382,13 +420,30 @@ class StringToSequence(object):
         indexer = 1
 
         for sentence in sentences:
-            for i in range(0, len(sentence)-max_ngrams+1, min_ngrams):
-                for ngram_value in range(min_ngrams, max_ngrams+1):
-                    ngram = sentence[i:i+ngram_value]
+            for i in range(0, len(sentence) - max_ngrams + 1, min_ngrams):
+                for ngram_value in range(min_ngrams, max_ngrams + 1):
+                    ngram = sentence[i:i + ngram_value]
                     if ngram not in token_indice:
                         token_indice[ngram] = indexer
                         indexer += 1
         return token_indice
+
+    def _tranform_words_nltk(self, sentences, token_indice, ngram_range=(1, 1)):
+
+        min_ngrams, max_ngrams = ngram_range
+
+        new_sentences = [] * len(sentences)
+
+        for sentence_instance in sentences:
+            # for sentence in nltk.sent_tokenize(sentence_instance):
+            word_list = nltk.word_tokenize(sentence_instance)
+            new_sentence = []
+            for word in word_list:
+                if word in token_indice:
+                    new_sentence.append(token_indice[word])
+            new_sentences.append(new_sentence)
+
+        return new_sentences
 
     def _tranform_words(self, sentences, token_indice, ngram_range=(1, 1)):
 
@@ -398,9 +453,9 @@ class StringToSequence(object):
         for sentence in sentences:
             sentence = sentence.split(" ")
             new_sentence = []
-            for i in range(0, len(sentence)-max_ngrams+1, min_ngrams):
-                for ngram_value in range(min_ngrams, max_ngrams+1):
-                    ngram = " ".join(sentence[i:i+ngram_value])
+            for i in range(0, len(sentence) - max_ngrams + 1, min_ngrams):
+                for ngram_value in range(min_ngrams, max_ngrams + 1):
+                    ngram = " ".join(sentence[i:i + ngram_value])
                     if ngram in token_indice:
                         new_sentence.append(token_indice[ngram])
             new_sentences.append(new_sentence)
@@ -413,9 +468,9 @@ class StringToSequence(object):
         new_sentences = [] * len(sentences)
         for sentence in sentences:
             new_sentence = []
-            for i in range(0, len(sentence)-max_ngrams+1, min_ngrams):
-                for ngram_value in range(min_ngrams, max_ngrams+1):
-                    ngram = sentence[i:i+ngram_value]
+            for i in range(0, len(sentence) - max_ngrams + 1, min_ngrams):
+                for ngram_value in range(min_ngrams, max_ngrams + 1):
+                    ngram = sentence[i:i + ngram_value]
                     if ngram in token_indice:
                         new_sentence.append(token_indice[ngram])
             new_sentences.append(new_sentence)
@@ -423,7 +478,7 @@ class StringToSequence(object):
 
     def inverse_tranform(self, sequences):
 
-        new_sequences = []*len(sequences)
+        new_sequences = [] * len(sequences)
 
         for sequence in sequences:
             new_sequence = []
@@ -444,18 +499,18 @@ class StringToSequence(object):
 
 
 
-            # " ".join([vec.indice_token[val] for val in test_seq[1] if val in vec.indice_token])
+        # " ".join([vec.indice_token[val] for val in test_seq[1] if val in vec.indice_token])
 
     def transform(self, sentences, **transform_params):
 
         if self.level == "word":
-            new_sentences = token_indice = self._tranform_words(sentences,
-                                                     self.token_indice,
-                                                     self.ngram_range)
+            new_sentences = token_indice = self._tranform_words_nltk(sentences,
+                                                                self.token_indice,
+                                                                self.ngram_range)
         elif self.level == "char":
             new_sentences = self._tranform_chars(sentences,
-                                                     self.token_indice,
-                                                     self.ngram_range)
+                                                 self.token_indice,
+                                                 self.ngram_range)
         else:
             raise
 
@@ -464,7 +519,9 @@ class StringToSequence(object):
     def fit(self, sentences, y=None):
 
         if self.level == "word":
-            self.token_indice = self._word_token_indice(sentences, self.ngram_range)
+            # self.token_indice = self._word_token_indice(sentences, self.ngram_range)
+            self.token_indice = self._word_token_indice_nltk(sentences, self.ngram_range)
+            # print(self.token_indice)
         elif self.level == "char":
             self.token_indice = self._char_token_indice(sentences, self.ngram_range)
         else:

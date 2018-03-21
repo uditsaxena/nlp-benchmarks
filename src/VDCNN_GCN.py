@@ -5,25 +5,35 @@
 """
 
 import numpy as np
+import scipy, os
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
 from torch.nn.init import kaiming_normal, constant
+
+from src.graphconv.graph_utils import get_graph_laplacian, generate_word_embeddings
+from src.pygcn.models import GCN
+
 # np.set_printoptions(threshold='nan')
 from src import lib
 from src.dataset_utils import preprocess_data, mix_datasets, vectorize
 
 
-class VDCNN(nn.Module):
-    def __init__(self, opt, n_classes=2, num_embedding=141, embedding_dim=16, depth=9, n_fc_neurons=2048,
-                 shortcut=False):
-        super(VDCNN, self).__init__()
+class VDCNN_GCN(nn.Module):
+    def __init__(self, opt, laplacian=None, laplacian_hidden = 16, n_classes=2, num_embedding=141,
+                 embedding_dim=16, depth=9, n_fc_neurons=2048, shortcut=False, embeddings=None):
+        super(VDCNN_GCN, self).__init__()
 
         layers = []
         fc_layers = []
 
         self.embed = nn.Embedding(num_embedding, embedding_dim, padding_idx=0, max_norm=None,
                                   norm_type=2, scale_grad_by_freq=False, sparse=False)
+        #
+        # self.gcn_embed = GCN(nfeat=embedding_dim * 2, nhid=laplacian_hidden, nout=embedding_dim, dropout=0.5)
+        self.gcn_embed = GCN(nfeat=embeddings.shape[1], nhid=laplacian_hidden, nout=embedding_dim, dropout=0.5, embeddings=embeddings)
+        self.L = laplacian
+        #
         layers.append(nn.Conv1d(embedding_dim, 64, kernel_size=3, padding=1))
 
         if depth == 9:
@@ -85,7 +95,13 @@ class VDCNN(nn.Module):
                     constant(m.bias, 0)
 
     def forward(self, x):
-
+        # print("L : ", self.L.shape)
+        # print("x",x)
+        # out = self.embed(x)
+        # print(self.embed.weight.shape)
+        # print(out.shape)
+        out = self.gcn_embed(self.L)
+        self.embed.weight = nn.Parameter(out.data)
         out = self.embed(x)
         out = out.transpose(1, 2)
 
@@ -157,6 +173,7 @@ def predict_from_model(generator, model, gpu=True):
 
 
 def batchify(arrays, batch_size=128):
+    # TODO: Why is this required? What happens if we don't do this?
     assert np.std([x.shape[0] for x in arrays]) == 0
 
     for j in range(0, len(arrays[0]), batch_size):
@@ -301,7 +318,7 @@ def joint_train(opt, logger):
     if (opt.num_embedding_features != -1):
         n_txt_feats = opt.num_embedding_features
         logger.info("Overriding the number of embedding features to: ", n_txt_feats)
-    model = VDCNN(opt=opt, n_classes=total_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+    model = VDCNN_GCN(opt=opt, n_classes=total_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
                   n_fc_neurons=2048, shortcut=opt.shortcut)
 
     if opt.gpu:
@@ -342,7 +359,7 @@ def transfer_and_train(opt, logger):
     num_previous_classes = opt.num_prev_classes
     num_embeddings = opt.num_embedding_features
 
-    pretrained_model = VDCNN(opt=opt, n_classes=num_previous_classes, num_embedding=num_embeddings, embedding_dim=16,
+    pretrained_model = VDCNN_GCN(opt=opt, n_classes=num_previous_classes, num_embedding=num_embeddings, embedding_dim=16,
                              depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
 
     # load the previously trained model
@@ -350,7 +367,7 @@ def transfer_and_train(opt, logger):
     pretrained_model.load_state_dict(checkpoint['model'])
 
     # Construct the new model:
-    new_model = VDCNN(opt=opt, n_classes=n_classes, num_embedding=num_embeddings, embedding_dim=16,
+    new_model = VDCNN_GCN(opt=opt, n_classes=n_classes, num_embedding=num_embeddings, embedding_dim=16,
                       depth=opt.depth, n_fc_neurons=2048, shortcut=opt.shortcut)
 
     new_model = model_load_previous_structure(pretrained_model, new_model, opt.freeze_pre_trained_layers)
@@ -384,3 +401,43 @@ def model_load_previous_structure(old_model, new_model, freeze_pre_trained_layer
     new_model.load_state_dict(new_model_dict)
     # print(list(new_model.parameters()))
     return new_model
+
+def graph_convolution(opt, logger):
+    # print(os.getcwd())
+    names = [opt.dataset]
+    ng_w2v = generate_word_embeddings(names)
+    tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name, w2v_word_to_idx = preprocess_data(opt, logger, w2v=ng_w2v)
+    L, A, embeddings = get_graph_laplacian(names, w2v=ng_w2v, txt_feature_size=n_txt_feats, w2v_word_to_idx=w2v_word_to_idx)
+    scipy.sparse.save_npz("pygcn/sparse_matrix.npz", L[0])
+    # scipy.sparse.save_npz("sparse_matrix.npz", L[0])
+    # L[0] = scipy.sparse.load_npz("sparse_matrix.npz")
+    L[0] = scipy.sparse.load_npz("pygcn/sparse_matrix.npz")
+
+
+    print("n_txt_feats:", n_txt_feats)
+    torch.manual_seed(opt.seed)
+    print("Seed for random numbers: ", torch.initial_seed())
+
+    if (opt.num_embedding_features != -1):
+        n_txt_feats = opt.num_embedding_features
+        logger.info("Overriding the number of embedding features to: ", n_txt_feats)
+
+    model = VDCNN_GCN(opt, n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
+                  n_fc_neurons=2048, shortcut=opt.shortcut, laplacian=L[0], embeddings=embeddings)
+
+    if opt.gpu:
+        model.cuda()
+
+    criterion = get_criterion(opt)
+
+    if opt.test_only == 1:
+        logger.info("Testing only")
+        test_tr_data, test_val_data, test_te_data, test_n_classes, test_n_txt_feats, test_dataset_name, _ = \
+            preprocess_data(opt, logger, test=True)
+        test(model, logger, opt, test_te_data, n_classes, dataset_name)
+    else:
+        logger.info("Training...")
+        train(opt, logger, model, criterion, tr_data, val_data, te_data, n_classes, dataset_name)
+
+        logger.info("Testing...")
+        test(model, logger, opt, te_data, n_classes, dataset_name)

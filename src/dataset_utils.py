@@ -6,7 +6,7 @@ from src.datasets import load_datasets
 
 ## Mainly used for training on one dataset and testing on the other
 ##
-def preprocess_data(opt, logger, test=False):
+def preprocess_data(opt, logger, test=False, w2v=None):
     dataset = load_datasets(names=[opt.dataset])[0]
 
     if (test == True):
@@ -35,9 +35,9 @@ def preprocess_data(opt, logger, test=False):
         te_sentences, te_labels = utils.shuffle(te_sentences, te_labels, random_state=opt.seed)
 
     logger.info("  - txt vectorization...")
-    n_txt_feats, tr_data, val_data, te_data, _, _ = vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels)
+    n_txt_feats, tr_data, val_data, te_data, _, _, w2v_word_to_idx = vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, w2v=w2v)
 
-    return tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name
+    return tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name, w2v_word_to_idx
 
 
 '''
@@ -46,11 +46,14 @@ applies this vector transformation onto all other sentences/labels
 '''
 def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, root_te_sent=None, root_te_labels=None,
               transfer_te_sent=None,
-              transfer_te_labels=None):
-    vec = lib.StringToSequence(level="char")
+              transfer_te_labels=None, w2v=None):
+    vec = lib.StringToSequence(level="word", w2v=w2v)
+    print("training sentences: ")
     vec.fit(tr_sentences)
+    print("fit transform tr sentences: ")
     x_tr = vec.fit_transform(tr_sentences)
     x_tr = np.array(lib.pad_sequence(x_tr, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
+    print("transform te sentences: ")
     x_te = vec.transform(te_sentences)
     x_te = np.array(lib.pad_sequence(x_te, maxlen=opt.maxlen, padding='post', truncating='post', value=0))
     n_txt_feats = int(max(x_tr.max(), x_te.max()) + 10)
@@ -83,7 +86,7 @@ def vectorize(opt, tr_sentences, tr_labels, te_sentences, te_labels, root_te_sen
     val_data = [x_val, val_labels]
     te_data = [x_te, np.array(te_labels)]
 
-    return n_txt_feats, train_data, val_data, te_data, root_te_data, transfer_te_data
+    return n_txt_feats, train_data, val_data, te_data, root_te_data, transfer_te_data, vec.w2v_word_to_idx
 
 
 def mix_data_using_ratio(logger, root_data, transfer_data, joint_ratio):
