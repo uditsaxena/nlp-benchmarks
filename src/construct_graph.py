@@ -1,22 +1,25 @@
 import scipy
+import time
+import numpy as np
 
-from src import lib
-from src.dataset_utils import preprocess_data
-from src.graphconv.graph_utils import generate_word_embeddings, get_graph_laplacian
-from src.main import get_args
+from src.graphconv import graph, coarsening
 
 if __name__ == '__main__':
-    opt = get_args()
+    graph_data = np.load("pygcn/ng20_embeddings.npy")
+    print("Loaded embeddings... continuing on")
+    print(type(graph_data))
+    t_start = time.process_time()
+    print("Embedded, starting graph construction")
+    number_edges = 16
+    coarsening_levels = 0
+    dist, idx = graph.distance_sklearn_metrics(graph_data, k=number_edges, metric='cosine')
+    print('Execution time: {:.2f}s'.format(time.process_time() - t_start))
+    A = graph.adjacency(dist, idx)
 
-    logger = lib.get_logger(logdir=opt.model_folder, logname="logs.txt")
-    logger.info("parameters: {}".format(vars(opt)))
-    names = [opt.dataset]
-    ng_w2v = generate_word_embeddings(names)
-    tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name, w2v_word_to_idx = preprocess_data(opt, logger,
-                                                                                                        w2v=ng_w2v)
-    L, A, embeddings = get_graph_laplacian(names, w2v=ng_w2v, txt_feature_size=n_txt_feats,
-                                           w2v_word_to_idx=w2v_word_to_idx)
-    scipy.sparse.save_npz("pygcn/sparse_matrix.npz", L[0])
-    # scipy.sparse.save_npz("sparse_matrix.npz", L[0])
-    # L[0] = scipy.sparse.load_npz("sparse_matrix.npz")
-    L[0] = scipy.sparse.load_npz("pygcn/sparse_matrix.npz")
+    # print("{} > {} edges".format(A.nnz // 2, number_edges * graph_data.shape[0] // 2))
+    A_random = graph.replace_random_edges(A, 0)
+    graphs, perm = coarsening.coarsen(A_random, levels=coarsening_levels, self_connections=False)
+    L = [graph.laplacian(A, normalized=True) for A in graphs]
+    # print(L[0].shape)
+    # L[0] is a sparse csr Matrix
+    scipy.sparse.save_npz("pygcn/graph_ng20.npz", L[0])
