@@ -17,9 +17,9 @@ class SparseMM(torch.autograd.Function):
     does-pytorch-support-autograd-on-sparse-matrix/6156/7
     """
 
-    def forward(self, support, adj):
+    def forward(self, adj, support):
         self.save_for_backward(support, adj)
-        return torch.mm(support, adj)
+        return torch.mm(adj, support)
 
     def backward(self, grad_output):
         matrix1, matrix2 = self.saved_tensors
@@ -57,8 +57,14 @@ class GraphConvolution(Module):
             self.bias.data.uniform_(-stdv, stdv)
 
     def forward(self, input, adj):
-        support = torch.mm(input, self.weight)
-        adj = torch.autograd.Variable(torch.FloatTensor(np.array(adj.todense())))
+        support =torch.mm(input, self.weight)
+
+        M = adj.tocoo().astype(np.float32)
+        indices = torch.from_numpy(np.vstack((M.row, M.col))).long()
+        values = torch.from_numpy(M.data)
+        shape = torch.Size(M.shape)
+
+        adj = torch.autograd.Variable(torch.sparse.FloatTensor(indices, values, shape))
         output = SparseMM()(adj, support)
         if self.bias is not None:
             return output + self.bias

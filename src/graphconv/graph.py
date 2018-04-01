@@ -1,5 +1,7 @@
 import sklearn.metrics
 import sklearn.neighbors
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import scipy.sparse
 import scipy.sparse.linalg
@@ -34,6 +36,7 @@ def distance_sklearn_metrics(z, k=4, metric='euclidean'):
     """Compute exact pairwise distances."""
     d = sklearn.metrics.pairwise.pairwise_distances(
             z, metric=metric, n_jobs=-2)
+    # d = scipy.spatial.distance.pdist(z)
     # k-NN graph.
     print("distance calculation done")
     idx = np.argsort(d)[:, 1:k+1]
@@ -48,6 +51,7 @@ def distance_lshforest(z, k=4, metric='cosine'):
     lshf = sklearn.neighbors.LSHForest()
     lshf.fit(z)
     dist, idx = lshf.kneighbors(z, n_neighbors=k+1)
+    print(dist.shape)
     assert dist.min() < 1e-10
     dist[dist < 0] = 0
     return dist, idx

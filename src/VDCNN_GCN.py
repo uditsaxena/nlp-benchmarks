@@ -86,6 +86,7 @@ class VDCNN_GCN(nn.Module):
         self.fc_layers = nn.Sequential(*fc_layers)
 
         self.__init_weights()
+        self.prev_weights = None
 
     def __init_weights(self):
         for m in self.modules():
@@ -95,11 +96,6 @@ class VDCNN_GCN(nn.Module):
                     constant(m.bias, 0)
 
     def forward(self, x):
-        # print("L : ", self.L.shape)
-        # print("x",x)
-        # out = self.embed(x)
-        # print(self.embed.weight.shape)
-        # print(out.shape)
         out = self.gcn_embed(self.L)
         self.embed.weight = nn.Parameter(out.data)
         out = self.embed(x)
@@ -180,16 +176,17 @@ def batchify(arrays, batch_size=128):
         yield [x[j: j + batch_size] for x in arrays]
 
 
-# def compare_embeddings(x, y):
-#     # print(type(y.numpy()))
-#     if x is not None:
-#         tx = x.numpy()
-#         ty = y.numpy()
-#         diff = (float) (np.linalg.norm(tx, ord='fro') - np.linalg.norm(ty, ord='fro'))
-#         print(diff)
-#         # print(x.shape, y.shape)
-#
-#     return y
+def compare_embeddings(x, y):
+    # print(type(y.numpy()))
+    print(type(x), type(y))
+    if x is not None:
+        tx = x.data
+        ty = y.data
+        diff = (float) (np.linalg.norm(tx, ord='fro') - np.linalg.norm(ty, ord='fro'))
+        print(diff)
+        # print(x.shape, y.shape)
+
+    return y
 
 def train(opt, logger, model, criterion, tr_data, val_data, te_data, n_classes, dataset_name):
     lr = opt.lr
@@ -275,6 +272,7 @@ def train(opt, logger, model, criterion, tr_data, val_data, te_data, n_classes, 
             model_count = n_iter % (opt.test_interval * 5)
             model_name = dataset_name + "_" + str(model_count)
             torch.save(model_dict, opt.model_save_path + "/{}".format(model_name) + "_model.pt")
+            np.save("pygcn/"+str(n_iter) + "_gcn_embeddings", model.embed.weight.data)
 
         if n_iter % opt.lr_halve_interval == 0 and n_iter > 0:
             lr = optimizer.state_dict()['param_groups'][0]['lr']
@@ -407,14 +405,10 @@ def graph_convolution(opt, logger):
     names = [opt.dataset]
     ng_w2v = generate_word_embeddings(names)
     tr_data, val_data, te_data, n_classes, n_txt_feats, dataset_name, w2v_word_to_idx = preprocess_data(opt, logger, w2v=ng_w2v)
-    L, A, embeddings = get_graph_laplacian(names, w2v=ng_w2v, txt_feature_size=n_txt_feats, w2v_word_to_idx=w2v_word_to_idx)
-    scipy.sparse.save_npz("pygcn/sparse_matrix.npz", L[0])
-    # scipy.sparse.save_npz("sparse_matrix.npz", L[0])
-    # L[0] = scipy.sparse.load_npz("sparse_matrix.npz")
-    L[0] = scipy.sparse.load_npz("pygcn/sparse_matrix.npz")
-
+    L, embeddings = get_graph_laplacian(names, w2v=ng_w2v, txt_feature_size=n_txt_feats, w2v_word_to_idx=w2v_word_to_idx)
 
     print("n_txt_feats:", n_txt_feats)
+    # print(L.size)
     torch.manual_seed(opt.seed)
     print("Seed for random numbers: ", torch.initial_seed())
 
@@ -423,7 +417,7 @@ def graph_convolution(opt, logger):
         logger.info("Overriding the number of embedding features to: ", n_txt_feats)
 
     model = VDCNN_GCN(opt, n_classes=n_classes, num_embedding=n_txt_feats, embedding_dim=16, depth=opt.depth,
-                  n_fc_neurons=2048, shortcut=opt.shortcut, laplacian=L[0], embeddings=embeddings)
+                  n_fc_neurons=2048, shortcut=opt.shortcut, laplacian=L, embeddings=embeddings)
 
     if opt.gpu:
         model.cuda()

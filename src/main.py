@@ -13,7 +13,7 @@ def get_args():
     parser = argparse.ArgumentParser("""
     Very Deep CNN with optional residual connections (https://arxiv.org/abs/1606.01781)
     """)
-    parser.add_argument("--dataset", type=str, default='ng20_tiny')
+    parser.add_argument("--dataset", type=str, default='ng20')
     parser.add_argument("--test_dataset", type=str, default='ng20', help="The dataset to test on")
     parser.add_argument("--model_folder", type=str, default="models/VDCNN/VDCNN_ng20_tiny_depth@9")
     parser.add_argument("--model_save_path", type=str, default="models/VDCNN/VDCNN_ng20_tiny_depth@9")
@@ -23,7 +23,7 @@ def get_args():
     parser.add_argument('--shortcut', action='store_true', default=False)
     parser.add_argument('--shuffle', action='store_true', default=False, help="shuffle train and test sets")
     parser.add_argument("--chunk_size", type=int, default=2048, help="number of examples read from disk")
-    parser.add_argument("--batch_size", type=int, default=32, help="number of example read by the gpu")
+    parser.add_argument("--batch_size", type=int, default=128, help="number of example read by the gpu")
     parser.add_argument("--test_batch_size", type=int, default=512,
                         help="number of example read by the gpu during test time")
     parser.add_argument("--iterations", type=int, default=1000)
@@ -31,10 +31,10 @@ def get_args():
     parser.add_argument("--lr_halve_interval", type=float, default=100,
                         help="Number of iterations before halving learning rate")
     parser.add_argument("--class_weights", nargs='+', type=float, default=None)
-    parser.add_argument("--test_interval", type=int, default=2, help="Number of iterations between testing phases")
+    parser.add_argument("--test_interval", type=int, default=50, help="Number of iterations between testing phases")
     parser.add_argument('--gpu', action='store_true', default=False)
     parser.add_argument("--seed", type=int, default=1337)
-    parser.add_argument("--validation_ratio", type=float, default=0.01)
+    parser.add_argument("--validation_ratio", type=float, default=0.1)
     parser.add_argument("--last_pooling_layer", type=str, choices=['k-max-pooling', 'max-pooling'],
                         default='k-max-pooling', help="type of last pooling layer")
 
