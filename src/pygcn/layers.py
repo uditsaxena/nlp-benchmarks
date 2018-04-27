@@ -57,7 +57,40 @@ class GraphConvolution(Module):
             self.bias.data.uniform_(-stdv, stdv)
 
     def forward(self, input, adj):
+        print(type(input.data), type(self.weight.data))
         support =torch.mm(input, self.weight)
+
+        M = adj.tocoo().astype(np.float32)
+        indices = torch.from_numpy(np.vstack((M.row, M.col))).long()
+        values = torch.from_numpy(M.data)
+        shape = torch.Size(M.shape)
+
+        adj = torch.autograd.Variable(torch.sparse.FloatTensor(indices, values, shape))
+        output = SparseMM()(adj, support)
+        if self.bias is not None:
+            return output + self.bias
+        else:
+            return output
+
+    def __repr__(self):
+        return self.__class__.__name__ + ' (' \
+               + str(self.in_features) + ' -> ' \
+               + str(self.out_features) + ')'
+
+class GraphConvolutionNoW(Module):
+    """
+    Simple GCN layer, similar to https://arxiv.org/abs/1609.02907
+    """
+
+    def __init__(self, in_features, out_features, bias=True):
+        super(GraphConvolutionNoW, self).__init__()
+        self.in_features = in_features
+        self.out_features = out_features
+
+
+    def forward(self, input, adj):
+        print(type(input.data))
+        support = input
 
         M = adj.tocoo().astype(np.float32)
         indices = torch.from_numpy(np.vstack((M.row, M.col))).long()

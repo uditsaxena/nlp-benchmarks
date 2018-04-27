@@ -98,6 +98,7 @@ class VDCNN_GCN(nn.Module):
     def forward(self, x):
         out = self.gcn_embed(self.L)
         self.embed.weight = nn.Parameter(out.data)
+        print(x)
         out = self.embed(x)
         out = out.transpose(1, 2)
 
@@ -210,6 +211,7 @@ def train(opt, logger, model, criterion, tr_data, val_data, te_data, n_classes, 
             tdata = [x.cuda() for x in tdata]
 
         tx, ty_true = tdata
+        print(tx.shape)
         y_true = data[-1]
 
         # Forward + Backward + Optimize

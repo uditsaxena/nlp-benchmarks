@@ -13,7 +13,7 @@ def get_args():
     parser = argparse.ArgumentParser("""
     Very Deep CNN with optional residual connections (https://arxiv.org/abs/1606.01781)
     """)
-    parser.add_argument("--dataset", type=str, default='ng20')
+    parser.add_argument("--dataset", type=str, default='ng20_tiny')
     parser.add_argument("--test_dataset", type=str, default='ng20', help="The dataset to test on")
     parser.add_argument("--model_folder", type=str, default="models/VDCNN/VDCNN_ng20_tiny_depth@9")
     parser.add_argument("--model_save_path", type=str, default="models/VDCNN/VDCNN_ng20_tiny_depth@9")
